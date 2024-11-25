@@ -1,0 +1,1635 @@
+@charset "UTF-8";
+/* util */
+@font-face {
+  font-family: "NotoSansKoreanDR";
+  font-style: normal;
+  src: local("Noto Sans DemiLight"), local("NotoSans-DemiLight"), url("../fonts/NotoSansKR-DemiLight-Hestia.woff") format("woff");
+}
+@font-face {
+  font-family: "NotoSansKoreanR";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Noto Sans Regular"), local("NotoSans-Regular"), url("../fonts/NotoSansKR-Regular-Hestia.woff") format("woff");
+}
+@font-face {
+  font-family: "NotoSansKoreanM";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Noto Sans Medium"), local("NotoSans-Medium"), url("../fonts/NotoSansKR-Medium-Hestia.woff") format("woff");
+}
+@font-face {
+  font-family: "NotoSansKoreanB";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Noto Sans Bold"), local("NotoSans-Bold"), url("../fonts/NotoSansKR-Bold-Hestia.woff") format("woff");
+}
+/* base */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, q:before,
+blockquote:after, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Page 기본*/
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #303030;
+  color: #f7f7f7;
+  font-size: 16px;
+  font-family: NotoSansKoreanR, "Noto Sans KR", "본고딕", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", dotum, "돋움", sans-serif;
+}
+
+p {
+  line-height: 1.5;
+}
+
+/* component */
+.page-center-txt {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  text-align: center;
+}
+
+.visual-txt {
+  margin-bottom: 64px;
+  font-family: NotoSansKoreanB;
+  font-size: 36px;
+}
+.visual-txt .implement-txt {
+  color: #F68536;
+}
+.visual-txt.visual-txt-sm {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.bottom-btns-wrap {
+  padding-top: 10px;
+}
+
+.top-btns-wrap {
+  padding-bottom: 10px;
+}
+
+.btns-wrap .btn {
+  margin-bottom: 10px;
+}
+.btns-wrap .btn:last-child {
+  margin-bottom: 0;
+}
+
+.btns-wrap-hr .btn {
+  display: inline-flex;
+  width: auto;
+  min-width: 120px;
+  margin-right: 8px;
+}
+.btns-wrap-hr .btn:last-child {
+  margin-right: 0;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  font-family: NotoSansKoreanR;
+  font-size: 14px;
+  color: #fff;
+}
+.btn:hover {
+  color: #fff;
+}
+.btn.disabled {
+  pointer-events: none;
+  cursor: none;
+  opacity: 0.5;
+}
+
+.btn:not(.btn-ico-only) .ico, .btn:not(.btn-ico-only) .bi {
+  margin-right: 6px;
+}
+
+.btn.btn-primary:not(:disabled) {
+  border: 1px solid #F68536;
+  background: #F68536;
+}
+.btn.btn-primary:not(:disabled):hover {
+  background: #F68536;
+}
+.btn.btn-primary:not(:disabled):active {
+  background: #cf4b00;
+  border: 1px solid #cf4b00;
+}
+.btn.btn-primary:not(:disabled):focus {
+  box-shadow: 0 0 0 0.2rem rgba(246, 133, 54, 0.3);
+}
+
+.btn-line-white {
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+}
+.btn-line-white:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+.btn-line-white:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+.btn-line-white:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+}
+
+.btn-line-orange {
+  border: 1px solid #F68536;
+  background: transparent;
+  color: #F68536;
+}
+.btn-line-orange:hover {
+  background: rgba(246, 133, 54, 0.05);
+  color: #F68536;
+}
+.btn-line-orange:active {
+  background: rgba(246, 133, 54, 0.2);
+}
+.btn-line-orange:focus {
+  box-shadow: 0 0 0 0.2rem rgba(246, 133, 54, 0.1);
+}
+
+.btn-link {
+  color: #fff;
+}
+.btn-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+.btn-link:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+.btn-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+}
+
+.btn-inline {
+  display: inline-flex;
+  width: auto;
+  padding: 6px 0;
+}
+
+.btn-sm {
+  height: 40px;
+  padding: 4px 6px;
+}
+
+.btn-xs {
+  height: auto;
+  padding: 4px;
+}
+
+.hidden-label {
+  display: none;
+}
+
+.form-label {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.form-group {
+  padding: 5px 0;
+}
+.form-group label {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.form-group .form-control:not(textarea) {
+  height: 40px;
+}
+.form-group .form-control {
+  border-radius: 8px;
+  color: #303030;
+}
+.form-group .form-control::-moz-placeholder {
+  color: rgba(48, 48, 48, 0.5);
+}
+.form-group .form-control::placeholder {
+  color: rgba(48, 48, 48, 0.5);
+}
+
+.default-form-check {
+  padding-left: 0;
+}
+.default-form-check .form-check-input:not(.disabled) ~ .form-check-label {
+  cursor: pointer;
+}
+.default-form-check .form-check-input {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  margin-left: 0;
+  z-index: -1;
+}
+.default-form-check .form-check-label {
+  position: relative;
+  padding-left: 32px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.5;
+}
+.default-form-check .form-check-label::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #F68536;
+  border-radius: 8px;
+}
+.default-form-check .form-check-input:checked ~ .form-check-label::before {
+  background: #F68536;
+}
+
+.custom-chk-btns {
+  display: flex;
+}
+.custom-chk-btns .form-check {
+  flex: 1 1 auto;
+  padding: 0 3px;
+}
+.custom-chk-btns .form-check-input {
+  display: none;
+}
+.custom-chk-btns .form-check-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  cursor: pointer;
+}
+.custom-chk-btns .form-check-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.custom-chk-btns .form-check-label:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+.custom-chk-btns .form-check-label:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+}
+.custom-chk-btns .form-check-input:checked ~ .form-check-label {
+  border: 1px solid #f7914a;
+  background: #F68536;
+}
+
+.custom-chk-card .form-check {
+  padding: 0;
+}
+.custom-chk-card .form-check-input {
+  display: none;
+}
+.custom-chk-card .form-check-label {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #303030;
+  cursor: pointer;
+}
+.custom-chk-card .form-check-label .thumnail-wrap {
+  display: block;
+  position: relative;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+}
+.custom-chk-card .form-check-label .thumnail-wrap img {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: translateY(-50%);
+}
+.custom-chk-card .form-check-label .info-wrap .price {
+  display: block;
+  font-family: NotoSansKoreanB;
+}
+.custom-chk-card .form-check-label .info-wrap .planname {
+  display: block;
+  font-size: 24px;
+  font-family: NotoSansKoreanM;
+}
+.custom-chk-card .form-check-label .info-wrap .plantxt .bi {
+  position: relative;
+  top: 4px;
+  color: #F68536;
+  margin-right: 4px;
+  font-size: 24px;
+}
+.custom-chk-card .form-check-label .info-wrap .plantxt .bi::before {
+  content: "\f26e";
+}
+.custom-chk-card .form-check-input:checked ~ .form-check-label {
+  background: #F68536;
+  color: #fff;
+}
+.custom-chk-card .form-check-input:checked ~ .form-check-label .info-wrap .plantxt .bi {
+  color: #fff;
+}
+.custom-chk-card .form-check-input:checked ~ .form-check-label .info-wrap .plantxt .bi::before {
+  content: "\f26a";
+}
+
+.circle-check {
+  padding-left: 0;
+}
+.circle-check .form-check-input {
+  display: none;
+}
+.circle-check .form-check-label {
+  display: flex;
+  align-items: center;
+}
+.circle-check .ico-chk-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 100px;
+  background: rgba(82, 67, 194, 0.15);
+  margin-right: 8px;
+}
+.circle-check .bi {
+  color: #BB6BD9;
+}
+.circle-check .form-check-input:checked ~ .form-check-label .ico-chk-wrap {
+  background: #5243C2;
+}
+.circle-check .form-check-input:checked ~ .form-check-label .bi {
+  color: #fff;
+}
+
+.steps-wrap {
+  display: flex;
+  position: relative;
+  margin-top: 12px;
+  padding-bottom: 24px;
+  font-size: 14px;
+}
+.steps-wrap::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc(6px * -1 + 2px);
+  width: 12px;
+  height: 12px;
+  border-radius: 100px;
+  background: #F68536;
+  z-index: 1;
+}
+.steps-wrap .step {
+  flex: 1 1 auto;
+}
+.steps-wrap .step .bar {
+  position: relative;
+  height: 4px;
+  background: #787878;
+}
+.steps-wrap .step .bar::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc(50% - 6px);
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 100px;
+  background: #787878;
+  z-index: 1;
+}
+.steps-wrap .step .step-label {
+  display: block;
+  padding-top: 12px;
+  text-align: center;
+  color: #787878;
+}
+.steps-wrap .step.on .bar {
+  background: #F68536;
+}
+.steps-wrap .step.on .bar::after {
+  background: #F68536;
+}
+.steps-wrap .step.on .step-label {
+  color: #F68536;
+}
+
+.list-wrap {
+  line-height: 1.5;
+  font-size: 14px;
+}
+.list-wrap .list-item {
+  display: flex;
+  padding: 3px 0;
+}
+.list-wrap .list-label {
+  min-width: 80px;
+  padding-right: 10px;
+  color: #787878;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.list-wrap .txt-review {
+  font-family: NotoSansKoreanB;
+  color: #F68536;
+}
+.list-wrap .bi {
+  font-size: 12px;
+}
+
+.list-form .list-label {
+  padding-top: 1em;
+}
+
+.verticals-list {
+  display: flex;
+}
+.verticals-list .list-item {
+  flex: 1 1 auto;
+}
+.verticals-list .list-item p {
+  text-align: center;
+}
+.verticals-list .big-value {
+  font-size: 24px;
+  font-family: NotoSansKoreanB;
+  color: #F68536;
+}
+.verticals-list .info-label {
+  font-family: NotoSansKoreanDR;
+  font-size: 14px;
+}
+.verticals-list .info-value {
+  color: #F68536;
+}
+.verticals-list.item-txt-left p {
+  text-align: left;
+}
+
+.circle-chklist-wrap .circle-chklist-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: NotoSansKoreanM;
+  font-size: 16px;
+  color: #848199;
+}
+.circle-chklist-wrap .circle-chklist-item:last-child {
+  margin-bottom: 0;
+}
+.circle-chklist-wrap .ico-circle-chk {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.card-wrap .card {
+  margin-bottom: 20px;
+}
+.card-wrap .card:last-child {
+  margin-bottom: 0;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: 8px;
+  color: #222;
+}
+.card .card-body {
+  padding: 12px 20px;
+}
+.card .card-body .card-title {
+  margin-bottom: 0;
+  font-family: NotoSansKoreanR;
+}
+.card .card-img-top-area {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  background: #D9D9D9;
+}
+.card .card-img-top-area img {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: translateY(-50%);
+}
+.card .card-title {
+  font-family: NotoSansKoreanB;
+  font-size: 24px;
+}
+.card .card-sub-title {
+  margin-left: 10px;
+  font-family: NotoSansKoreanR;
+  font-size: 14px;
+}
+.card .btns-wrap {
+  margin-top: 40px;
+}
+
+.card.card-separater .card-title {
+  font-size: 16px;
+  font-family: NotoSansKoreanM;
+}
+.card.card-separater .card-body {
+  padding: 10px;
+}
+.card.card-separater .card-top {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #303030;
+}
+.card.card-separater .card-bottom {
+  padding-top: 10px;
+}
+
+.table-act tr td {
+  padding: 8px;
+}
+.table-act tr td:first-child {
+  padding-left: 0;
+}
+.table-act tr td:last-child {
+  padding-right: 0;
+}
+
+.dark-card {
+  background: #303030;
+  color: #f7f7f7;
+}
+.dark-card .list-label {
+  color: #f7f7f7;
+}
+
+.btn-collapse .bi {
+  margin-left: 5px;
+}
+.btn-collapse .bi::before {
+  content: "\f282";
+}
+.btn-collapse:not(.collapsed) .bi::before {
+  content: "\f286";
+}
+
+.collapse-stack .btns-wrap {
+  padding-bottom: 0;
+}
+.collapse-stack .btn-collapse {
+  border-radius: 8px;
+  transition: 0.5s all;
+}
+.collapse-stack .btn-collapse:not(.collapsed) {
+  border-radius: 8px 8px 0 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+.collapse-stack .collaps-area {
+  padding: 16px;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal {
+  color: #303030;
+}
+.modal .modal-title {
+  color: #303030;
+}
+.modal .modal-footer {
+  border-top: 0;
+}
+
+/* layout */
+.content-area {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.container-fluid {
+  height: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.row {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+.row.row-v-center [class^=col] {
+  height: 100%;
+  align-content: center;
+}
+.row [class^=col] {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.container-fluid.little-gatter {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.container-fluid.little-gatter .row {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.container-fluid.little-gatter .row.row-v-center [class^=col] {
+  height: 100%;
+  align-content: center;
+}
+.container-fluid.little-gatter .row [class^=col] {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.container-fluid.little-gatter .row.full-row {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.subpage-wrap {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.page-title {
+  padding-bottom: 22px;
+  font-family: NotoSansKoreanB;
+}
+
+.page-sub-title {
+  padding-bottom: 10px;
+  font-family: NotoSansKoreanB;
+}
+
+.nodata {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  text-align: center;
+}
+
+.img-cover-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.img-cover-wrap img {
+  width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.header {
+  height: 100px;
+  background: #151515;
+}
+.header .container-fluid {
+  display: flex;
+}
+.header .row {
+  height: 100%;
+}
+.header .logo-wrap {
+  display: flex;
+  align-items: center;
+}
+.header .logo-wrap .img-frame {
+  display: block;
+  width: 65px;
+  height: 54px;
+  background: url("/images/logo_white.svg") no-repeat;
+  background-position: center center;
+}
+.header nav {
+  flex: 1 1 auto;
+  align-content: center;
+  align-items: center;
+}
+.header .menu-list {
+  display: flex;
+  justify-content: flex-end;
+}
+.header .menu-list .menu-item a {
+  display: block;
+  padding: 4px 10px;
+  font-family: NotoSansKoreanM;
+  font-size: 14px;
+  color: #fff;
+}
+
+.footer {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  background: #fff;
+  color: #303030;
+}
+
+.login-wrap {
+  font-size: 14px;
+}
+.login-wrap .login-sub-txt {
+  padding-top: 12px;
+  text-align: center;
+}
+.login-wrap .btn-signup {
+  display: inline-flex;
+  width: auto;
+  padding: 0;
+  color: #fff;
+  font-family: NotoSansKoreanB;
+  vertical-align: baseline;
+}
+
+.main-wrap {
+  background: #222;
+}
+.main-wrap .list-wrap .list-label {
+  font-size: 14px;
+}
+.main-wrap .list-wrap {
+  font-size: 16px;
+}
+
+.intro .intro-text-wrap {
+  padding-bottom: 16px;
+  font-family: NotoSansKoreanR;
+  font-size: 24px;
+  color: #f7f7f7;
+}
+.intro .bubble {
+  margin-bottom: 12px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  word-break: keep-all;
+}
+.intro .bubble-yellow {
+  background: #FBC833;
+  color: #222;
+}
+.intro .bubble-orange {
+  background: #F68536;
+}
+
+.point-3-info {
+  word-break: keep-all;
+}
+.point-3-info .row:first-child {
+  margin-bottom: 32px;
+  min-width: 0;
+}
+.point-3-info .col {
+  flex: 0 0 33.3%;
+  width: 33.3%;
+}
+.point-3-info .intro-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 140px;
+  padding: 20px;
+  background: url(/images/bg_intro_banner.png) no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+}
+.point-3-info .intro-banner .visual-txt {
+  margin-bottom: 0;
+  color: #222;
+  text-align: center;
+}
+.point-3-info .intro-banner .implement-txt {
+  background: #222;
+  color: #fff;
+}
+.point-3-info .point-3 .card {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  background: #F68536;
+  color: #fff;
+  letter-spacing: -0.05em;
+  text-align: center;
+  font-size: 16px;
+}
+.point-3-info .point-3 .card-body {
+  padding: 8px;
+}
+.point-3-info .point-3 .icon-wrap {
+  padding-top: 8px;
+}
+.point-3-info .point-3 .icon-wrap img {
+  width: 48px;
+  max-width: 100%;
+}
+.point-3-info .point-3 .point-txt {
+  padding: 10px 10px 0;
+  font-size: 14px;
+  font-family: NotoSansKoreanR;
+}
+
+.ex-review .review-card-wrap .card {
+  margin-bottom: 16px;
+}
+.ex-review .review-card-wrap .card:last-child {
+  margin-bottom: 0;
+}
+.ex-review .review-card-wrap .list-wrap {
+  padding: 0;
+}
+.ex-review .review-card-wrap .list-wrap .list-item {
+  padding: 0;
+}
+.ex-review .review-card-wrap .list-label {
+  width: 180px;
+  font-size: 14px;
+  font-family: NotoSansKoreanR;
+  color: #303030;
+}
+.ex-review .review-card-wrap .card-subtext {
+  margin-top: 6px;
+  font-size: 14px;
+  font-family: NotoSansKoreanR;
+  color: #303030;
+}
+
+.mentos .visual-txt {
+  text-align: center;
+}
+.mentos .card .card-body {
+  padding: 20px;
+}
+.mentos .card .list-label {
+  font-family: NotoSansKoreanR;
+  opacity: 0.8;
+}
+.mentos .card .list-content {
+  /*여러 줄 말줄임표*/
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.last-appeal {
+  background: #000;
+}
+.last-appeal .visual-txt.visual-txt-sm {
+  margin-bottom: 0;
+}
+
+.team-section {
+  background: #F4F7FA;
+  color: #303030;
+}
+.team-section .visual-txt {
+  margin-bottom: 24px;
+}
+
+.mypage .my-info-nums {
+  padding-top: 24px;
+}
+.mypage .mentoring-history {
+  padding-top: 24px;
+}
+.mypage .mentoring-history .page-sub-title {
+  border-bottom: 1px solid #fff;
+}
+.mypage .mentoring-history .history-item {
+  position: relative;
+  padding-top: 12px;
+  padding-bottom: 24px;
+}
+.mypage .mentoring-history .history-item:not(:last-child) {
+  border-bottom: 1px solid #fff;
+}
+.mypage .mentoring-history .history-item:not(:last-child)::before, .mypage .mentoring-history .history-item:not(:last-child)::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.mypage .mentoring-history .history-item:not(:last-child)::after {
+  left: auto;
+  right: 0;
+}
+
+.mento-info .mento-profile {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+  background: #D9D9D9;
+}
+.mento-info .mento-profile img {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: translateY(-50%);
+}
+.mento-info .mento-info-summary .visual-txt {
+  margin-bottom: 48px;
+  word-break: keep-all;
+  font-family: NotoSansKoreanM;
+}
+
+/* ---------------------------- 동현 추가 ---------------------------- */
+/* ---------------------------- 동현 추가 ---------------------------- */
+.carousel-container {
+  overflow: hidden; /* 바깥으로 넘치는 부분 숨기기 */
+  width: 300px; /* 카드 하나의 너비 */
+  height: 200px; /* 카드 높이 */
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  animation: slide 15s linear infinite; /* 9초 동안 한 사이클, 무한 반복 */
+}
+
+.card-for-flow {
+  flex: 0 0 80%; /* 카드 크기를 컨테이너 크기와 동일하게 설정 */
+  margin-right: 15px; /* 카드 사이의 여백 */
+  height: 180px;
+  gap: 12px;
+  border-radius: 8px;
+  border: 0.5px solid var(--white, #FFF);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: white;
+  background: var(--orange, #F68536);
+}
+
+.card-for-flow-top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+}
+
+.card-for-flow-top-style{
+  font-size:12px;
+  font-family:"Noto Sans KR";
+  font-style:normal;
+  font-weight:300;
+  line-height:20px;
+  letter-spacing:-0.6px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.card-for-flow-top-content-style{
+  font-size:13px;
+  font-family:"Noto Sans KR";
+  font-style:normal;
+  font-weight:700;
+  line-height:5px;
+  letter-spacing:-0.6px;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.card-for-flow-bottom-title{
+  font-size:14px;
+  font-family:"Noto Sans KR";
+  font-style:normal;
+  font-weight:700;
+  line-height:20px;
+  letter-spacing:-0.6px;
+  margin-top: 10px;
+}
+
+.card-for-flow-bottom-content{
+  font-size:12px;
+  font-family:"Noto Sans KR";
+  font-style:normal;
+  font-weight:400;
+  line-height:10px;
+  letter-spacing:-0.6px;
+  margin-top: 5px;
+}
+
+
+.card-for-flow-bar {
+  width: 95%;
+  height: 1px; /* 선의 두께를 높이로 설정 */
+  background-color: #fff; /* 선 색상 설정 */
+  margin: auto; /* 부모 컨테이너 안에서 가운데 정렬 */
+}
+
+/* 애니메이션 정의 */
+@keyframes slide {
+  0% {
+    transform: translateX(0); /* 처음 위치 */
+  }
+  100% {
+    transform: translateX(calc(-315px * 3)); /* 카드 너비+여백 * 카드 개수 */
+  }
+}
+
+
+
+
+.mento-info .mento-info-summary .visual-txt-recommand {
+  margin-bottom: 12px;
+  font-size: 24px;
+  word-break: keep-all;
+  font-family: NotoSansKoreanM;
+}
+
+.mento-info .mento-info-summary .recommand-box-gap {
+  padding: 10px;
+}
+
+.mento-info .mento-info-summary .recommand-box {
+  white-space: nowrap; /* 줄바꿈 방지 */
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: var(--white, #FFF);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  padding: 14px;
+  align-items: center;
+  gap: 14px;
+  align-self: stretch;
+}
+.mento-info .mento-info-summary .recommand-box .circle-direct {
+  display: flex; /* Flexbox를 사용하여 수평 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+img {
+  width: auto; /* 부모 요소의 너비에 맞춤 */
+  height: 40px; /* 비율 유지 */
+  margin-right: 10px; /* 이미지의 여백 설정 */
+}
+
+.mento-info .mento-info-summary .recommand-box-visual-txt {
+  /* white-space: nowrap; */
+  word-break: keep-all;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  margin-left: 20px; /* 이미지의 여백 설정 */
+  color: var(--grey, #303030);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.64px;
+
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+
+}
+
+.mento-info .mento-info-summary .recommand-bottom-layout {
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.mento-info .mento-info-summary .recommand-bottom-visual-txt {
+  color: var(--white, #FFF);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 29px; /* 161.111% */
+  letter-spacing: -0.72px;
+}
+
+.new-mento-intro {
+  display: flex;
+  justify-content: center; /* 가로 가운데 정렬 */
+  align-items: center; /* 세로 가운데 정렬 */
+  background: var(--white, #FFF);
+  height: 100%; /* 부모 컨테이너의 높이를 채울 경우 필요 */
+}
+
+.new-mento-intro .intro-card {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+
+.new-mento-intro .intro-card .visual-txt{
+  align-self: stretch;
+  color: var(--grey, #303030);
+  font-family: "Noto Sans KR";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 49px; /* 111.538% */
+  letter-spacing: -1.3px;
+}
+
+.new-mento-intro .intro-card .small-visual-txt{
+  align-self: stretch;
+  color: var(--grey, #303030);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 29px; /* 111.538% */
+  letter-spacing: -1.3px;
+}
+
+.new-mento-intro .intro-card .bar{
+  border-bottom: 1px solid #787878;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.new-mento-intro .intro-card .word{
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-direction: row;
+  gap: 10px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.new-mento-intro .profile-card {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 10px;
+  height: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+
+.new-mento-intro .profile-card .profile-card-inout {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+.new-mento-intro .profile-card .left{
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  margin-left: 0;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+.new-mento-intro .profile-card .left img{
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  margin-left: 0;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+
+.new-mento-intro .profile-card .left .website-format{
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  gap: 10px;
+  height: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+
+.new-mento-intro .profile-card .left .website-format img{
+  display: flex;
+  width: 30px;
+  height: auto;
+  flex-direction: column;
+
+  height: 100%;
+  margin-left: 0;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+
+.new-mento-intro .profile-card .left .website-format .website-text{
+  width: 100%;
+  align-self: stretch;
+  color: var(--grey, #303030);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 29px; /* 111.538% */
+  letter-spacing: -1.3px;
+}
+
+.new-mento-intro .profile-card .right{
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  margin-left: 10px;
+  overflow-wrap: break-word; /* 글자가 박스를 넘지 않도록 자동 줄바꿈 */
+  word-wrap: break-word; /* 긴 단어가 자동으로 줄바꿈 되도록 */
+  white-space: normal; /* 텍스트를 기본 줄바꿈 방식으로 설정 */
+}
+
+.new-mento-intro .profile-card .visual-txt{
+  align-self: stretch;
+  color: var(--grey, #303030);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 29px; /* 111.538% */
+  letter-spacing: -1.3px;
+}
+
+.chart {
+  position: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  transition: 0.3s;
+  background:lightgray;
+  display:inline-block;
+}
+
+/* .chart .after{
+  content:'';
+  background: #fff; 
+  position: absolute;
+  top:50%; left:50%;
+  width:200px; height:200px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+} */
+.chart-bar{
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  /* background: conic-gradient(#9986dd 50deg, #fbb871 50deg); */
+}
+
+.donut-text {
+  position: absolute; /* 중앙에 위치 */
+  font-size: 18px; /* 글자 크기 */
+  font-weight: bold; /* 글자 두께 */
+  color: #333; /* 글자 색상 */
+}
+
+@keyframes flowText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.flowing-text {
+  white-space: nowrap;
+  overflow: hidden;
+  animation: flowText 5s linear infinite;
+}
+
+.modal-layout {
+  /* display: flex; */
+  height:100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-layout .text-layout{
+  width:100%;
+  display: flex;              /* flex 속성 적용 */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;            /* 텍스트 왼쪽 정렬 */
+  padding-bottom: 10%;
+  line-height: 1.5;
+}
+
+.modal-layout .highlight {
+  background: #f3cfaa;
+}
+
+.modal-layout .bar {
+  /* width:90%; */
+  /* margin-bottom: "10px"; */
+  border-bottom: 1px solid #787878;
+}
+
+/* 캘린더 테두리 제거 */
+.modal-layout .react-calendar {
+  width: 100%;
+  border: none; /* 캘린더 전체 테두리 제거 */
+}
+
+.react-calendar__navigation__label {
+  pointer-events: none!important;
+}
+
+.modal-layout .react-calendar__month-view__weekdays {
+  color: black; /* 글자색을 검정으로 설정 */
+  pointer-events: none; /* 클릭 이벤트 비활성화 */
+}
+
+.modal-layout .react-calendar__month-view__days {
+  border: none; /* 각 일자 블록의 테두리 제거 */
+}
+
+.modal-layout .react-calendar__tile {
+  border: none; /* 각 타일(일자)의 테두리 제거 */
+}
+
+.modal-layout .react-calendar__tile--active {
+  border: none; /* 활성화된 타일의 테두리 제거 */
+}
+
+
+/* 각 일자의 칸의 테두리 스타일을 추가할 경우 */
+.modal-layout .react-calendar__tile {
+  border-radius: 50%; /* 테두리 둥글게 설정 */
+  aspect-ratio: 1; /* 너비와 높이를 동일하게 유지 (정사각형) */
+  display: flex; /* 중앙 정렬을 위한 flex 설정 */
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+}
+
+
+
+
+/* ---------------------------- 동현 추가 end ---------------------------- */
+/* ---------------------------- 동현 추가 end ---------------------------- */
+
+.mento-info .mento-info-summary .summary-top {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #787878;
+}
+.mento-info .mento-info-summary .summary-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-family: NotoSansKoreanDR;
+}
+.mento-info .mento-info-summary .summary-title .mento-grade {
+  margin-left: 10px;
+  opacity: 0.5;
+}
+.mento-info .mento-info-summary .list-specialty {
+  font-size: 16px;
+}
+.mento-info .mento-info-summary .list-specialty .list-label {
+  min-width: 0;
+  padding-right: 16px;
+  color: #fff;
+  font-family: NotoSansKoreanDR;
+  font-size: 14px;
+  line-height: 24px;
+}
+.mento-info .mento-info-summary .list-specialty .list-item {
+  font-family: NotoSansKoreanDR;
+  font-size: 16px;
+}
+.mento-info .mento-info-summary .summary-bottom {
+  padding-top: 20px;
+}
+.mento-info .mento-info-summary .bottom-btns-wrap {
+  padding-top: 20px;
+}
+.mento-info .mento-message {
+  padding-top: 0;
+}
+.mento-info .mento-message .message {
+  margin-bottom: 20px;
+  line-height: 2;
+}
+
+.step2-wrap .plan-detail-wrap {
+  padding-bottom: 10px;
+}
+.step2-wrap .plans-card .visual-txt {
+  margin-bottom: 12px;
+}
+.step2-wrap .plans-card .visual-txt-sm {
+  margin-bottom: 10px;
+}
+.step2-wrap .plans-card .plan-txt {
+  margin-bottom: 24px;
+  font-family: NotoSansKoreanDR;
+  color: #848199;
+  word-break: keep-all;
+}
+.step2-wrap .plans-card .sub-txt {
+  text-decoration: underline;
+}
+.step2-wrap .plans-card .implement-txt {
+  color: #000;
+  font-family: NotoSansKoreanM;
+}
+.step2-wrap .circle-check .form-check-label {
+  color: #848199;
+}
+.step2-wrap .plans-card {
+  border-radius: 24px;
+}
+.step2-wrap .plan01 .visual-txt {
+  color: #231D4F;
+}
+.step2-wrap .plan02 .visual-txt {
+  color: #5243C2;
+}
+.step2-wrap .plan03 .visual-txt {
+  color: #BB6BD9;
+}
+
+.step3-wrap .bank-info-wrap {
+  margin-bottom: 20px;
+}
+.step3-wrap .bank-info-wrap .card-body {
+  display: flex;
+  align-items: center;
+}
+.step3-wrap .bank-info-wrap .bank-info-txt {
+  color: #F68536;
+  font-family: NotoSansKoreanB;
+  margin-left: 10px;
+  line-height: 1;
+}
+
+/*withJs*/
+.slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.slider .slider-items-wrap {
+  transition: all 0.5s;
+  position: relative;
+  display: flex;
+  left: 0;
+}
+.slider .slider-item {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 0 10px;
+}
+.slider .slider-item .card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.slider .slider-item .card .card-body {
+  padding-bottom: 90px;
+}
+.slider .btns-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+}
+
+.slider-area {
+  position: relative;
+}
+
+.slider-btns-wrap .btn-slider {
+  display: flex;
+  position: absolute;
+  top: calc(50% - 32px);
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 40px;
+  color: #fff;
+  transition: all 0.3s;
+  z-index: 1;
+}
+.slider-btns-wrap .btn-slider:active {
+  background: rgba(0, 0, 0, 0.75);
+}
+.slider-btns-wrap .btn-slider-prev {
+  left: -10px;
+}
+.slider-btns-wrap .btn-slider-next {
+  right: -10px;
+}/*# sourceMappingURL=style.css.map */

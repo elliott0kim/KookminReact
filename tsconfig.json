@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true, // 외부 라이브러리 타입 체크 무시
+    "noEmitOnError": false // 오류가 있어도 빌드 진행
+  }
+}

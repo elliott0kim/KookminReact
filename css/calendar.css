@@ -1,0 +1,46 @@
+#simpleCalendar .jumbotron{
+    background:none;
+}
+#simpleCalendar .calendar-top{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+#simpleCalendar #left, #simpleCalendar #right{
+    display:flex;
+    width:48px;
+    height:48px;
+    justify-content:center;
+    align-items:center;
+    border-radius: 200px;
+    text-decoration: none;
+}
+#simpleCalendar #left:active, #simpleCalendar #right:active{
+    background:#efefef;
+    transition: all 0.5s;
+}
+#simpleCalendar #left::before, #simpleCalendar #right::before{
+    content:"<";
+    color:#000;
+}
+#simpleCalendar #right::before{
+    content:">";
+}
+
+#simpleCalendar .table td, #simpleCalendar .table th{
+    border-top:none;
+}
+#simpleCalendar td{
+    padding:4px;
+    text-align:center;
+}
+#simpleCalendar .day{
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    width:36px;
+    height:36px;
+    border-radius:200px;
+    background:#e9e9e9;
+    opacity: 0.4;
+}
