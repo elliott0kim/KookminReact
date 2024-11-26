@@ -113,7 +113,7 @@ body{
     position:absolute;
     width:13px;
     height:53px;
-    top:23.5px;
+    top:23px;
     left:0;
     border-radius: 12px 0 0 12px;
     z-index: -1;
@@ -125,11 +125,28 @@ body{
     position:absolute;
     width:13px;
     height:53px;
-    top:23.5px;
+    top:23px;
     right:0;
     border-radius: 0 12px 12px 0;
     z-index: -1;
     background:#FFFFFF;   
+}
+.bar-chart-wrap > div{
+    position:relative;
+}
+.bar-chart-wrap > div::before{
+    content:'';
+    display: block;
+    position: absolute;
+    width:calc(100% + 24px);
+    height:53px;
+    top:23px;
+    left:-13px;
+    border-radius: 12px;
+    background:linear-gradient(to right, #F68536,#ffaf76, #ffdec7, #ffffff);
+    opacity: 1;
+
+    z-index: -1;
 }
 .chart-table{
     position: relative;
@@ -333,3 +350,226 @@ body{
 
 }
 
+.title-card-area .title-card{
+    visibility: visible;
+    max-height:200px;
+    height:120px;
+    overflow: hidden;
+    opacity: 1;
+    transition: 3s all;
+    box-shadow: none !important;
+    padding:0 !important;
+}
+.title-card-area.opened {
+    position: absolute;
+    width:100%;
+    height:300px;
+}
+.title-card-area.opened .title-card{
+    /*max-height:0;*/
+    opacity: 0;
+}
+.title-card-content{
+    width:100%;
+    height:100%;
+    flex-shrink: 0;
+    max-height:100%;
+    padding:12px;
+}
+.mento-info .mento-info-summary .recommand-box-visual-txt.title-card-title{
+    font-size:22px;
+    font-family: "NotoSansKoreanB";
+
+    margin-bottom:12px;
+}
+.mento-info .mento-info-summary .recommand-box-visual-txt{
+    margin-left:0;
+}
+
+.step2-wrap .card-content{
+    display:flex;
+    width:100%;
+}
+.step2-wrap 
+.mento-info .mento-info-summary 
+.recommand-box-visual-txt.card-title{
+    display:inline-block;
+    margin-top:8px;
+    margin-bottom:6px;
+    font-size: 22px;
+    text-decoration: none;
+    font-family: "NotoSansKoreanB";
+}
+.li-chk{
+    display:flex;
+    align-items: center;
+    padding: 1px 0;
+    font-size:14px;
+}
+.ico-chk{
+    width:16px;
+    height:16px;
+    margin-right:6px;
+}
+.mento-info .mento-info-summary 
+.li-chk
+.recommand-box-visual-txt{
+    font-size:12px;
+    font-family: "NotoSansKoreanR";
+}
+.mento-info .mento-info-summary .recommand-box.btn{
+    display:block;
+    height:auto;
+    width:140px;
+    box-shadow: none;
+}
+.mento-info .mento-info-summary .recommand-box.btn.btn-payment{
+    padding: 12px 12px;
+    background: #303030;
+}
+.mento-info .mento-info-summary .recommand-box.btn.btn-payment p{
+    font-size:14px;
+    color:#fff;
+    line-height: 1;
+}
+.mento-info .mento-info-summary .recommand-box.btn.btn-payment .small-txt{
+    margin-top: 8px;
+    font-size: 11px;
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: -0.01em;
+}
+.mento-info .mento-info-summary .recommand-box.btn.btn-detail{
+    display:block;
+    border:0;
+    height: auto;
+    padding:0;
+    background: #f68536;
+    margin-top:6px;
+}
+.mento-info .mento-info-summary .recommand-box.btn.btn-detail p{
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    font-size:11px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mento-info .mento-info-summary .recommand-box.card-detail{
+    margin-bottom:10px;
+}
+.mento-info .mento-info-summary .recommand-box.card-detail .card-txt{
+    word-break: break-all;
+}
+.mento-info .mento-info-summary .recommand-box.card-detail p{
+    line-height:1.5;
+    font-size: 13px;
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    color: rgba(0,0,0,0.8);
+}
+.col-list-wrap{
+    display:flex;
+    flex-wrap: wrap;
+}
+.col-list-wrap .col-list-row{
+    display: flex;
+    min-width:128px;
+}
+.col-list-wrap .col-list-li{
+    flex: 0 0 60px;
+    padding-top:20px;
+}
+.mento-info .mento-info-summary .recommand-box.card-detail 
+.col-list-wrap .col-list-li .col-list-label{
+    font-size: 11px;
+}
+
+.mento-info .mento-info-summary .recommand-box.card-detail 
+.col-list-wrap .col-list-li .col-list-value{
+    margin-top:6px;
+    font-size: 14px;
+    font-family: "NotoSansKoreanB";
+}
+
+.img-coffee-wrap{
+    display:flex;
+    justify-content: center;
+    width:140px;
+    overflow: hidden;
+}
+.img-coffee{
+    display:inline-block;
+    width:100%;
+    height:auto;
+}
+.img-coffee-2{
+    width:196px;
+}
+.img-coffee-3{
+    margin-top: 64px;;
+    margin-bottom:16px;
+}
+.mento-info .mento-info-summary .recommand-box.card-detail 
+.btn{
+    width:140px;
+}
+.mento-info .mento-info-summary .recommand-box.card-detail 
+.btn.btn-detail-close{
+    border: 1px solid #f68536;
+    padding: 0;
+    margin-top: 6px;
+
+}
+.mento-info .mento-info-summary .recommand-box.card-detail 
+.btn.btn-payment p{
+    text-align: center;
+    
+}
+.mento-info .mento-info-summary .recommand-box.card-detail 
+.btn.btn-detail-close p{
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    font-size: 11px;
+    text-align: center;
+    color: #ff6015;
+    line-height:24px;
+}
+
+.step3-wrap .visual-txt.visual-txt-sm{
+    font-family: "NotoSansKoreanM";
+    margin-top:8px;
+    margin-bottom:24px;
+    font-size:18px;
+}
+.step3-wrap .default-form-check .form-check-label{
+    padding-top:4px;
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    color:rgba(255, 255, 255, 0.8);
+}
+.step3-wrap .default-form-check .form-check-label .txt-imple{
+    font-family: "NotoSansKoreanM";
+    color:rgba(255, 255, 255, 0.9);
+}
+.step3-wrap .th-box{
+    padding-bottom:12px;
+}
+.step3-wrap .th-box .very-small-txt{
+    margin-right: 16px;
+}
+.step3-wrap .very-small-txt{
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    font-size: 10px;
+    color:rgba(255, 255, 255, 0.6);
+}
+.step3-wrap .tf-box {
+    padding-top:16px;
+    padding-bottom:16px;
+    text-align: center;
+}
+.step3-wrap .tf-box .very-small-txt{
+    
+}

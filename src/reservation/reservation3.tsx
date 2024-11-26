@@ -237,12 +237,12 @@ export function Reservation3() {
                         </div>
                     </div>
                     <div>
-                        <p className="visual-txt visual-txt-sm mb-2">
+                        <p className="visual-txt visual-txt-sm">
                             결제 방법을 선택해주세요
                         </p>
                         <div className="top-btns-wrap btns-wrap-hr">
                             <button className="btn btn-line-orange">무통장 입금</button>
-                            <button className="btn btn-line-white" onClick={() => handleButtonClick()}>네이버 페이(준비중)</button>
+                            <button className="btn btn-line-white disabled" onClick={() => handleButtonClick()}>네이버 페이(준비중)</button>
                         </div>
                         <div className="write-area">
                             {/* <input type="hidden" name="mentoId"/> */}
@@ -257,7 +257,11 @@ export function Reservation3() {
                             {/* </div> */}
                             
                             <div className="">
-                                <p className="form-label">예약 정보</p>
+                                <div className="th-box">
+                                    <span className="very-small-txt">확인</span>
+                                    <span className="very-small-txt">내역</span>
+                                </div>
+                                
                                 <div className="form-check default-form-check">
                                     <input className="form-check-input" type="checkbox" id="defaultCheck11" ref={checkboxRef1} required/>
                                     <label className="form-check-label" htmlFor="defaultCheck11" style={{fontSize : "14px"}}>
@@ -267,15 +271,18 @@ export function Reservation3() {
                                 <div className="form-check default-form-check">
                                     <input className="form-check-input" type="checkbox" id="defaultCheck22" ref={checkboxRef2} required/>
                                     <label className="form-check-label" htmlFor="defaultCheck22" style={{fontSize : "14px"}}>
-                                        멘토링 날짜 확정 후 48시간 이내 취소시 멘토링 금액의 50% 까지만 환불됨을 인지하였습니다.
+                                        멘토링 날짜 확정 후 <span className='txt-imple'>48시간 이내 취소시 멘토링 금액의 50% 까지만 환불됨</span>을 인지하였습니다.
                                     </label>
                                 </div>
                                 <div className="form-check default-form-check">
                                     <input className="form-check-input" type="checkbox" id="defaultCheck33" ref={checkboxRef3} required/>
                                     <label className="form-check-label" htmlFor="defaultCheck33" style={{fontSize : "14px"}}>
-                                        멘토링 날짜 확정 후 24시간 이내 취소시 멘토링 금액 환불은 불가함을 인지하였습니다.
+                                        멘토링 날짜 확정 후 <span className='txt-imple'>24시간 이내 취소시 멘토링 금액 환불은 불가</span>함을 인지하였습니다.
                                         <br/>
                                     </label>
+                                </div>
+                                <div className='tf-box'>
+                                    <span className="very-small-txt">모든 내용 확인 필요</span>
                                 </div>
                             </div>
                             <div className="btns-wrap bottom-btns-wrap">

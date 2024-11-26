@@ -148,28 +148,28 @@ export function Reservation2() {
                         {mentoInfos.nickname} 멘토와 함께<br/><span className="implement-txt">알뜰하게,</span> 기프티콘 값으로<br />약 3천 만원 어치 고민을 풀어보세요.
                     </div>
                     <div className="summary-bottom" >
-                        <div className='mento-info mento-info-summary recommand-box-gap'>
-                            <div className="mento-info mento-info-summary recommand-box" style={{paddingTop:"10px"}}>
-                                <div className="mento-info mento-info-summary recommand-box circle-direct" style={{padding: "14px 0 14px 0", paddingBottom:"10px", marginBottom:"10px", display:"block", alignItems: "left"}}>
-                                    <div style={{color:"#000", display:"flex", flexDirection: "row", justifyContent:"space-between", alignItems:"center"}}>
-                                        <div>
-                                            <a className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"22px", fontWeight:"700", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>궁금해요 플랜</a>
-                                            <div style={{display: "flex", paddingLeft:"20px"}}>
-                                                <img src="/images/circle-direct.png" alt="circle-direct" style={{width:"20px", height:"20px"}}/>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"15px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>25분</p>
+                        <div className={isOpenDetailOption0? "mento-info mento-info-summary recommand-box-gap d-none":"mento-info mento-info-summary recommand-box-gap"} >
+                            <div className="mento-info mento-info-summary recommand-box">
+                                <div className="mento-info mento-info-summary recommand-box circle-direct card min-card" style={{marginBottom:"10px"}}>
+                                    <div className="card-content">
+                                        <div style={{flex:"1 0 auto"}}>
+                                            <a className='mento-info mento-info-summary recommand-box-visual-txt card-title'>궁금해요 플랜</a>
+                                            <div className='li-chk'>
+                                                <img src="/images/circle-direct.svg" alt="circle-direct" className='ico-chk'/>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>25분</p>
                                             </div>
-                                            <div style={{display: "flex", paddingLeft:"20px"}}>
-                                                <img src="/images/circle-direct.png" alt="circle-direct" style={{width:"20px", height:"20px"}}/>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"15px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>비대면</p>
+                                            <div className='li-chk'>
+                                                <img src="/images/circle-direct.svg" alt="circle-direct" className='ico-chk'/>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>비대면</p>
                                             </div>
                                         </div>
-                                        <div style={{paddingRight: "20px"}}>
-                                            <button onClick={() => handleButtonNext(0)} className="mento-info mento-info-summary recommand-box" style={{padding: "10px 20px 10px 20px", marginBottom:"10px", backgroundColor:"#303030", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{padding: "0 0 0 0", marginLeft:"0px", lineHeight:"10px", fontSize:"14px", color: "#fff", alignItems:"center"}}>커피 한 잔 전달</p>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{padding: "0 0 0 0", marginLeft:"0px", lineHeight:"10px",fontSize:"12px", color: "#fff", alignItems:"center"}}>₩ 6,500 결제</p>
+                                        <div>
+                                            <button onClick={() => handleButtonNext(0)} className="mento-info mento-info-summary recommand-box btn btn-payment">
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>커피 한 잔 전달</p>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt small-txt'>₩ 6,500 결제</p>
                                             </button>
-                                            <button onClick={() => handleOpenDetail(0)} className="mento-info mento-info-summary recommand-box" style={{padding: "5px", marginBottom:"10px", backgroundColor:"#F68536", borderColor:"#F68536", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", paddingRight:"16px", color: "#fff", alignItems:"center"}}>자세히 알아보기</p>
+                                            <button onClick={() => handleOpenDetail(0)} className="mento-info mento-info-summary recommand-box btn btn-detail">
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>자세히 알아보기</p>
                                             </button>
                                         </div>
                                     </div>
@@ -179,48 +179,47 @@ export function Reservation2() {
                         {isOpenDetailOption0 ? (
                             <div className='mento-info mento-info-summary recommand-box-gap'>
                                 <div className="mento-info mento-info-summary recommand-box">
-                                    <div className="mento-info mento-info-summary recommand-box circle-direct" style={{padding: "14px 0 14px 0", paddingBottom:"10px", marginBottom:"10px", display:"block", alignItems: "left"}}>
-                                        <div style={{color:"#000", display:"flex", flexDirection: "row", justifyContent:"space-between", alignItems:"center"}}>
-                                            <div>
-                                                <a className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"22px", fontWeight:"700", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>궁금해요 플랜</a>
-                                                <div style={{display: "flex", padding:"10px 0 0 0", width:"90%"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
+                                    <div className="mento-info mento-info-summary recommand-box circle-direct card card-detail">
+                                        <div className='card-content'>
+                                            <div className='pr-3' style={{flex:"1 1 auto"}}>
+                                                <a className='mento-info mento-info-summary recommand-box-visual-txt card-title'>궁금해요 플랜</a>
+                                                <div>
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt card-txt pt-1'>
                                                         간단한 질문이 있으신 분들에게 추천드립니다. 멘토님에게 프라푸치노 한 잔을사드리고, 25분간 구글밋, 줌을 통해 비대면 멘토링을 받아보세요.</p>
                                                 </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        방식</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        시간</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"14px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        비대면</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"14px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        25분</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        횟수</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        가격</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        1회</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        ₩ 6,500원</p>
+                                                <div className="col-list-wrap">
+                                                    <div className='col-list-row'>
+                                                        <div className='col-list-li'>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>방식</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>비대면</p>
+                                                        </div>
+                                                        <div className='col-list-li'>
+                                                            
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>시간</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>25분</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-list-row'>
+                                                        <div className='col-list-li'>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>횟수</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>1회</p>
+                                                        </div>
+                                                        <div className='col-list-li'>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>가격</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>₩ 6,500</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div style={{paddingRight: "10px", width:"200%"}}>
-                                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                    <img src="/images/starbucksOnlyDrink.png" alt="starbucksOnlyDrink" style={{ width: "150px", height: "auto" }} />
+                                            <div>
+                                                <div className='img-coffee-wrap'>
+                                                    <img src="/images/starbucksOnlyDrink.png" className='img-coffee' alt="starbucksOnlyDrink"/>
                                                 </div>
-                                                <button onClick={() => handleButtonNext(0)} className="mento-info mento-info-summary recommand-box" style={{width:"100%", padding: "10px 20px 10px 20px", marginBottom:"10px", backgroundColor:"#303030", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                    <div className='mento-info mento-info-summary recommand-box-visual-txt' style={{width:"80%",padding: "5px 0 5px 0", marginLeft:"0px", lineHeight:"10px", fontSize:"12px", color: "#fff", alignItems:"center"}}>구매하고 전달하기</div>
+                                                <button onClick={() => handleButtonNext(0)} className="mento-info mento-info-summary recommand-box btn btn-payment">
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt'>구매하고 전달하기</p>
                                                 </button>
-                                                <button onClick={() => handleOpenDetail(0)} className="mento-info mento-info-summary recommand-box" style={{width:"100%", padding: "0 0 0 0", marginBottom:"10px", backgroundColor:"#fff", borderColor:"#F68536", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{width:"80%",fontSize:"9px", paddingRight:"16px", color: "#000", alignItems:"center"}}>상세정보 닫기</p>
+                                                <button onClick={() => handleOpenDetail(0)} className="mento-info mento-info-summary recommand-box btn btn-detail-close">
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt'>상세정보 닫기</p>
                                                 </button>
                                             </div>
                                         </div>
@@ -228,28 +227,28 @@ export function Reservation2() {
                                 </div>
                             </div>
                         ) : <div></div>}
-                        <div className='mento-info mento-info-summary recommand-box-gap'>
-                            <div className="mento-info mento-info-summary recommand-box" style={{paddingTop:"10px"}}>
-                                <div className="mento-info mento-info-summary recommand-box circle-direct" style={{padding: "14px 0 14px 0", paddingBottom:"10px", marginBottom:"10px", display:"block", alignItems: "left"}}>
-                                    <div style={{color:"#000", display:"flex", flexDirection: "row", justifyContent:"space-between", alignItems:"center"}}>
-                                        <div>
-                                            <a className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"22px", fontWeight:"700", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>도와줘요 플랜</a>
-                                            <div style={{display: "flex", paddingLeft:"20px"}}>
-                                                <img src="/images/circle-direct.png" alt="circle-direct" style={{width:"20px", height:"20px"}}/>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"15px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>1시간</p>
+                        <div className={isOpenDetailOption1 ?"mento-info mento-info-summary recommand-box-gap d-none":"mento-info mento-info-summary recommand-box-gap"}>
+                            <div className="mento-info mento-info-summary recommand-box">
+                                <div className="mento-info mento-info-summary recommand-box circle-direct card min-card" style={{marginBottom:"10px"}}>
+                                    <div className="card-content">
+                                        <div style={{flex:"1 0 auto"}}>
+                                            <a className='mento-info mento-info-summary recommand-box-visual-txt card-title'>도와줘요 플랜</a>
+                                            <div className='li-chk'>
+                                                <img src="/images/circle-direct.svg" alt="circle-direct" className='ico-chk'/>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>1시간</p>
                                             </div>
-                                            <div style={{display: "flex", paddingLeft:"20px"}}>
-                                                <img src="/images/circle-direct.png" alt="circle-direct" style={{width:"20px", height:"20px"}}/>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"15px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>대면</p>
+                                            <div className='li-chk'>
+                                                <img src="/images/circle-direct.svg" alt="circle-direct" className='ico-chk'/>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>대면</p>
                                             </div>
                                         </div>
-                                        <div style={{paddingRight: "20px"}}>
-                                            <button onClick={() => handleButtonNext(1)} className="mento-info mento-info-summary recommand-box" style={{padding: "10px 10px 10px 10px", marginBottom:"10px", backgroundColor:"#303030", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{padding: "0 0 0 0", marginLeft:"0px", lineHeight:"10px", fontSize:"14px", color: "#fff", alignItems:"center"}}>커피 + 디저트 전달</p>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{padding: "0 0 0 0", marginLeft:"0px", lineHeight:"10px",fontSize:"12px", color: "#fff", alignItems:"center"}}>₩ 12,500 결제</p>
+                                        <div>
+                                            <button onClick={() => handleButtonNext(1)} className="mento-info mento-info-summary recommand-box btn btn-payment">
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>커피 + 디저트 전달</p>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt small-txt'>₩ 12,500 결제</p>
                                             </button>
-                                            <button onClick={() => handleOpenDetail(1)} className="mento-info mento-info-summary recommand-box" style={{padding: "5px", marginBottom:"10px", backgroundColor:"#F68536", borderColor:"#F68536", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", paddingRight:"16px", color: "#fff", alignItems:"center"}}>자세히 알아보기</p>
+                                            <button onClick={() => handleOpenDetail(1)} className="mento-info mento-info-summary recommand-box btn btn-detail">
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>자세히 알아보기</p>
                                             </button>
                                         </div>
                                     </div>
@@ -259,48 +258,48 @@ export function Reservation2() {
                         {isOpenDetailOption1 ? (
                             <div className='mento-info mento-info-summary recommand-box-gap'>
                                 <div className="mento-info mento-info-summary recommand-box">
-                                    <div className="mento-info mento-info-summary recommand-box circle-direct" style={{padding: "14px 0 14px 0", paddingBottom:"10px", marginBottom:"10px", display:"block", alignItems: "left"}}>
-                                        <div style={{color:"#000", display:"flex", flexDirection: "row", justifyContent:"space-between", alignItems:"center"}}>
-                                            <div>
-                                                <a className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"22px", fontWeight:"700", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>도와줘요 플랜</a>
-                                                <div style={{display: "flex", padding:"10px 0 0 0", width:"90%"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
+                                    <div className="mento-info mento-info-summary recommand-box circle-direct card card-detail">
+                                        <div className='card-content'>
+                                            <div className='pr-3' style={{flex:"1 1 auto"}}>
+                                                <a className='mento-info mento-info-summary recommand-box-visual-txt card-title'>도와줘요 플랜</a>
+                                                <div>
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt card-txt pt-1'>
                                                     직접 만나서, 풀리지 않는 고민을 얘기해보고 싶은 분들에게 추천드립니다. 멘토님에게 디저트와 커피를 사드리고, 약 1시간 동안 학교 카페에서 만나 멘토링을 받아보세요.</p>
                                                 </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        방식</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        시간</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"14px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        대면</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"14px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        1시간</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        횟수</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        가격</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        1회</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        ₩ 12,500</p>
+                                                <div className="col-list-wrap">
+                                                    <div className="col-list-row">
+                                                        <div className="col-list-li">
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>방식</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>대면</p>
+                                                            
+                                                        </div>
+                                                        <div className="col-list-li">
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>시간</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>1시간</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-list-row">        
+                                                        <div className="col-list-li">
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>횟수</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>1회</p>
+                                                            
+                                                        </div>
+                                                        <div className="col-list-li">
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>가격</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>₩ 12,500</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div style={{paddingRight: "10px", width:"200%"}}>
-                                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                    <img src="/images/starbucksSet.jpeg" alt="starbucksSet" style={{ width: "150px", height: "auto" }} />
+                                            <div>
+                                                <div className='img-coffee-wrap'>
+                                                    <img src="/images/starbucksSet.jpeg" alt="starbucksSet" className='img-coffee img-coffee-2' />
                                                 </div>
-                                                <button onClick={() => handleButtonNext(1)} className="mento-info mento-info-summary recommand-box" style={{width:"100%", padding: "10px 20px 10px 20px", marginBottom:"10px", backgroundColor:"#303030", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                    <div className='mento-info mento-info-summary recommand-box-visual-txt' style={{width:"100%",padding: "5px 0 5px 0", marginLeft:"0px", lineHeight:"10px", fontSize:"12px", color: "#fff", alignItems:"center"}}>구매하고 전달하기</div>
+                                                <button onClick={() => handleButtonNext(1)} className="mento-info mento-info-summary recommand-box btn btn-payment">
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt'>구매하고 전달하기</p>
                                                 </button>
-                                                <button onClick={() => handleOpenDetail(1)} className="mento-info mento-info-summary recommand-box" style={{width:"100%", padding: "0 0 0 0", marginBottom:"10px", backgroundColor:"#fff", borderColor:"#F68536", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{width:"100%",fontSize:"9px", paddingRight:"16px", color: "#000", alignItems:"center"}}>상세정보 닫기</p>
+                                                <button onClick={() => handleOpenDetail(1)} className="mento-info mento-info-summary recommand-box btn btn-detail-close">
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt'>상세정보 닫기</p>
                                                 </button>
                                             </div>
                                         </div>
@@ -308,28 +307,28 @@ export function Reservation2() {
                                 </div>
                             </div>
                         ) : <div></div>}
-                        <div className='mento-info mento-info-summary recommand-box-gap'>
-                            <div className="mento-info mento-info-summary recommand-box" style={{paddingTop:"10px"}}>
-                                <div className="mento-info mento-info-summary recommand-box circle-direct" style={{padding: "14px 0 14px 0", paddingBottom:"10px", marginBottom:"10px", display:"block", alignItems: "left"}}>
-                                    <div style={{color:"#000", display:"flex", flexDirection: "row", justifyContent:"space-between", alignItems:"center"}}>
-                                        <div>
-                                            <a className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"22px", fontWeight:"700", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>살려줘요 플랜</a>
-                                            <div style={{display: "flex", paddingLeft:"20px"}}>
-                                                <img src="/images/circle-direct.png" alt="circle-direct" style={{width:"20px", height:"20px"}}/>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"15px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>1시간</p>
+                        <div  className={isOpenDetailOption2 ?"mento-info mento-info-summary recommand-box-gap d-none":"mento-info mento-info-summary recommand-box-gap"}>
+                            <div className="mento-info mento-info-summary recommand-box">
+                                <div className="mento-info mento-info-summary recommand-box circle-direct card min-card" style={{marginBottom:"10px"}}>
+                                    <div className="card-content">
+                                        <div style={{flex:"1 0 auto"}}>
+                                            <a className='mento-info mento-info-summary recommand-box-visual-txt card-title'>살려줘요 플랜</a>
+                                            <div className='li-chk'>
+                                                <img src="/images/circle-direct.svg" alt="circle-direct" className='ico-chk'/>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>1시간</p>
                                             </div>
-                                            <div style={{display: "flex", paddingLeft:"20px"}}>
-                                                <img src="/images/circle-direct.png" alt="circle-direct" style={{width:"20px", height:"20px"}}/>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"15px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>대면, 2회</p>
+                                            <div className='li-chk'>
+                                                <img src="/images/circle-direct.svg" alt="circle-direct" className='ico-chk'/>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>대면, 2회</p>
                                             </div>
                                         </div>
-                                        <div style={{paddingRight: "20px"}}>
-                                            <button onClick={() => handleButtonNext(2)} className="mento-info mento-info-summary recommand-box" style={{padding: "10px 10px 10px 10px", marginBottom:"10px", backgroundColor:"#303030", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{padding: "0 0 0 0", marginLeft:"0px", lineHeight:"10px", fontSize:"14px", color: "#fff", alignItems:"center"}}>배달 기프티콘 전달</p>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{padding: "0 0 0 0", marginLeft:"0px", lineHeight:"10px",fontSize:"12px", color: "#fff", alignItems:"center"}}>₩ 20,000 결제</p>
+                                        <div>
+                                            <button onClick={() => handleButtonNext(2)} className="mento-info mento-info-summary recommand-box btn btn-payment">
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>배달 기프티콘 전달</p>
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt small-txt'>₩ 20,000 결제</p>
                                             </button>
-                                            <button onClick={() => handleOpenDetail(2)} className="mento-info mento-info-summary recommand-box" style={{padding: "5px", marginBottom:"10px", backgroundColor:"#F68536", borderColor:"#F68536", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", paddingRight:"16px", color: "#fff", alignItems:"center"}}>자세히 알아보기</p>
+                                            <button onClick={() => handleOpenDetail(2)} className="mento-info mento-info-summary recommand-box btn btn-detail">
+                                                <p className='mento-info mento-info-summary recommand-box-visual-txt'>자세히 알아보기</p>
                                             </button>
                                         </div>
                                     </div>
@@ -339,48 +338,48 @@ export function Reservation2() {
                         {isOpenDetailOption2 ? (
                             <div className='mento-info mento-info-summary recommand-box-gap'>
                                 <div className="mento-info mento-info-summary recommand-box">
-                                    <div className="mento-info mento-info-summary recommand-box circle-direct" style={{padding: "14px 0 14px 0", paddingBottom:"10px", marginBottom:"10px", display:"block", alignItems: "left"}}>
-                                        <div style={{color:"#000", display:"flex", flexDirection: "row", justifyContent:"space-between", alignItems:"center"}}>
-                                            <div>
-                                                <a className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"22px", fontWeight:"700", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>살려줘요 플랜</a>
-                                                <div style={{display: "flex", padding:"10px 0 0 0", width:"90%"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"10px", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
+                                    <div className="mento-info mento-info-summary recommand-box circle-direct card card-detail">
+                                        <div className='card-content'>
+                                            <div className='pr-3' style={{flex:"1 1 auto"}}>
+                                                <a className='mento-info mento-info-summary recommand-box-visual-txt card-title'>살려줘요 플랜</a>
+                                                <div>
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt card-txt pt-1'>
                                                     직접 만나서 포트폴리오 피드백, 학과 고민부터 진로 고민까지 준비하는 것들에 대해 더 깊은 피드백을 받고 싶은 분들에게 추천드립니다. 멘토님에게 배달 쿠폰을 드리고 총 2번, 약 1시간 동안 학교 카페에서 만나 멘토링을 받아보세요.</p>
                                                 </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        방식</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        시간</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"14px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        비대면</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"14px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        1시간</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        횟수</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"10px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        가격</p>
-                                                </div>
-                                                <div style={{margin:"0 0 0 0", display: "flex", padding:"0 0 0 0", width:"90%", flexDirection: "row"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        2회</p>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{fontSize:"12px", maxWidth:"100%",  width:"100%", marginBottom:"0", wordWrap: 'break-word', wordBreak: 'break-all', whiteSpace: 'normal', overflowWrap: 'break-word'}}>
-                                                        ₩ 20,000</p>
+                                                <div className="col-list-wrap">
+                                                    <div className="col-list-row">
+                                                        <div className="col-list-li">
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>방식</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>비대면</p>
+                                                            
+                                                        </div>
+                                                        <div className="col-list-li">
+                                                        <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>시간</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>1시간</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-list-row">
+                                                        <div className="col-list-li">
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>횟수</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>2회</p>
+                                                            
+                                                        </div>
+                                                        <div className="col-list-li">
+                                                        <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-label'>가격</p>
+                                                            <p className='mento-info mento-info-summary recommand-box-visual-txt col-list-value'>₩ 20,000</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div style={{paddingRight: "10px", width:"200%"}}>
-                                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                    <img src="/images/baemin.png" alt="baemin" style={{ width: "150px", height: "auto" }} />
+                                            <div>
+                                                <div className='img-coffee-wrap'>
+                                                    <img src="/images/baemin.png" alt="baemin" className='img-coffee img-coffee-3'/>
                                                 </div>
-                                                <button onClick={() => handleButtonNext(2)} className="mento-info mento-info-summary recommand-box" style={{width:"100%", padding: "10px 20px 10px 20px", marginBottom:"10px", backgroundColor:"#303030", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                    <div className='mento-info mento-info-summary recommand-box-visual-txt' style={{width:"100%",padding: "5px 0 5px 0", marginLeft:"0px", lineHeight:"10px", fontSize:"12px", color: "#fff", alignItems:"center"}}>구매하고 전달하기</div>
+                                                <button onClick={() => handleButtonNext(2)} className="mento-info mento-info-summary recommand-box btn btn-payment">
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt'>구매하고 전달하기</p>
                                                 </button>
-                                                <button onClick={() => handleOpenDetail(2)} className="mento-info mento-info-summary recommand-box" style={{width:"100%", padding: "0 0 0 0", marginBottom:"10px", backgroundColor:"#fff", borderColor:"#F68536", alignItems:"center", display:"flex", flexDirection:"column"}}>
-                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt' style={{width:"100%",fontSize:"9px", paddingRight:"16px", color: "#000", alignItems:"center"}}>상세정보 닫기</p>
+                                                <button onClick={() => handleOpenDetail(2)} className="mento-info mento-info-summary recommand-box btn btn-detail-close">
+                                                    <p className='mento-info mento-info-summary recommand-box-visual-txt'>상세정보 닫기</p>
                                                 </button>
                                             </div>
                                         </div>
