@@ -343,7 +343,7 @@ export function MentoPage() {
                                 <div className="recommand-box-gap" key={index}>
                                 <div className="recommand-box">
                                     <div className="circle-direct">
-                                    <img src="/images/circle-direct.svg" className="ico-bullet" alt="circle-direct" />
+                                    <img src="/images/circle-direct.svg" className="ico-bullet mr-3" alt="circle-direct" />
                                     <p className="recommand-box-visual-txt">{recommandText}</p>
                                     </div>
                                 </div>
