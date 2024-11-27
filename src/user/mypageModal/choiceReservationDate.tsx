@@ -52,29 +52,34 @@ export const ChoiceReservationDate = ({reservationList, setChoiceReservation, is
     });
 
     return (
-        <div className="subpage-wrap mypage">
-            <p className="page-title" style={{color:"#000", textAlign:"left"}}>멘토링이 가능한 날짜를 골라주세요.</p>
-            <br />
-            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+        <div className="subpage-wrap mypage modal-common modal-choice-date">
+            <div className="modal-title-wrap">
+                <p className="page-title">멘토링 날짜 선택</p>
+                <button className="btn-ico-only" onClick={onClose}>
+                    <i className="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <p className="page-title visual-txt-sm">멘토링이 가능한 날짜를 골라주세요.</p>
+            <div className="btns-wrap bottom-btns-wrap pb-2" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                 {selectedReservationDateIndex === 0?
-                <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleSelectedReservationDateIndex(0)} style={{display: "block", textAlign: "left", borderColor:"#000", backgroundColor:"#000", color:"#fff", height:"40px"}}>{formattedReservationList[0]}</a>
-                :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleSelectedReservationDateIndex(0)} style={{display: "block", textAlign: "left", borderColor:"#000", backgroundColor:"#fff", color:"#000", height:"40px"}}>{formattedReservationList[0]}</a>
+                <a className="btn btn-line-white btn-refund btn-refund-edit choice-list on" onClick={() => handleSelectedReservationDateIndex(0)}>{formattedReservationList[0]}</a>
+                :<a className="btn btn-line-white btn-refund btn-refund-edit choice-list" onClick={() => handleSelectedReservationDateIndex(0)}>{formattedReservationList[0]}</a>
                 }
             </div>
-            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+            <div className="btns-wrap bottom-btns-wrap pb-2" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                 {selectedReservationDateIndex === 1?
-                <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleSelectedReservationDateIndex(1)} style={{display: "block", textAlign: "left", borderColor:"#000", backgroundColor:"#000", color:"#fff", height:"40px"}}>{formattedReservationList[1]}</a>
-                :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleSelectedReservationDateIndex(1)} style={{display: "block", textAlign: "left", borderColor:"#000", backgroundColor:"#fff", color:"#000", height:"40px"}}>{formattedReservationList[1]}</a>
+                <a className="btn btn-line-white btn-refund btn-refund-edit choice-list on" onClick={() => handleSelectedReservationDateIndex(1)}>{formattedReservationList[1]}</a>
+                :<a className="btn btn-line-white btn-refund btn-refund-edit choice-list" onClick={() => handleSelectedReservationDateIndex(1)}>{formattedReservationList[1]}</a>
                 }
             </div>
-            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+            <div className="btns-wrap bottom-btns-wrap pb-2" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                 {selectedReservationDateIndex === 2?
-                <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleSelectedReservationDateIndex(2)} style={{display: "block", textAlign: "left", borderColor:"#000", backgroundColor:"#000", color:"#fff", height:"40px"}}>{formattedReservationList[2]}</a>
-                :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleSelectedReservationDateIndex(2)} style={{display: "block", textAlign: "left", borderColor:"#000", backgroundColor:"#fff", color:"#000", height:"40px"}}>{formattedReservationList[2]}</a>
+                <a className="btn btn-line-white btn-refund btn-refund-edit choice-list on" onClick={() => handleSelectedReservationDateIndex(2)}>{formattedReservationList[2]}</a>
+                :<a className="btn btn-line-white btn-refund btn-refund-edit choice-list" onClick={() => handleSelectedReservationDateIndex(2)}>{formattedReservationList[2]}</a>
                 }
             </div>
 
-            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+            <div className="btns-wrap bottom-btns-wrap pb-3 pt-4" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => closeCurrentModal()} style={{backgroundColor:"#000", color:"#fff"}}>날짜 확정하기</a>
             </div>
         </div>

@@ -93,29 +93,32 @@ export const ReviewCheck = ({mentoringInfo, reviewCheckInfo, isOpen, onClose}:My
     }
 
     return (
-        <div className="subpage-wrap mypage">
-            <p className="page-title" style={titleStyle}>{mentoringInfo.menteeNickname} 님이 남겨주신<br/> 소중한 후기입니다.</p>
-            <div className="table-wrap">
-                <table className="table table-borderless table-act mb-0">
+        <div className="subpage-wrap mypage modal-common modal-review-check">
+            <div className="modal-title-wrap">
+                <p className="page-title">후기 확인</p>
+                <button className="btn-ico-only" onClick={onClose}>
+                    <i className="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <p className="page-title visual-txt">{mentoringInfo.menteeNickname} 님이 남겨주신<br/> 소중한 후기입니다.</p>
+            <div className="table-wrap table-summary-wrap">
+                <table className="table table-borderless table-act mb-0 table-summary">
                     <tr>
-                        <td style={topStyle}>질문종류</td>
-                        <td style={topStyle}>멘토링 일시</td>
-                        <td style={topStyle}>만족도</td>
-                        <td style={topStyle}>신청금액</td>
+                        <td>질문종류</td>
+                        <td>멘토링 일시</td>
+                        <td>만족도</td>
+                        <td>신청금액</td>
                     </tr>
                     <tr>
-                        <td style={contentStyle}>{mentoringInfo.questionCategory}</td>
-                        <td style={contentStyle}>{mentoringInfo.confirmDate.slice(0,16)}&nbsp;{mentoringInfo.adminOkTime}</td>
-                        <td style={contentStyle}>{Math.floor((reviewCheckInfo.reviewScore / 7) * 100)} %</td>
-                        <td style={contentStyle}>{mentoringInfo.planPrice}</td>
+                        <td>{mentoringInfo.questionCategory}</td>
+                        <td>{mentoringInfo.confirmDate.slice(0,16)}&nbsp;{mentoringInfo.adminOkTime}</td>
+                        <td>{Math.floor((reviewCheckInfo.reviewScore / 7) * 100)} %</td>
+                        <td>{mentoringInfo.planPrice}</td>
                     </tr>
                 </table>
             </div>
-            <br/>
-            <div style={{borderBottom: '1px solid #000'}}></div>
-            <br/>
-            <p className="page-title" style={subTitleStyle}>{reviewCheckInfo.reviewTitle}</p>
-            <p className="page-title" style={subContentStyle}>{reviewCheckInfo.reviewContent}</p>
+            <p className="review-title">{reviewCheckInfo.reviewTitle}</p>
+            <p className="review-content">{reviewCheckInfo.reviewContent}</p>
         </div>
     );
 };

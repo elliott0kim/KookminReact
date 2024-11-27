@@ -2,10 +2,11 @@ import '/css/bootstrap-icons.min.css'
 import '/css/bootstrap.min.css'
 import '/css/style.css'
 import '/css/style.min.css'
+import '/css/fix_cmr.css'
 import Header from '../components/Header.js'
 import Title from '../components/Title.js'
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useContext, useRef } from 'react'
+import { useEffect, useState, useContext, useRef, useLayoutEffect } from 'react'
 import axios from 'axios';
 import { checkTokenValidity } from '../components/jwtUtil.js'
 import { LoginContext } from '../user/auth'
@@ -201,28 +202,26 @@ export function Mypage() {
 
 
     /* 페이지 로그 수집부분 */
-    const startTime = Date.now();
-    const [maxScrollY, maxScrollYRef] = useMaxScrollY(); // 커스텀 훅 호출하여 상태와 ref 값 가져오기
-    const containerRef = useRef(null);
-    const containerHeightRef = useRef(0); // containerHeight 값을 관리할 ref
+    // const startTime = Date.now();
+    // const [maxScrollY, maxScrollYRef] = useMaxScrollY(); // 커스텀 훅 호출하여 상태와 ref 값 가져오기
+    // const containerRef = useRef(null);
+    // const containerHeightRef = useRef(0); // containerHeight 값을 관리할 ref
 
-    // 로딩이 끝난 후에 containerRef 사용
-    useEffect(() => {
-        if (containerRef.current) {
-            // 로딩이 끝난 후 containerRef 사용
-            containerHeightRef.current = containerRef.current.scrollHeight; // ref에 height 값 저장
-        }
-    }, []); // 로딩 상태가 변경될 때마다 ref를 확인
+    // useLayoutEffect(() => {
+    //     if (containerRef.current) {
+    //         containerHeightRef.current = containerRef.current.scrollHeight; // DOM 업데이트 후에 scrollHeight 값을 가져옴
+    //     }
+    // }, []); // 빈 배열로 한 번만 실행
 
-    useEffect(() => {
-        window.addEventListener('beforeunload', (event) => {
-            const userId = getTokenUserId();
-            const logUri = "/mypage" + "?userId=" + userId;
-            PageTracking(startTime, containerHeightRef.current, maxScrollYRef.current, logUri);
-        })
-        return () => {
-        }
-    }, []);
+    // useEffect(() => {
+    //     window.addEventListener('beforeunload', (event) => {
+    //         const userId = getTokenUserId();
+    //         const logUri = "/mypage" + "?userId=" + userId;
+    //         PageTracking(startTime, containerHeightRef.current, maxScrollYRef.current, logUri);
+    //     })
+    //     return () => {
+    //     }
+    // }, []);
     /* 페이지 로그 수집부분 end */
 
 
@@ -1095,9 +1094,9 @@ useEffect(() => {
         return (<div>Loading...</div>); // 로딩 중일 때는 "Loading..." 메시지 표시
     }
 
-
+//   ref={containerRef}
     return (
-        <div lang='ko'  ref={containerRef}>
+        <div lang='ko'>
             <Title title="마이페이지"/>
             <Header />
 {/* -------------------- start -------------------- 유저 정보부터 상단에 채워주는 부분 -------------------- start -------------------- */}
