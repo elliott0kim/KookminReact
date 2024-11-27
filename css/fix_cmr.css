@@ -570,6 +570,186 @@ body{
     padding-bottom:16px;
     text-align: center;
 }
-.step3-wrap .tf-box .very-small-txt{
+
+.modal-common{
+    padding:16px 12px;
+}
+.modal-common .page-title{
+    font-family: "NotoSansKoreanR";
+    font-size: 16px;
+    color: #303030;
+    text-align: left;
+    line-height:1;
+}
+.modal-common .card-body{
+    padding:0;
+}
+.modal-common .card-body .list-item{
+    align-items: center;
+}
+.modal-common .list-item .btn{
+    height:38px;
+    white-space: nowrap;
+}
+.modal-common .list-item .list-label{
+    text-align: left;
+}
+.modal-common .modal-title-wrap{
+    display:flex;
+    align-items: center;
+    padding-bottom:16px;
+}
+.modal-common .modal-title-wrap .page-title{
+    flex: 1 1 auto;
+    padding-bottom:0;
     
+}
+.modal-common .btn-ico-only{
+    width:32px;
+    height:32px;
+    border-radius: 1000px;
+    transition: all 0.3s;
+}
+.modal-common .btn-ico-only:active{
+    background:rgba(0,0,0,0.1);
+}
+.ReactModal__Content--after-open{
+    min-height:calc(100% - 20px);
+}
+
+.modal-common .list-item .list-content{
+    flex: 1 1 auto;
+}
+.modal-common .list-item input[type=text].form-control{
+    flex: 1 1 auto;
+}
+.modal-common .visual-txt{
+    margin-bottom:0;
+    font-family: "NotoSansKoreanB";
+    font-weight: bold;
+    font-size: 24px;
+    color:#F68536;
+    text-align: left;
+    line-height:1.5;
+}
+
+.modal-common .visual-txt-sm{
+    font-family: "NotoSansKoreanM";
+    color:#303030;
+    text-align: left;
+    font-size:22px;
+    margin-bottom:0;
+    line-height:1.5;
+}
+
+.modal-common .table-summary-wrap{
+    padding-bottom:12px;
+    border-bottom: 1px solid #ddd;
+}
+.modal-common .table-summary{
+    text-align: left;
+}
+.modal-common .table-summary tr:first-child td{
+    color: rgba(0,0,0,0.6);
+}
+.modal-common .table-summary tr td{
+    padding: 3px;
+    width:25px;
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    font-size: 12px;
+    white-space: nowrap;
+}
+.modal-common .review-title{
+    margin-top:16px;
+    margin-bottom:16px;
+    color: #303030;
+    text-align: left;
+    font-family: "NotoSansKoreanM";
+    font-size:16px;
+    line-height: 1.5;
+}
+.modal-common .review-content{
+    color: #303030;
+    text-align: left;
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    font-size:14px;
+    line-height: 1.5;
+}
+.modal-common .default-txt{
+    color: #303030;
+    text-align: left;
+    font-family: "NotoSansKoreanR";
+    font-size:14px;
+    line-height: 1.5;
+}
+.refund-alert-txt{
+    color: #F68536;
+    text-align: left;
+    line-height:1.5;
+    font-family: "NotoSansKoreanDR";
+    font-weight: 300;
+    font-size:12px;
+}
+
+.modal-common .choice-list{
+    display:flex;
+    height:48px;
+    align-content: center;
+    justify-content: flex-start;
+    border: 1px solid #aaa;
+    text-align: left;
+    background:#fff;
+    color :#303030;
+}
+.modal-common .choice-list.on{
+    border: 1px solid #ff6900;
+    background: rgba(246, 133, 54, 0.1);
+    font-weight: bold;
+}
+.modal-common .choice-list.on::after{
+    content: "\f633";
+    position:relative;
+    top:-1px;
+    margin-left: 3px;
+    font-size:1.25em;
+    font-family: bootstrap-icons !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    color: #ff6900;
+}
+
+.modal-common .black-info-card{
+    display: block;
+    height:auto;
+    background: #303030;
+    padding: 16px;
+    border-radius: 12px;
+    text-align: left;
+}
+.modal-common .txt-orange{
+    color: #F68536;
+}
+.modal-common .txt-alert-danger{
+    color: #FF4D4D;
+    font-family: "NotoSansKoreanR";
+    font-weight: 300;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.modal-common .form-label{
+    font-size: 14px;
+    color:#303030;
+    text-align: left;
+    line-height: 1.5;
+}
+.modal-common .custom-chk-btns{
+    display:flex;
+}
+
+.modal-common .btn{
+    flex: 1 1 auto;
+    margin-right:4px;
 }

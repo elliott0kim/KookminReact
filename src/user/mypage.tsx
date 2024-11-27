@@ -2,6 +2,7 @@ import '/css/bootstrap-icons.min.css'
 import '/css/bootstrap.min.css'
 import '/css/style.css'
 import '/css/style.min.css'
+import '/css/fix_cmr.css'
 import Header from '../components/Header.js'
 import Title from '../components/Title.js'
 import { useNavigate } from 'react-router-dom';

@@ -145,33 +145,37 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
     }
 
     return (
-        <div className="subpage-wrap mypage">
-            <p className="page-title" style={{color:"#000", textAlign:"left"}}>내 정보 수정</p>
-            <br />
+        <div className="subpage-wrap mypage modal-common modal-edit-myinfo">
+            <div className="modal-title-wrap">
+                <p className="page-title">내 정보 수정</p>
+                <button className="btn-ico-only" onClick={onClose}>
+                    <i className="bi bi-x-lg"></i>
+                </button>
+            </div>
             <div className="card-body">
                 <div className="list-wrap">
                     <div className="list-item" style={{color:"#000"}}>
                         <div className="list-label">닉네임</div>
                         {existingUserInfo.nickname && existingUserInfo.nickname !== null?
                         <div className="list-content">
-                            <input ref={newNickname} defaultValue={existingUserInfo.nickname} type="text" name="nickname" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newNickname} defaultValue={existingUserInfo.nickname} type="text" name="nickname" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newNickname} type="text" name="nickname" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newNickname} type="text" name="nickname" className="form-control"/>
                         </div>
                         }
-                        <div className="btns-wrap bottom-btns-wrap" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
-                            <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleButtonNicknameCheck()} style={{backgroundColor:"#000", color:"#fff", width:"90px", height:"23px"}}>중복체크</a>
+                        <div className="btns-wrap bottom-btns-wrap pl-2" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+                            <a className="btn btn-secondary btn-refund btn-refund-edit" onClick={() => handleButtonNicknameCheck()}>중복체크</a>
                         </div>
                     </div>
                     <div className="list-item" style={{color:"#000"}}>
                         <div className="list-label">학과</div>
                         {existingUserInfo.department && existingUserInfo.department !== null?
                         <div className="list-content">
-                            <input ref={newDepartment} defaultValue={existingUserInfo.department} type="text" name="department" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newDepartment} defaultValue={existingUserInfo.department} type="text" name="department" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newDepartment} type="text" name="department" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newDepartment} type="text" name="department" className="form-control"/>
                         </div>
                         }
                     </div>
@@ -179,17 +183,17 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
                         <div className="list-label">학번</div>
                         {existingUserInfo.studentNumber && existingUserInfo.studentNumber !== null?
                         <div className="list-content">
-                            <input ref={newStudentNumber} defaultValue={existingUserInfo.studentNumber} type="text" name="studentNumber" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newStudentNumber} defaultValue={existingUserInfo.studentNumber} type="text" name="studentNumber" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newStudentNumber} type="text" name="studentNumber" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newStudentNumber} type="text" name="studentNumber" className="form-control"/>
                         </div>
                         }
                     </div>
                     <div className="list-item" style={{color:"#000"}}>
                         <div className="list-label">학년</div>
                         {existingUserInfo.grade && existingUserInfo.grade !== null?
-                        <select ref={newGrade} id="askTopic" name="askType" className="form-control" defaultValue={existingUserInfo.grade} style={{height:"25px", padding:"0 0 0 10px", fontSize:"15px", color:"#000"}}>
+                        <select ref={newGrade} id="askTopic" name="askType" className="form-control" defaultValue={existingUserInfo.grade}>
                             <option value="1">1학년</option>
                             <option value="2">2학년</option>
                             <option value="3">3학년</option>
@@ -198,7 +202,7 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
                             <option value="6">6학년</option>
                         </select>
                         :
-                        <select ref={newGrade} id="askTopic" name="askType" className="form-control" style={{height:"25px", padding:"0 0 0 10px", fontSize:"15px", color:"#000"}}>
+                        <select ref={newGrade} id="askTopic" name="askType" className="form-control">
                             <option value="1">1학년</option>
                             <option value="2">2학년</option>
                             <option value="3">3학년</option>
@@ -212,10 +216,10 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
                         <div className="list-label">출생년도</div>
                         {existingUserInfo.birthYear && existingUserInfo.birthYear !== null?
                         <div className="list-content">
-                            <input ref={newBirthYear} defaultValue={existingUserInfo.birthYear} type="text" name="birthYear" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newBirthYear} defaultValue={existingUserInfo.birthYear} type="text" name="birthYear" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newBirthYear} type="number" name="birthYear" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newBirthYear} type="number" name="birthYear" className="form-control"/>
                         </div>
                         }
                     </div>
@@ -223,23 +227,23 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
                         <div className="list-label">전화번호</div>
                         {existingUserInfo.phone && existingUserInfo.phone !== null?
                         <div className="list-content">
-                            <input ref={newPhone} defaultValue={existingUserInfo.phone} type="text" name="phone" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newPhone} defaultValue={existingUserInfo.phone} type="text" name="phone" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newPhone} type="number" name="phone" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newPhone} type="number" name="phone" className="form-control"/>
                         </div>
                         }
                     </div>
                     <div className="list-item" style={{color:"#000"}}>
                         <div className="list-label">신분상태</div>
                         {existingUserInfo.currentStatus && existingUserInfo.currentStatus !== null?
-                        <select ref={newCurrentStatus} defaultValue={existingUserInfo.currentStatus} id="askTopic" name="askType" className="form-control" style={{height:"25px", padding:"0 0 0 10px", fontSize:"15px", color:"#000"}}>
+                        <select ref={newCurrentStatus} defaultValue={existingUserInfo.currentStatus} id="askTopic" name="askType" className="form-control">
                             <option value="재학">재학</option>
                             <option value="휴학">휴학</option>
                             <option value="졸업">졸업</option>
                             <option value="졸업유예">졸업유예</option>
                         </select>
-                        :<select ref={newCurrentStatus} id="askTopic" name="askType" className="form-control" style={{height:"25px", padding:"0 0 0 10px", fontSize:"15px", color:"#000"}}>
+                        :<select ref={newCurrentStatus} id="askTopic" name="askType" className="form-control">
                             <option value="재학">재학</option>
                             <option value="휴학">휴학</option>
                             <option value="졸업">졸업</option>
@@ -251,10 +255,10 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
                         <div className="list-label">환불 계좌번호</div>
                         {existingUserInfo.bankAccount && existingUserInfo.bankAccount !== null?
                         <div className="list-content">
-                            <input ref={newBankAccount} defaultValue={existingUserInfo.bankAccount} type="text" name="bankAccount" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newBankAccount} defaultValue={existingUserInfo.bankAccount} type="text" name="bankAccount" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newBankAccount} type="text" name="bankAccount" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newBankAccount} type="text" name="bankAccount" className="form-control"/>
                         </div>
                         }
                     </div>
@@ -262,17 +266,17 @@ export const EditMyInfo = ({setNewUserInfo, existingUserInfo, isOpen, onClose}:M
                         <div className="list-label">환불 은행명</div>
                         {existingUserInfo.bankName && existingUserInfo.bankName !== null?
                         <div className="list-content">
-                            <input ref={newBankName} defaultValue={existingUserInfo.bankName} type="text" name="bankName" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newBankName} defaultValue={existingUserInfo.bankName} type="text" name="bankName" className="form-control"/>
                         </div>
                         :<div className="list-content">
-                            <input ref={newBankName} type="text" name="bankName" className="form-control" style={{height:"20px", fontSize:"15px"}}/>
+                            <input ref={newBankName} type="text" name="bankName" className="form-control"/>
                         </div>
                         }
                     </div>
                 </div>
             </div>
-            <br /><br /><br />
-            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+            
+            <div className="btns-wrap bottom-btns-wrap pt-4" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => closeCurrentModal()} style={{backgroundColor:"#F68536", color:"#fff"}}>저장하기</a>
             </div>
         </div>

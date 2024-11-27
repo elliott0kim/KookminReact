@@ -85,87 +85,77 @@ export const ReviewWrite = ({adminOkDate, mentoNickname, questionCategory, planP
     }
 
     return (
-        <div className="subpage-wrap review-write" style={{color:"#000", margin:"0 0 0 0", padding:"0 0 0 0"}}>
-            <div className="container-fluid" style={{margin:"0 0 0 0", padding:"0 3px 0 3px"}}>
-                <div className="write-area pt-5">
-                    <p className="page-title" style={{color:"#000", textAlign:"left"}}>멘토링 리뷰작성</p>
+        <div className="subpage-wrap review-write modal-common modal-review-check">
+            <div className="modal-title-wrap">
+                <p className="page-title">후기 작성</p>
+                <button className="btn-ico-only" onClick={onClose}>
+                    <i className="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div className="write-area">
+                    <p className="page-title visual-txt-sm">멘토링 리뷰작성</p>
 
-                    <div className="table-wrap">
-                        <table className="table table-borderless table-act mb-0">
+                    <div className="table-wrap table-summary-wrap">
+                        <table className="table table-borderless table-act mb-0 table-summary">
                             <tr>
-                                <td style={topStyle}>멘토링 일자</td>
-                                <td style={topStyle}>멘토링 아이디</td>
-                                <td style={topStyle}>질문 종류</td>
-                                <td style={topStyle}>신청 금액</td>
+                                <td>멘토링 일자</td>
+                                <td>멘토링 아이디</td>
+                                <td>질문 종류</td>
+                                <td>신청 금액</td>
                             </tr>
                             <tr>
-                                <td style={contentStyle}>{adminOkDate.slice(0,16)}</td>
-                                <td style={contentStyle}>{mentoNickname}</td>
-                                <td style={contentStyle}>{questionCategory}</td>
-                                <td style={contentStyle}>{planPrice}</td>
+                                <td>{adminOkDate.slice(0,16)}</td>
+                                <td>{mentoNickname}</td>
+                                <td>{questionCategory}</td>
+                                <td>{planPrice}</td>
                             </tr>
                         </table>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="reviewText" style={{display: "flex", flexDirection: "column", alignItems: "flex-start", fontSize:"13px"}}>1. {mentoNickname} 멘토에게 리뷰 남기기</label>
-                        <textarea ref={reviewTitle} className="form-control" name="reviewTitle" id="reviewText" placeholder="리뷰 제목을 입력하세요(50자 제한)" rows={1} maxLength={50} style={{fontSize:"13px"}}></textarea>
-                        <textarea ref={reviewContent} className="form-control" name="reviewContent" id="reviewText" placeholder="리뷰 내용을 작성해주세요. (400자 제한) 두서 없이 작성해도 되니, 부담없이 작성해주세요." rows={10} maxLength={400} style={{fontSize:"13px"}}></textarea>
+                        <label htmlFor="reviewText" className='form-label w-100 pt-3'>1. {mentoNickname} 멘토에게 리뷰 남기기</label>
+                        <textarea ref={reviewTitle} className="form-control default-txt" name="reviewTitle" id="reviewText" placeholder="리뷰 제목을 입력하세요(50자 제한)" rows={1} maxLength={50}></textarea>
+                        <textarea ref={reviewContent} className="form-control default-txt mt-2" name="reviewContent" id="reviewText" placeholder="리뷰 내용을 작성해주세요. (400자 제한) 두서 없이 작성해도 되니, 부담없이 작성해주세요." rows={7} maxLength={400}></textarea>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="reviewText" style={{display: "flex", flexDirection: "column", alignItems: "flex-start", fontSize:"13px"}}>2. {mentoNickname} 멘토가 제공한 멘토링에 얼마나 만족하셨나요?</label>
-                        <label htmlFor="reviewText" style={{display: "flex", flexDirection: "column", alignItems: "flex-start", fontSize:"11px"}}>(1: 매우 불만족 / 4: 보통 / 7: 매우 만족)</label>
+                        <label htmlFor="reviewText" className='form-label w-100 pt-0 mb-1'>2. {mentoNickname} 멘토가 제공한 멘토링에 얼마나 만족하셨나요?</label>
+                        <label htmlFor="reviewText" className='form-label w-100'>(1: 매우 불만족 / 4: 보통 / 7: 매우 만족)</label>
                         <br/>
                         <div className="custom-chk-btns" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
-                                {currentReviewScore === 1?
+                        {currentReviewScore === 1?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(1)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>1</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(1)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>1</a>
                                 }
-                            </div>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                 {currentReviewScore === 2?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(2)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>2</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(2)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>2</a>
                                 }
-                            </div>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                 {currentReviewScore === 3?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(3)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>3</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(3)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>3</a>
                                 }
-                            </div>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                 {currentReviewScore === 4?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(4)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>4</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(4)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>4</a>
                                 }
-                            </div>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                 {currentReviewScore === 5?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(5)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>5</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(5)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>5</a>
                                 }
-                            </div>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                 {currentReviewScore === 6?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(6)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>6</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(6)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>6</a>
                                 }
-                            </div>
-                            <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                 {currentReviewScore === 7?
                                 <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(7)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#F68536", color:"#fff", height:"30px", width:"30px"}}>7</a>
                                 :<a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => handleReviewScore(7)} style={{display: "flex", textAlign: "center", borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536", height:"30px", width:"30px"}}>7</a>
                                 }
-                            </div>
                         </div>
                     </div>
                     <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                         <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => closeCurrentModal()} style={{backgroundColor:"#F68536", color:"#fff"}}>리뷰 제출</a>
                     </div>
                 </div>
-            </div>
         </div>
     );
 };
