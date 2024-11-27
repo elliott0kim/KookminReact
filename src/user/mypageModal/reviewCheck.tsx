@@ -5,51 +5,37 @@ import '/css/style.min.css'
 import { useState } from 'react';
 
 interface mentoringInfoImpl {
-    reservationId: string;
+    mentoringId: number;
     applyDate: string;
-    adminOkDate: string;
-    adminOkTime: string;
+    confirmDate: string;
+    mentorDepartment: string;
     planPrice: number;
-    currentDepartment: string;
-    questionCategory: number;
+    mentorNickname: string;
+    menteeNickname: string;
+    questionCategory: string;
     hopeDepartment: string;
     questionContent: string;
     wishPosition: string;
-    menteeNickname:string;
-    reviewTitle:string;
-    reviewContent:string;
-    reviewScore:string;
 }
+
+interface reviewCheckInfoImpl {
+    reviewScore: number;
+    reviewTitle: string;
+    reviewContent: string;
+    reviewDate: string;
+}
+
 
 type MyModalProps = {
     mentoringInfo:mentoringInfoImpl;
+    reviewCheckInfo:reviewCheckInfoImpl;
     isOpen:boolean;
     onClose: () => void;
 };
 
-export const ReviewCheck = ({mentoringInfo, isOpen, onClose}:MyModalProps) => {
-    console.log(mentoringInfo);
+export const ReviewCheck = ({mentoringInfo, reviewCheckInfo, isOpen, onClose}:MyModalProps) => {
     const closeCurrentModal = () => {
         onClose();
-    }
-
-    let questionCategoryString = "";
-    switch (mentoringInfo.questionCategory) {
-        case 1:
-            questionCategoryString = "전과";
-            break;
-        case 2:
-            questionCategoryString = "복수전공";
-            break;
-        case 3:
-            questionCategoryString = "부전공";
-            break;
-        case 4:
-            questionCategoryString = "그외";
-            break;
-
-        default:
-            questionCategoryString = "알수없음";
     }
 
     const titleStyle = {
@@ -118,9 +104,9 @@ export const ReviewCheck = ({mentoringInfo, isOpen, onClose}:MyModalProps) => {
                         <td style={topStyle}>신청금액</td>
                     </tr>
                     <tr>
-                        <td style={contentStyle}>{questionCategoryString}</td>
-                        <td style={contentStyle}>{mentoringInfo.adminOkDate}&nbsp;{mentoringInfo.adminOkTime}</td>
-                        <td style={contentStyle}>{mentoringInfo.reviewScore} %</td>
+                        <td style={contentStyle}>{mentoringInfo.questionCategory}</td>
+                        <td style={contentStyle}>{mentoringInfo.confirmDate.slice(0,16)}&nbsp;{mentoringInfo.adminOkTime}</td>
+                        <td style={contentStyle}>{Math.floor((reviewCheckInfo.reviewScore / 7) * 100)} %</td>
                         <td style={contentStyle}>{mentoringInfo.planPrice}</td>
                     </tr>
                 </table>
@@ -128,8 +114,8 @@ export const ReviewCheck = ({mentoringInfo, isOpen, onClose}:MyModalProps) => {
             <br/>
             <div style={{borderBottom: '1px solid #000'}}></div>
             <br/>
-            <p className="page-title" style={subTitleStyle}>{mentoringInfo.reviewTitle}</p>
-            <p className="page-title" style={subContentStyle}>{mentoringInfo.reviewContent}</p>
+            <p className="page-title" style={subTitleStyle}>{reviewCheckInfo.reviewTitle}</p>
+            <p className="page-title" style={subContentStyle}>{reviewCheckInfo.reviewContent}</p>
         </div>
     );
 };

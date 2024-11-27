@@ -17,6 +17,12 @@ export default defineConfig({
         secure: false,                   // HTTPS 인증서 무시
         rewrite: (path) => path.replace(/^\/back/, '/back'), // 경로 그대로 유지
       },
+      '/log': {
+        target: 'https://www.coweef.com', // 백엔드 서버 주소
+        changeOrigin: true,              // 원본 요청 헤더를 백엔드 주소로 변경
+        secure: false,                   // HTTPS 인증서 무시
+        rewrite: (path) => path.replace(/^\/log/, '/log'), // 경로 그대로 유지
+      },
     },
   }
 })

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ButtonTracking } from '../components/ButttonTracking.js'
 import Calendar from 'react-calendar';
 import moment from 'moment';
 import 'react-calendar/dist/Calendar.css';
@@ -11,7 +13,8 @@ type MyModalProps = {
 };
 
 export const CalendarSelect = ({mentoDate, setMentoringDate, isOpen, onClose}:MyModalProps) => {
-    // console.log(mentoDate);
+    const location = useLocation();
+
     const today = new Date(); // 현재 날짜
     // 백엔드에서 남겨주는 날짜가.. JS랑 좀 다름..
     // 1 -> 월 , 2 -> 화, .... 7 -> 일
@@ -33,6 +36,7 @@ export const CalendarSelect = ({mentoDate, setMentoringDate, isOpen, onClose}:My
     const [createdConfirmButtons, setCreatedConfirmButtons] = useState([]); // 생성된 버튼의 상태
 
     const handleCreatedConfirmButtonClick = (timeHour) => {
+        // console.log(timeHour)
         setSelectedTimeHour(timeHour); // 선택된 시간 업데이트
         // 클릭된 시간에 대한 새로운 버튼 추가
         setCreatedConfirmButtons((confirmButton) => 
@@ -43,15 +47,45 @@ export const CalendarSelect = ({mentoDate, setMentoringDate, isOpen, onClose}:My
     };
 
     const handleConfirmButtonClick = (selectedDate, selectedTimeHour) => {
-        const selectedDateTime = `${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${getDayName(selectedDate)} ${selectedTimeHour}`;
-        console.log(selectedDateTime);
+        // console.log(selectedDate)
+        // console.log(selectedTimeHour)
+        const parseChar = selectedTimeHour.split(" ")[0];
+        let parseNum = parseInt(selectedTimeHour.split(" ")[1].slice(0, -1));
+        if (parseChar == "오후" && parseNum != 12)
+        {
+            parseNum += 12;
+        }
+        let month:string = "";
+        if ((selectedDate.getMonth() + 1) > 9)
+        {
+            month = `${selectedDate.getMonth() + 1}`;
+        }
+        else
+        {
+            month = `0${selectedDate.getMonth() + 1}`;
+        }
+
+        let day:string = "";
+        if ((selectedDate.getDate()) > 9)
+        {
+            day = `${selectedDate.getDate()}`;
+        }
+        else
+        {
+            day = `0${selectedDate.getDate()}`;
+        }
+        ButtonTracking(location.pathname, "모달 내부 날짜선택 버튼");
+        const selectedDateTime = `${selectedDate.getFullYear()}-${month}-${day} ${parseNum}:00:00`;
+        // const selectedDateTime = `${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 ${getDayName(selectedDate)} ${selectedTimeHour}`;
+        // console.log(selectedDateTime);
         setMentoringDate(selectedDateTime);
+        // console.log(selectedDateTime);
         onClose();
     };
 
     const mentoAvailableDateTime = {}; //여기에 수요일 오후 3시 이런식으로 들어가야함
     Object.entries(mentoDate[0]).forEach(([day, times]) => {
-        //console.log(`${day}: ${times}`);
+        // console.log(`${day}: ${times}`);
         let timeList = [];
         times.forEach(time => {
             //console.log(time);
@@ -60,6 +94,10 @@ export const CalendarSelect = ({mentoDate, setMentoringDate, isOpen, onClose}:My
             {
                 const changeTimeHour = timeHour - 12;
                 timeList.push(`오후 ${changeTimeHour}시`);
+            }
+            else if (timeHour == 12)
+            {
+                timeList.push(`오후 12시`);
             }
             else
             {
@@ -74,12 +112,13 @@ export const CalendarSelect = ({mentoDate, setMentoringDate, isOpen, onClose}:My
     const [dayOfWeek, setDayOfWeek] = useState(null);
 
     const handleDateChange = (date) => {
+        console.log(date);
         setSelectedDate(date); // 선택된 날짜 저장
         const dayIndex = date.getDay(); // 선택된 날짜의 요일 인덱스
         setDayOfWeek(dayIndex); // 요일 문자열 설정
         setSelectedTimeHour(null);
         setCreatedConfirmButtons([]);
-    };    const [value, onChange] = useState(new Date());
+    };
 
     return (
         <div className='modal-layout'>

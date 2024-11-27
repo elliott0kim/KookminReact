@@ -47,17 +47,15 @@ export function ChangePwd() {
         }
         // 여기지금 테스트용도임!!! 나중에 꼭 코드 수정요망
         // 조건식 앞에 ! 느낌표 붙여주기!!
-        else if (email.current?.value.includes("kookmin.ac.kr"))
+        else if (!email.current?.value.includes("kookmin.ac.kr"))
         {
-            alert("국민대학교 이메일로만 로그인 가능합니다.");
+            alert("국민대학교 이메일로만 가능합니다.");
             return;
         }
 
         const fetchData = async () => {
             try {
-                const response = await axios.post('http://49.247.41.208:8080/api/emailCheck', {
-                email:email.current?.value
-                });
+                const response = await axios.post(`/back/emailTokenAgain?email=${email.current?.value}`);
                 return true;
             } catch (err) {
                 console.error(err);
@@ -75,7 +73,6 @@ export function ChangePwd() {
         });
     }
 
-    // try - catch 코드 검증 해봐야할 것 같은데?
     const handleButtonVaildationEmailCheck = () => {
         if (email == null || email.current?.value == "")
         {
@@ -90,18 +87,16 @@ export function ChangePwd() {
         const fetchData = async () => {
             if (emailCheckCode.current?.value)
             try {
-                const response = await axios.post('http://49.247.41.208:8080/api/emailCheckCode', {
-                email:email.current?.value,
-                emailCheckCode:emailCheckCode.current?.value
+                const response = await axios.post('/back/email-auth', {
+                    email: email.current?.value,
+                    token: emailCheckCode.current?.value,
                 });
-                if (response.data.messageCode == 1)
+                if (response.status == 200)
                 {
-                    console.log("0");
                     return 0;
                 }
-                else
+                else if (response.status == 400)
                 {
-                    console.log("1");
                     return 1;
                 }
                 
@@ -159,9 +154,11 @@ export function ChangePwd() {
 
         const fetchData = async () => {
             try {
-                const response = await axios.post('http://49.247.41.208:8080/api/changePwd', {
-                email:email.current?.value,
-                pwd:pwd.current?.value
+                const response = await axios.post('/back/newPwd', {
+                    email:email.current?.value,
+                    authToken:emailCheckCode.current?.value,
+                    password:pwd.current?.value,
+                    passwordConfirm:pwd.current?.value
                 });
                 return true;
             } catch (err) {

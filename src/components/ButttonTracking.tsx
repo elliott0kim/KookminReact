@@ -21,7 +21,7 @@ export const ButtonTracking = (currentUrl:string, clickItem:string) => {
     // console.log(clickItem);
     const fetchData = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/EventLog', {
+            const response = await axios.post('/log/EventLog', {
                 currentTime: formattedCurrentDateTime,
                 userVisitCookie: userVisitCookie,
                 currentUrl: currentUrl,

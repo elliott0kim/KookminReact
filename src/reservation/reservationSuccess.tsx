@@ -52,12 +52,12 @@ export function ReservationSuccess() {
 
     const location = useLocation();
     const query = new URLSearchParams(location.search);
-    const nickname = query.get('nickname'); // 쿼리 파라미터에서 nickname 가져오기
+    const cardMentoId = query.get('mentoId'); // 쿼리 파라미터에서 cardMentoId 가져오기
 
     useEffect(() => {
         window.addEventListener('beforeunload', (event) => {
             const userId = getTokenUserId();
-            const logUri = "/reservationSuccess?nickname=" + nickname + "?userId=" + userId;
+            const logUri = "/reservationSuccess?mentoId=" + cardMentoId + "?userId=" + userId;
             PageTracking(startTime, containerHeightRef.current, maxScrollYRef.current, logUri);
         })
         return () => {
@@ -80,19 +80,19 @@ export function ReservationSuccess() {
 
     const handleButtonMyReservation = () => {
         // 여기서 나의 예약내역으로 보내주기
-        ButtonTracking(`/reservationSuccess?nickname=${nickname}`, "예약 내역 확인하기(마이페이지)");
+        ButtonTracking(`/reservationSuccess?mentoId=${cardMentoId}`, "예약 내역 확인하기(마이페이지)");
         navigate("/mypage");
     }
 
     const handleButtonHome = () => {
-        ButtonTracking(`/reservationSuccess?nickname=${nickname}`, "홈으로");
+        ButtonTracking(`/reservationSuccess?mentoId=${cardMentoId}`, "홈으로");
         navigate("/");
     }
 
     return (
         <div ref={containerRef}>
             <div lang='ko'>
-            <Title title="멘토 정보"/>
+            <Title title="예약 성공"/>
             <Header />
             <div className="subpage-wrap step3-wrap">
                 <div className="container-fluid">

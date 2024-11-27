@@ -76,9 +76,9 @@ export function Signup() {
         }
         // 여기지금 테스트용도임!!! 나중에 꼭 코드 수정요망
         // 조건식 앞에 ! 느낌표 붙여주기!!
-        else if (email.current?.value.includes("kookmin.ac.kr"))
+        else if (!email.current?.value.includes("kookmin.ac.kr"))
         {
-            alert("국민대학교 이메일로만 로그인 가능합니다.");
+            alert("국민대학교 이메일로만 회원가입 가능합니다.");
             return;
         }
 
@@ -173,7 +173,7 @@ export function Signup() {
                 
             } catch (err) {
                 console.error(err);
-                alert("닉네임 중복확인 도중 문제가 발생하였습니다. 관리자에게 문의하여주세요.");
+                alert("중복된 닉네임입니다. 사용할 수 없습니다.");
                 return 2;
             } finally {
                 // setLoading(false); // 로딩 상태 종료

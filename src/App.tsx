@@ -33,8 +33,8 @@ function App() {
             <Route path='/logout' element={<Logout />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/mento' element={<MentoPage />} />
-            {/* <Route path='/mypage' element={<Mypage />} /> */}
-            <Route path='/mypage' element={<CommonErrorPage />} />
+            {/* <Route path='/test' element={<CommonErrorPage />} /> */}
+            <Route path='/mypage' element={<Mypage />} />
             <Route path='/reservation1' element={<Reservation1 />} />
             <Route path='/reservation2' element={<Reservation2 />} />
             <Route path='/reservation3' element={<Reservation3 />} />

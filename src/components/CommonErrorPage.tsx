@@ -77,11 +77,11 @@ export function CommonErrorPage() {
                 <div className="container-fluid">
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <img src="/images/success.png" alt="success" style={{width:"50px", height:"auto", paddingBottom:"10px"}}/>
+                        <img src="/images/fixed.png" alt="success" style={{width:"50px", height:"auto", paddingBottom:"10px"}}/>
                     </div>
-                    <div style={{fontSize:"14px", display:"flex", lineHeight:'2', justifyContent: 'center', alignItems: 'center'}}>해당 서비스는 수요일부터</div>
-                    <div style={{fontSize:"14px", display:"flex", lineHeight:'2', justifyContent: 'center', alignItems: 'center'}}>이용이 가능해요.</div>
-                    <div style={{fontSize:"14px", display:"flex", lineHeight:'2', justifyContent: 'center', alignItems: 'center'}}>얼른 준비할게요!</div>
+                    <div style={{fontSize:"14px", display:"flex", lineHeight:'2', justifyContent: 'center', alignItems: 'center'}}>앗! 불편을 드려 죄송합니다.</div>
+                    <div style={{fontSize:"14px", display:"flex", lineHeight:'2', justifyContent: 'center', alignItems: 'center'}}>해당 서비스는 아직 제작 중이에요!</div>
+                    <div style={{fontSize:"14px", display:"flex", lineHeight:'2', justifyContent: 'center', alignItems: 'center'}}>완성되면 알려드릴게요.</div>
                 </div>
             </div>
             <div className="btns-wrap bottom-btns-wrap" style={{padding: "0 20px 10px 20px"}}>

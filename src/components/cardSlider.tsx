@@ -7,13 +7,15 @@ interface MentoListProps {
 }
 
 export function Slider({ mentoList }: MentoListProps) {
+  // console.log(mentoList)
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [itemNum, setItemNum] = useState(0);
   const [startX, setStartX] = useState(0);
   const [endX, setEndX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
-  const SLIDE_THRESHOLD = 50; // 슬라이드를 이동하기 위한 최소 거리
+  const MIN_DRAG_DISTANCE = 60; // 미세한 거리는 무시
+  const SLIDE_THRESHOLD = 80; // 슬라이드를 이동하기 위한 최소 거리
   const ITEM_WIDTH = 100; // 슬라이드 아이템의 너비 비율 (%)
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -25,9 +27,13 @@ export function Slider({ mentoList }: MentoListProps) {
     if (isDragging) {
       const currentX = e.touches[0].clientX;
       const deltaX = currentX - startX; // 터치 이동 거리 계산
+
+    // 미세 이동은 무시
+    if (Math.abs(deltaX) < MIN_DRAG_DISTANCE) return;
+
       setEndX(currentX); // 마지막 터치 좌표 업데이트
       if (sliderRef.current) {
-        sliderRef.current.style.transform = `translateX(${deltaX - itemNum * ITEM_WIDTH}%)`; // 슬라이드 이동
+        sliderRef.current.style.transform = `translateX(${(deltaX * 0.5) - itemNum * ITEM_WIDTH}%)`; // 슬라이드 이동
       }
     }
   };
@@ -64,8 +70,8 @@ export function Slider({ mentoList }: MentoListProps) {
   const [error, setError] = useState<string | null>(null); // 오류 상태
 
   const handleButtonClick = async (selectedMento: mento) => {
-    console.log('mentoring...');
-    console.log(selectedMento)
+    // console.log('mentoring...');
+    // console.log(selectedMento)
     navigate(`/mento?mentoId=${selectedMento.mentorId}`, { state: { getMento: selectedMento } });
   };
 
@@ -96,7 +102,7 @@ export function Slider({ mentoList }: MentoListProps) {
             <div className="slider-item" key={mento.mentoId}>
               <div className="card dark-card">
                 <div className="card-img-top-area">
-                  <img src={mento.mentoImg} alt="mentoImg" />
+                  <img src={mento.mentorImg} alt="mentoImg" />
                 </div>
                 <div className="card-body">
                   <p className="card-title">

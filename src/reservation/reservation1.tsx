@@ -150,6 +150,13 @@ export function Reservation1() {
         }
         else
         {
+            const phoneNumRegex = /\D/; // 숫자가 아닌 문자를 찾는 정규식
+            const hasOther = phoneNumRegex.test(selectedPhone); // 숫자가 아닌 문자가 있으면 true 반환
+            if (hasOther)
+            {
+                alert("핸드폰 번호는 숫자만 기입 가능합니다.");
+                return;
+            }
             reservation1Info['selectedCurrentDepartment'] = selectedCurrentDepartment;
             reservation1Info['selectedAskTopic'] = selectedAskTopic;
             reservation1Info['selectedFreeAskText'] = selectedFreeAskText;
@@ -202,6 +209,24 @@ export function Reservation1() {
         }
     };
 
+    const displayTime = (dateTime:string) => {
+        const date = new Date(dateTime); // 문자열을 Date 객체로 변환
+        const daysOfWeek = [
+            '일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'
+        ];
+
+        // 날짜 정보 추출
+        const month = date.getMonth() + 1;  // 0부터 시작하므로 바로 배열에서 사용
+        const day = date.getDate();  // 일자
+        const dayOfWeek = daysOfWeek[date.getDay()];  // 요일
+        const hour = date.getHours();  // 시간
+    
+        // 오전/오후 표시
+        const period = hour >= 12 ? '오후' : '오전';
+        const hourIn12Format = hour % 12 === 0 ? 12 : hour % 12;  // 12시 처리
+    
+        return `${month}월 ${day}일 ${dayOfWeek} ${period} ${hourIn12Format}시`;
+    }
     
     const customStyle = {
         overlay: {
@@ -235,7 +260,7 @@ export function Reservation1() {
     return (
         <div  ref={containerRef}>{!cardMentoId ? (<Navigate to="/" replace />):(
             <div lang='ko'>
-            <Title title="멘토 정보"/>
+            <Title title="예약 1단계"/>
             <Header />
             <div className="subpage-wrap step1-wrap">
                 <div className="container-fluid">
@@ -274,15 +299,15 @@ export function Reservation1() {
                                 <option value="1">전과</option>
                                 <option value="2">복수전공</option>
                                 <option value="3">부전공</option>
-                                <option value="4">그 외</option>
-                                <option value="5">잘 모르겠음</option>
+                                <option value="4">기타</option>
+                                <option value="5">그 외 잘 모르겠음</option>
                             </select>
                             :<select ref={askTopicRef} defaultValue={confirmReservation1Info['selectedAskTopic']} id="askTopic" name="askType" className="form-control" >
                                 <option value="1">전과</option>
                                 <option value="2">복수전공</option>
                                 <option value="3">부전공</option>
-                                <option value="4">그 외</option>
-                                <option value="5">잘 모르겠음</option>
+                                <option value="4">기타</option>
+                                <option value="5">그 외 잘 모르겠음</option>
                             </select>
                             }
                         </div>
@@ -299,7 +324,7 @@ export function Reservation1() {
                                 <button className="btn btn-primary" onClick={() => openModal(1)} style={{
                                     backgroundColor: mentoringDate1 === "" ? '#303030' : '#F68536',
                                     color:'#fff', justifyContent: 'flex-start'}}>
-                                    {mentoringDate1 === "" ? "옵션 1 - 날짜를 선택해주세요" : mentoringDate1}
+                                    {mentoringDate1 === "" ? "옵션 1 - 날짜를 선택해주세요" : displayTime(mentoringDate1)}
                                     </button>
                             </div><br />
                             {/* <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyle}>
@@ -309,7 +334,7 @@ export function Reservation1() {
                                 <button className="btn btn-primary" onClick={() => openModal(2)} style={{
                                     backgroundColor: mentoringDate2 === "" ? '#303030' : '#F68536',
                                     color:'#fff', justifyContent: 'flex-start'}}>
-                                    {mentoringDate2 === "" ? "옵션 2 - 날짜를 선택해주세요" : mentoringDate2}
+                                    {mentoringDate2 === "" ? "옵션 2 - 날짜를 선택해주세요" : displayTime(mentoringDate2)}
                                     </button>
                             </div><br />
                             {/* <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyle}>
@@ -319,7 +344,7 @@ export function Reservation1() {
                                 <button className="btn btn-primary" onClick={() => openModal(3)} style={{
                                     backgroundColor: mentoringDate3 === "" ? '#303030' : '#F68536',
                                     color:'#fff', justifyContent: 'flex-start'}}>
-                                    {mentoringDate3 === "" ? "옵션 3 - 날짜를 선택해주세요" : mentoringDate3}
+                                    {mentoringDate3 === "" ? "옵션 3 - 날짜를 선택해주세요" : displayTime(mentoringDate3)}
                                     </button>
                             </div>
                             <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyle}>

@@ -4,7 +4,7 @@ import { ButtonTracking } from '../../components/ButttonTracking.js'
 type MyModalProps = {
     adminOkDate:string;
     mentoNickname: string;
-    questionCategory:number;
+    questionCategory:string;
     planPrice:number;
     setReviewTitle: (reviewTitle:string) => void;
     setReviewContent: (reviewContent:string) => void;
@@ -43,25 +43,6 @@ export const ReviewWrite = ({adminOkDate, mentoNickname, questionCategory, planP
         }
         
         setCurrentReviewScore(score);
-    }
-
-    let questionCategoryString = "";
-    switch (questionCategory) {
-        case 1:
-            questionCategoryString = "전과";
-            break;
-        case 2:
-            questionCategoryString = "복수전공";
-            break;
-        case 3:
-            questionCategoryString = "부전공";
-            break;
-        case 4:
-            questionCategoryString = "그외";
-            break;
-
-        default:
-            questionCategoryString = "알수없음";
     }
 
     const reviewTitle = useRef<HTMLTextAreaElement>(null); // ref 생성
@@ -118,9 +99,9 @@ export const ReviewWrite = ({adminOkDate, mentoNickname, questionCategory, planP
                                 <td style={topStyle}>신청 금액</td>
                             </tr>
                             <tr>
-                                <td style={contentStyle}>{adminOkDate}</td>
+                                <td style={contentStyle}>{adminOkDate.slice(0,16)}</td>
                                 <td style={contentStyle}>{mentoNickname}</td>
-                                <td style={contentStyle}>{questionCategoryString}</td>
+                                <td style={contentStyle}>{questionCategory}</td>
                                 <td style={contentStyle}>{planPrice}</td>
                             </tr>
                         </table>

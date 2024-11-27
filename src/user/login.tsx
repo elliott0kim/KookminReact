@@ -33,7 +33,7 @@ export function Login() {
         }
         // 여기지금 테스트용도임!!! 나중에 꼭 코드 수정요망
         // 조건식 앞에 ! 느낌표 붙여주기!!
-        else if (email.current?.value.includes("kookmin.ac.kr"))
+        else if (!email.current?.value.includes("kookmin.ac.kr"))
         {
             alert("국민대학교 이메일로만 로그인 가능합니다.");
             return;
@@ -60,7 +60,7 @@ export function Login() {
                 return true;
             } catch (err) {
                 console.error(err);
-                alert("로그인 도중 문제가 발생하였습니다. 관리자에게 문의하여 주십시오.");
+                alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
                 return false;
             } finally {
                 // setLoading(false); // 로딩 상태 종료

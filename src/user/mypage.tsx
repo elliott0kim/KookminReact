@@ -21,13 +21,14 @@ import ChangeRefundInfo from './mypageModal/changeRefundInfo.js';
 import useMaxScrollY from '../components/UseMaxScrollY.js'
 import { PageTracking } from '../components/pageTracking.js'
 import { getTokenUserId } from '../components/jwtUtil.js'
+import { getDecadeLabel } from 'react-calendar/src/shared/dates.js'
 
 
 interface responseData {
     data: any[];
 }
 
-interface mypageTopNumbers {
+interface mypageTopNumber {
     label: string;
     count: number;
 }
@@ -38,7 +39,7 @@ interface userInfoImpl {
     department: string;
     studentNumber: string;
     grade: number;
-    birtYear: number;
+    birthYear: number;
     phone: string;
     currentStatus:string; 
     bankAccount: string;
@@ -50,13 +51,12 @@ interface userInfoImpl {
 interface menteeWaitForConfirmImpl {
     reservationId: number;
     applyDate: string;
-    wishDate1: string;
-    wishDate2: string;
-    wishDate3: string;
+    wishDates: string[];
     planPrice: number;
-    mentoNickname: string;
-    currentDepartment: string;
-    questionCategory: number;
+    mentorNickname: string;
+    menteeNickname: string;
+    mentorDepartment: string;
+    questionCategory: string;
     hopeDepartment: string;
     questionContent: string;
     wishPosition: string;
@@ -65,38 +65,40 @@ interface menteeWaitForConfirmImpl {
 interface menteeWaitForDepositImpl {
     reservationId: number;
     applyDate: string;
-    adminOkDate: string;
-    adminOkTime: string;
+    confirmDate: string;
+    mentorDepartment: string;
     planPrice: number;
-    mentoNickname: string;
-    currentDepartment: string;
-    questionCategory: number;
+    mentorNickname: string;
+    menteeNickname: string;
+    questionCategory: string;
     hopeDepartment: string;
     questionContent: string;
     wishPosition: string;
 }
 
 interface menteeReservationSuccessImpl {
-    reservationId: number;
     mentoringId: number;
-    applyDate: string;//
-    menteeOkDate: string;
-    //adminOkTime: string;// 이것도.. 안찢어줫어ㅠ 동현이 살려줘 제발...
+    applyDate: string;
+    confirmDate: string;
+    mentorDepartment: string;
     planPrice: number;
-    mentoNickname: string;
-    mentorDepartment: string; // 현재 학과는 있는데 또 희망학과는 없어...
-    questionCategory: number;
-    hopeDepartment: string; // 유기된 항목
+    mentorNickname: string;
+    menteeNickname: string;
+    questionCategory: string;
+    menteeOK: boolean;
     questionContent: string;
     wishPosition: string;
 }
 
 interface menteeRefundImpl {
-    reservationId: number;
-    applyDate: string;
-    mentoNickname: string;
-    refundBank: string;
-    refundBankNum: string;
+    requestDate: string;
+    menteeNickname: string;
+    menteeUsername: string;
+    refundBankName: string;
+    refundBankAcoount: string;
+    refundReason: string;
+    refundAmount: number;
+    applicant: string;
 }
 
 
@@ -105,12 +107,12 @@ interface menteeRefundImpl {
 interface mentoNotCheckImpl {
     reservationId: number;
     applyDate: string;
-    wishDate1: string;
-    wishDate2: string;
-    wishDate3: string;
+    wishDates: string[];
     planPrice: number;
-    currentDepartment: string;
-    questionCategory: number;
+    mentorNickname: string;
+    menteeNickname: string;
+    mentorDepartment: string;
+    questionCategory: string;
     hopeDepartment: string;
     questionContent: string;
     wishPosition: string;
@@ -118,64 +120,54 @@ interface mentoNotCheckImpl {
 
 interface mentoWaitForDepositImpl {
     reservationId: number;
-    mentoringId: number;
     applyDate: string;
-    mentorOkDate: string;
-    adminOkTime: string;
+    confirmDate: string;
+    mentorDepartment: string;
     planPrice: number;
-    menteeDepartment: string;
-    questionCategory: number;
-    hopeDepartment: string; // 역시 유기
+    mentorNickname: string;
+    menteeNickname: string;
+    questionCategory: string;
+    hopeDepartment: string;
     questionContent: string;
     wishPosition: string;
 }
 
 interface mentoReservationSuccessImpl {
-    reservationId: number;
+    mentoringId: number;
     applyDate: string;
-    adminOkDate: string;
-    adminOkTime: string;
+    confirmDate: string;
+    mentorDepartment: string;
     planPrice: number;
-    currentDepartment: string;
-    questionCategory: number;
-    hopeDepartment: string;
+    mentorNickname: string;
+    menteeNickname: string;
+    questionCategory: string;
     questionContent: string;
     wishPosition: string;
 }
-
 
 
 interface mentoringInfoImpl {
-    reservationId: number;
+    mentoringId: number;
     applyDate: string;
-    adminOkDate: string;
-    adminOkTime: string;
+    confirmDate: string;
+    mentorDepartment: string;
     planPrice: number;
-    currentDepartment: string;
-    questionCategory: number;
+    mentorNickname: string;
+    menteeNickname: string;
+    questionCategory: string;
     hopeDepartment: string;
     questionContent: string;
     wishPosition: string;
-    menteeNickname:string;
-    reviewTitle:string;
-    reviewContent:string;
-    reviewScore:string;
 }
 
 
 
 
-interface mypageInfo {
-    userInfo: userInfoImpl;
-    menteeWaitForConfirm: menteeWaitForConfirmImpl[];
-    menteeWaitForDeposit: menteeWaitForDepositImpl[];
-    menteeReservationSuccess: menteeReservationSuccessImpl[];
-    menteeMentoringInfo: mentoringInfoImpl[];
-    menteeRefund: menteeRefundImpl[];
-    mentoNotCheck: mentoNotCheckImpl[];
-    mentoWaitForDeposit: mentoWaitForDepositImpl[];
-    mentoReservationSuccess: mentoReservationSuccessImpl[];
-    mentoMentoringInfo: mentoringInfoImpl[];
+interface reviewCheckInfoImpl {
+    reviewScore: number;
+    reviewTitle: string;
+    reviewContent: string;
+    reviewDate: string;
 }
 
 
@@ -218,7 +210,6 @@ export function Mypage() {
     useEffect(() => {
         if (containerRef.current) {
             // 로딩이 끝난 후 containerRef 사용
-            // console.log("containerRef.current scrollHeight:", containerRef.current.scrollHeight);
             containerHeightRef.current = containerRef.current.scrollHeight; // ref에 height 값 저장
         }
     }, []); // 로딩 상태가 변경될 때마다 ref를 확인
@@ -237,9 +228,7 @@ export function Mypage() {
 
 
 
-
-    const [mypageTopNumbers, setMypageTopNumbers] = useState<mypageTopNumbers[] | null>(null);
-    const [mypageInfo, setMypageInfo] = useState<mypageInfo | null>(null);
+    const [mypageTopNumbers, setMypageTopNumbers] = useState<mypageTopNumber[] | null>(null);
     const [userInfo, setUserInfo] = useState<userInfoImpl | null>(null);
 
     const [menteeWaitForConfirm, setMenteeWaitForConfirm] = useState<menteeWaitForConfirmImpl[] | null>(null);
@@ -261,14 +250,10 @@ export function Mypage() {
 
     let userId = null;
 
-    const [waitForConfirmCount, setWaitForConfirmCount] = useState<number | null>(null);
-    const [confirmReservationCount, setConfirmReservationCount] = useState<number | null>(null);
-    const [reviewNotWriteCount, setReviewNotWriteCount] = useState<number | null>(null);
-    const [waitForRefundCount, setWaitForRefundCount] = useState<number | null>(null);
-
-    const handleTabClick = (tab: number) => {
-        setTabKinds(tab);
-    };
+    const [stayApproveCount, setStayApproveCount] = useState<number | null>(null);
+    const [stayMoneyCount, setStayMoneyCount] = useState<number | null>(null);
+    const [noReviewCount, setNoReview] = useState<number | null>(null);
+    const [stayRefundCount, setStayRefund] = useState<number | null>(null);
 
     const handleTabForMenteeClick = (tab: number) => {
         setTabForMentee(tab);
@@ -277,6 +262,289 @@ export function Mypage() {
     const handleTabForMentoClick = (tab: number) => {
         setTabForMento(tab);
     };
+
+
+
+/* --------------- start --------------- 기본적인 정보요청 쪽 part --------------- start --------------- */
+// const [tabKinds, setTabKinds] = useState<number>(0);
+const handleTabClick = (tabNumber:number) => {
+    setTabKinds(tabNumber); // 선택된 시간 업데이트
+};
+
+const fetchMypageTopNumbers = async () => {
+    try {
+        const response = await fetch('/back/api/bigNums', {
+            method: 'GET', // POST 요청
+            headers: {
+            'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+            'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("mypageTopNums");
+        console.log(res);
+        setMypageTopNumbers(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchUserInfo = async () => {
+    try {
+        const response = await fetch('/back/api/userInfo', {
+            method: 'GET', // POST 요청
+            headers: {
+            'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+            'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("UserInfo");
+        console.log(res);
+        setUserInfo(res.data[0]);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMenteeWaitForConfirm = async () => {
+    try {
+        const response = await fetch('/back/api/menteeWaitForConfirm', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MenteeWaitForConfirm");
+        console.log(res);
+        setMenteeWaitForConfirm(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMenteeWaitForDeposit = async () => {
+    try {
+        const response = await fetch('/back/api/menteeWaitForDeposit', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MenteeWaitForDeposit");
+        console.log(res);
+        setMenteeWaitForDeposit(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMenteeReservationSuccess = async () => {
+    try {
+        const response = await fetch('/back/api/menteeReservationSuccess', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MenteeReservationSuccess");
+        console.log(res);
+        setMenteeReservationSuccess(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMenteeMentoringInfo = async () => {
+    try {
+        const response = await fetch('/back/api/menteeMentoringInfo', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MenteeMentoringInfo");
+        console.log(res);
+        setMenteeMentoringInfo(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMenteeRefund = async () => {
+    try {
+        const response = await fetch('/back/api/menteeRefund', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MenteeRefund");
+        console.log(res);
+        setMenteeRefund(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMentoNotCheck = async () => {
+    try {
+        const response = await fetch('/back/api/mentoring/mentor/notChk', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MentoNotCheck");
+        console.log(res);
+        setMentoNotCheck(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMentoWaitForDeposit = async () => {
+    try {
+        const response = await fetch('/back/api/mentoring/mentor/noMoney', {
+            method: 'GET', // POST 요청
+            headers: {
+                'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MentoWaitForDeposit");
+        console.log(res);
+        setMentoWaitForDeposit(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMentoReservationSuccess = async () => {
+    try {
+        const response = await fetch('/back/api/mentoring/mentor/complete', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MentoReservationSuccess");
+        console.log(res);
+        setMentoReservationSuccess(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+const fetchMentoMentoringInfo = async () => {
+    try {
+        const response = await fetch('/back/api/mentoring/mentor/history', {
+            method: 'GET', // POST 요청
+            headers: {
+              'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+              'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+            },
+        });
+        const res:responseData = await response.json();
+        console.log("MentoringInfo");
+        console.log(res);
+        setMentoMentoringInfo(res.data);
+    } catch (err) {
+        setError('데이터를 가져오는 중 오류가 발생했습니다.');
+        console.error(err);
+    } finally {
+    }
+};
+
+useEffect(() => {
+    if (token == null)
+    {
+        alert("로그인 먼저 수행해주세요!");
+        navigate("/");
+        return;
+    }
+
+    fetchMypageTopNumbers();
+
+    fetchUserInfo(); // 컴포넌트가 처음 렌더링될 때만 fetchData 실행
+
+    fetchMenteeWaitForConfirm();
+    fetchMenteeWaitForDeposit();
+    fetchMenteeReservationSuccess();
+    fetchMenteeMentoringInfo();
+    fetchMenteeRefund();
+
+    fetchMentoNotCheck();
+    fetchMentoWaitForDeposit();
+    fetchMentoReservationSuccess();
+    fetchMentoMentoringInfo();
+}, []);
+
+useEffect(() => {
+    if (mypageTopNumbers)
+    {
+        mypageTopNumbers.forEach(topNum => {
+            if (topNum["label"] == "stayApprove")
+            {
+                setStayApproveCount(topNum["count"]);
+            }
+            else if (topNum["label"] == "stayMoney")
+            {
+                setStayMoneyCount(topNum["count"]);
+            }
+            else if (topNum["label"] == "noReview")
+            {
+                setNoReview(topNum["count"]);
+            }
+            else if (topNum["label"] == "stayRefund")
+            {
+                setStayRefund(topNum["count"]);
+            }
+        });
+    }
+}, [mypageTopNumbers]);
+
+/* --------------- end --------------- 기본적인 정보요청 쪽 part --------------- end --------------- */
+
+
+
+
+
 
 /* --------------- start --------------- 모달 커스텀 css --------------- start --------------- */
     const customStyle = {
@@ -289,7 +557,7 @@ export function Mypage() {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             height: "65%",
-            width:"80%",
+            width:"95%",
             overflowY: 'auto', // 세로 스크롤 가능
             // paddingTop: '10px',
             padding: '5px 8px 5px 8px',
@@ -324,26 +592,40 @@ export function Mypage() {
     useEffect(() => {
         if (newUserInfo)
         {
-            console.log("mypage");
-            console.log(newUserInfo);
             const fetchData = async () => {
                 try {
-                    const response = await axios.post('http://49.247.41.208:8080/api/editUserInfo', {
-                        userNickname:newUserInfo?.nickname,
-                        department: newUserInfo?.department,
-                        studentNumber: newUserInfo?.studentNumber,
-                        grade: newUserInfo?.grade,
-                        birtYear: newUserInfo?.birtYear,
-                        currentStatus: newUserInfo?.currentStatus
+                    const response = await fetch('/back/api/userInfo', {
+                        method: 'PUT',
+                        headers: {
+                        'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                        'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                        },
+                        body: JSON.stringify({
+                            nickname: newUserInfo.nickname,
+                            department: newUserInfo.department,
+                            studentNumber: newUserInfo.studentNumber,
+                            grade: newUserInfo.grade,
+                            birthYear: newUserInfo.birthYear,
+                            phone: newUserInfo.phone,
+                            currentStatus: newUserInfo.currentStatus,
+                            bankAccount: newUserInfo.bankAccount,
+                            bankName: newUserInfo.bankName
+                        })
                     });
-                    if (response.status == 200)
+                    if (response.status != 200)
+                    {
+                        throw new Error("response status not 200");
+                    }
+                    else
                     {
                         alert("내정보 수정이 완료되었습니다.");
-                        handleRefresh();
+                        fetchUserInfo();
                     }
+                    return true;
                 } catch (err) {
                     setError('데이터를 가져오는 중 오류가 발생했습니다.');
                     console.error(err);
+                    return false;
                 } finally {
                 }
             };
@@ -356,8 +638,8 @@ export function Mypage() {
 /* --------------- start --------------- 취소 및 거절 모달 --------------- start --------------- */
     const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
     const [cancelOrRefusalReservaionId, setCancelOrRefusalReservaionId] = useState<number | null>(null);
-    const [cancelReason, setCancelReason] = useState<string | null>(null);
-    const [refusalReason, setRefusalReason] = useState<string | null>(null);
+    const [cancelReason, setCancelReason] = useState<number | null>(null);
+    const [refusalReason, setRefusalReason] = useState<number | null>(null);
     const [cancelRefundBankNum, setCancelRefundBankNum] = useState<string | null>(null);
     const [cancelRefundBank, setCancelRefundBank] = useState<string | null>(null);
     const openCancelModal = () => {
@@ -374,34 +656,77 @@ export function Mypage() {
             const fetchData = async () => {
                 try {
                     let response = null;
+                    let responseBankInfo = null;
                     if (cancelRefundBankNum && cancelRefundBank)
                     {
-                        response = await axios.post('http://49.247.41.208:8080/api/cancel', {
-                            reservationId:cancelOrRefusalReservaionId,
-                            cancelReason: cancelReason,
-                            cancelRefundBankNum: cancelRefundBankNum,
-                            cancelRefundBank:cancelRefundBank
+                        response = await fetch(`/back/api/reservations/${cancelOrRefusalReservaionId}`, {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                            'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                            },
+                            body: JSON.stringify({
+                                reason: cancelReason
+                            })
                         });
+
+                        responseBankInfo = await fetch(`/back/api/bank-info`, {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                            'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                            },
+                            body: JSON.stringify({
+                                bankName: cancelRefundBankNum,
+                                bankAccount:cancelRefundBank
+                            })
+                        });
+
+                        if (response == null || responseBankInfo == null)
+                        {
+                            throw new Error("not have response");
+                        }
+                        if (response.status != 200 || responseBankInfo.status != 200)
+                        {
+                            throw new Error("response status not 200");
+                        }
                     }
                     else
                     {
-                        response = await axios.post('http://49.247.41.208:8080/api/cancel', {
-                            reservationId:cancelOrRefusalReservaionId,
-                            cancelReason: cancelReason
+                        response = await fetch(`/back/api/reservations/${cancelOrRefusalReservaionId}`, {
+                            method: 'DELETE',
+                            headers: {
+                            'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                            'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                            },
+                            body: JSON.stringify({
+                                reason: cancelReason
+                            })
                         });
+
+                        if (response == null)
+                        {
+                            throw new Error("not have response");
+                        }
+                        if (response.status != 200)
+                        {
+                            throw new Error("response status not 200");
+                        }
                     }
-                    if (response == null)
-                    {
-                        throw new Error("not have response");
-                    }
-                    if (response.status == 200)
-                    {
-                        alert("취소되었습니다.");
-                        handleRefresh();
-                    }
+
+                    alert("취소가 완료되었습니다.");
+                    fetchMypageTopNumbers();
+    
+                    fetchMenteeWaitForConfirm();
+                    fetchMenteeWaitForDeposit();
+                    fetchMenteeReservationSuccess();
+                    fetchMenteeMentoringInfo();
+                    fetchMenteeRefund();
+                    return true;
                 } catch (err) {
                     setError('데이터를 가져오는 중 오류가 발생했습니다.');
                     console.error(err);
+                    return false;
                 } finally {
                 }
             };
@@ -410,17 +735,33 @@ export function Mypage() {
 
         else if (refusalReason)
         {
+            console.log(refusalReason);
+            console.log(cancelOrRefusalReservaionId);
             const fetchData = async () => {
                 try {
-                    const response = await axios.post('http://49.247.41.208:8080/api/refusal', {
-                        reservationId:cancelOrRefusalReservaionId,
-                        refusalReason: refusalReason
+                    const response = await fetch(`/back/api/reservations/${cancelOrRefusalReservaionId}`, {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                        'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                        },
+                        body: JSON.stringify({
+                            reason: refusalReason
+                        })
                     });
-                    if (response.status == 200)
+
+                    if (response.status != 200)
                     {
-                        alert("취소되었습니다.");
-                        handleRefresh();
+                        throw new Error("response status not 200");
                     }
+
+                    alert("거절이 완료되었습니다.");
+                    fetchMypageTopNumbers();
+
+                    fetchMentoNotCheck();
+                    fetchMentoWaitForDeposit();
+                    fetchMentoReservationSuccess();
+                    fetchMentoMentoringInfo();
                 } catch (err) {
                     setError('데이터를 가져오는 중 오류가 발생했습니다.');
                     console.error(err);
@@ -449,6 +790,72 @@ export function Mypage() {
 /* --------------- end --------------- 입금하기 모달 --------------- end --------------- */
 
 
+/* --------------- start --------------- 지금 현재 날짜와 비교하기 함수 --------------- start --------------- */
+    const completeMentoring = (dateString: string) => {
+        // 문자열을 Date 객체로 변환
+        const targetDate = new Date(dateString);
+
+        // 현재 시간
+        const now = new Date();
+
+        // 비교
+        if (targetDate > now) {
+            return false;
+        } else if (targetDate <= now) {
+            return true;
+        }
+    };
+/* --------------- end --------------- 지금 현재 날짜와 비교하기 함수 --------------- end --------------- */
+
+
+/* --------------- start --------------- 멘토링 완료 alert --------------- start --------------- */
+    const alertComplete = (reservationId:number, menteeOk:boolean) => {
+        if (menteeOk)
+        {
+            alert("이미 완료처리 된 건입니다.");
+            return;
+        }
+        if (confirm("실제 멘토와 만나 모든 이야기를 나누었고 금액까지 입금하였다면, 아래 확인 버튼을 눌러주세요."))
+        {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`/back/api/mentoring/${reservationId}/completed`, {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                        'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                        }
+                    });
+                    if (response.status != 200)
+                    {
+                        throw new Error("response status not 200");
+                    }
+                    else
+                    {
+                        alert("멘토링 완료 처리 되었습니다.");
+                        fetchMypageTopNumbers();
+    
+                        fetchMenteeWaitForConfirm();
+                        fetchMenteeWaitForDeposit();
+                        fetchMenteeReservationSuccess();
+                        fetchMenteeMentoringInfo();
+                        fetchMenteeRefund();
+                    }
+                    return true;
+                } catch (err) {
+                    setError('데이터를 가져오는 중 오류가 발생했습니다.');
+                    console.error(err);
+                    return false;
+                } finally {
+                }
+            };
+            fetchData();
+        }
+
+    }
+/* --------------- end --------------- 멘토링 완료 alert --------------- end --------------- */
+
+
 /* --------------- start --------------- 리뷰 작성하기 모달 --------------- start --------------- */
     const [isReviewWriteModalOpen, setIsReviewWriteModalOpen] = useState(false);
     const [reviewReservaionId, setReviewReservaionId] = useState<number | null>(null);
@@ -469,20 +876,38 @@ export function Mypage() {
         {
             const fetchData = async () => {
                 try {
-                    const response = await axios.post('http://49.247.41.208:8080/api/review', {
-                        reservaionId:reviewReservaionId,
-                        reviewContent:reviewContent,
-                        reviewScore:reviewScore
+                    const response = await fetch(`/back/api/mentoring/${reviewReservaionId}/review`, {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                        'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                        },
+                        body: JSON.stringify({
+                            reviewTitle: reviewTitle,
+                            reviewContent: reviewContent,
+                            reviewScore: reviewScore
+                        })
                     });
-
-                    if (response.status == 200)
+                    if (response.status != 200)
                     {
-                        alert("리뷰작성이 완료되었습니다.");
-                        handleRefresh();
+                        throw new Error("response status not 200");
                     }
+                    else
+                    {
+                        alert("리뷰 작성이 완료되었습니다.");
+                        fetchMypageTopNumbers();
+    
+                        fetchMenteeWaitForConfirm();
+                        fetchMenteeWaitForDeposit();
+                        fetchMenteeReservationSuccess();
+                        fetchMenteeMentoringInfo();
+                        fetchMenteeRefund();
+                    }
+                    return true;
                 } catch (err) {
                     setError('데이터를 가져오는 중 오류가 발생했습니다.');
                     console.error(err);
+                    return false;
                 } finally {
                 }
             };
@@ -497,57 +922,121 @@ export function Mypage() {
 
 
 /* --------------- start --------------- 멘토링 날짜선택 모달 --------------- start --------------- */
-const [isChoiceReservationModalOpen, setIsChoiceReservationModalOpen] = useState(false);
-const [choiceReservation, setChoiceReservation] = useState<string | null>(null);
-const [choiceReservationId, setChoiceReservationId] = useState<number | null>(null);
+    const [isChoiceReservationModalOpen, setIsChoiceReservationModalOpen] = useState(false);
+    const [choiceReservation, setChoiceReservation] = useState<string | null>(null);
+    const [choiceReservationId, setChoiceReservationId] = useState<number | null>(null);
 
-const openChoiceReservationModal = () => {
-    setIsChoiceReservationModalOpen(true); // 모달 열기
-};
-const closeChoiceReservatioModal = (reservationId:number) => {
-    setChoiceReservationId(reservationId);
-    setIsChoiceReservationModalOpen(false);
-}
+    const openChoiceReservationModal = () => {
+        setIsChoiceReservationModalOpen(true); // 모달 열기
+    };
+    const closeChoiceReservatioModal = (reservationId:number) => {
+        setChoiceReservationId(reservationId);
+        setIsChoiceReservationModalOpen(false);
+    }
 
-useEffect(() => {
-    if (choiceReservation && choiceReservationId)
-    {
+    useEffect(() => {
+        if (choiceReservation && choiceReservationId)
+        {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`/back/api/reservations/${choiceReservationId}/accept`, {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                        'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                        },
+                        body: JSON.stringify({
+                            date: choiceReservation
+                        })
+                    });
+                    if (response.status != 200)
+                    {
+                        throw new Error("response status not 200");
+                    }
+                    else
+                    {
+                        alert("날짜 선택이 완료되었습니다.");
+                        fetchMypageTopNumbers();
+    
+                        fetchMentoNotCheck();
+                        fetchMentoWaitForDeposit();
+                        fetchMentoReservationSuccess();
+                        fetchMentoMentoringInfo();
+                    }
+                    return true;
+                } catch (err) {
+                    setError('데이터를 가져오는 중 오류가 발생했습니다.');
+                    console.error(err);
+                    return false;
+                } finally {
+                }
+            };
+            fetchData();
+        }
+
+        setChoiceReservation(null);
+        setChoiceReservationId(null);
+    }, [choiceReservationId]);
+
+/* --------------- end --------------- 멘토링 날짜선택 모달 --------------- end --------------- */
+
+
+/* --------------- start --------------- 리뷰확인 모달 --------------- start --------------- */
+    const [reviewCheckInfo, setReviewCheckInfo] = useState<reviewCheckInfoImpl | null>(null);
+
+    const [isReviewCheckModalOpen, setIsReviewCheckModalOpen] = useState(false);
+    const openReviewCheckModal = (mentoringId:number) => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('http://49.247.41.208:8080/api/choiceReservation', {
-                    reservaionId:choiceReservationId,
-                    adminOkDate:choiceReservation
+                const response = await fetch(`/back/api/mentoring/${mentoringId}/review`, {
+                    method: 'GET',
+                    headers: {
+                    'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
+                    'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
+                    }
                 });
-
-                if (response.status == 200)
+                if (response.status != 200)
                 {
-                    alert("날짜 선택이 완료되었습니다.");
-                    handleRefresh();
+                    setReviewCheckInfo(null);
+                    throw new Error("response status not 200");
                 }
+                else
+                {
+                    const res:responseData = await response.json();
+                    if (res.data[0].reviewScore == 0)
+                    {
+                        alert("리뷰 작성 이전입니다.");
+                        setReviewCheckInfo(null);
+                        return;
+                    }
+                    else
+                    {
+                        setReviewCheckInfo(res.data[0]);
+                    }
+                }
+                
             } catch (err) {
                 setError('데이터를 가져오는 중 오류가 발생했습니다.');
                 console.error(err);
             } finally {
             }
         };
+        // const [reviewCheckInfo, setReviewCheckInfo] = useState<reviewCheckInfImpl[] | null>(null);
         fetchData();
+    };
+
+    useEffect(() => {
+        let previousValue = null; // 이전 값을 저장할 변수
+
+        if (reviewCheckInfo !== null && reviewCheckInfo !== previousValue) {
+            setIsReviewCheckModalOpen(true);
+            previousValue = reviewCheckInfo; // 새로운 값으로 업데이트
+        }
+    }, [reviewCheckInfo])
+
+    const closeReviewCheckModal = () => {
+        setIsReviewCheckModalOpen(false);
     }
-
-    setChoiceReservation(null);
-    setChoiceReservationId(null);
-}, [choiceReservationId]);
-
-/* --------------- end --------------- 멘토링 날짜선택 모달 --------------- end --------------- */
-
-
-/* --------------- start --------------- 리뷰확인 모달 --------------- start --------------- */
-const [isReviewCheckModalOpen, setIsReviewCheckModalOpen] = useState(false);
-const openReviewCheckModal = () => {
-    setIsReviewCheckModalOpen(true); // 모달 열기
-};
-const closeReviewCheckModal = () => {
-    setIsReviewCheckModalOpen(false);
-}
 /* --------------- end --------------- 리뷰확인 모달 --------------- end --------------- */
 
 
@@ -598,304 +1087,18 @@ useEffect(() => {
 /* --------------- end --------------- 환불 계좌 정보 변경 모달 --------------- end --------------- */
 
 
-    useEffect(() => {
-        if (token == null)
-        {
-            alert("로그인 먼저 수행해주세요!");
-            navigate("/");
-            return;
-        }
-        // else
-        // {
-        //     userId = token['userId'];
-        // }
-            // const response = await axios.post('http://localhost:8080/api/mypage', {
-            // userId: userId,
-            // });
-            // const response = await axios.get('http://49.247.41.208:8080/api/mypage', {
-            //     params: {
-            //         userId: userId,
-            //     },
-            // });
-
-        const fetchMypageTopNumbers = async () => {
-            try {
-                const response = await fetch('/back/api/mentorTabNums', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                    'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                    'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMypageTopNumbers(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchUserInfo = async () => {
-            try {
-                const response = await fetch('/back/api/userInfo', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                    'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                    'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setUserInfo(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMenteeWaitForConfirm = async () => {
-            try {
-                const response = await fetch('/back/api/menteeWaitForConfirm', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMenteeWaitForConfirm(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-    
-        const fetchMenteeWaitForDeposit = async () => {
-            try {
-                const response = await fetch('/back/api/menteeWaitForDeposit', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMenteeWaitForDeposit(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMenteeReservationSuccess = async () => {
-            try {
-                const response = await fetch('/back/api/menteeReservationSuccess', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMenteeReservationSuccess(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMenteeMentoringInfo = async () => {
-            try {
-                const response = await fetch('/back/api/menteeMentoringInfo', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMenteeMentoringInfo(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMenteeRefund = async () => {
-            try {
-                const response = await fetch('/back/api/menteeRefund', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMenteeRefund(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMentoNotCheck = async () => {
-            try {
-                const response = await fetch('/back/api/mentoring/mentor/notChk', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMentoNotCheck(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMentoWaitForDeposit = async () => {
-            try {
-                const response = await fetch('/back/api/mentoring/mentor/noMoney', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                        'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                        'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMentoWaitForDeposit(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMentoReservationSuccess = async () => {
-            try {
-                const response = await fetch('/back/api/mentoring/mentor/complete', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMentoReservationSuccess(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-        const fetchMentoMentoringInfo = async () => {
-            try {
-                const response = await fetch('/back/api/mentoring/mentor/history', {
-                    method: 'GET', // POST 요청
-                    headers: {
-                      'Content-Type': 'application/json', // JSON 형식으로 요청 본문 전송
-                      'Authorization': `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
-                    },
-                });
-                const res:responseData = await response.json();
-                console.log(res);
-                setMentoMentoringInfo(res.data[0]);
-            } catch (err) {
-                setError('데이터를 가져오는 중 오류가 발생했습니다.');
-                console.error(err);
-            } finally {
-            }
-        };
-
-
-        fetchMypageTopNumbers();
-
-        fetchUserInfo(); // 컴포넌트가 처음 렌더링될 때만 fetchData 실행
-
-        fetchMenteeWaitForConfirm();
-        fetchMenteeWaitForDeposit();
-        fetchMenteeReservationSuccess();
-        fetchMenteeMentoringInfo();
-        fetchMenteeRefund();
-
-        fetchMentoNotCheck();
-        fetchMentoWaitForDeposit();
-        fetchMentoReservationSuccess();
-        fetchMentoMentoringInfo();
-    }, []);
-
-    // useEffect(() => {
-    //     if (mypageInfo)
-    //     {
-    //         setUserInfo(mypageInfo["userInfo"]);
-            
-    //         setMenteeWaitForConfirm(mypageInfo["menteeWaitForConfirm"]);
-    //         setMenteeWaitForDeposit(mypageInfo["menteeWaitForDeposit"]);
-    //         setMenteeReservationSuccess(mypageInfo["menteeReservationSuccess"]);
-    //         setMenteeMentoringInfo(mypageInfo["menteeMentoringInfo"]);
-    //         setMenteeRefund(mypageInfo["menteeRefund"]);
-
-    //         setMentoNotCheck(mypageInfo["mentoNotCheck"]);
-    //         setMentoWaitForDeposit(mypageInfo["mentoWaitForDeposit"]);
-    //         setMentoReservationSuccess(mypageInfo["mentoReservationSuccess"]);
-    //         setMentoMentoringInfo(mypageInfo["mentoMentoringInfo"]);
-    //     }
-    // }, [mypageInfo]);
-
-    useEffect(() => {
-        if (menteeReservationSuccess)
-        {
-            setConfirmReservationCount(menteeReservationSuccess.length);
-            setReviewNotWriteCount(menteeReservationSuccess.length);
-        }
-    }, [menteeReservationSuccess]);
-
-    useEffect(() => {
-        if (menteeWaitForConfirm)
-        {
-            setWaitForConfirmCount(menteeWaitForConfirm.length);
-        }
-    }, [menteeWaitForConfirm]);
-
-    useEffect(() => {
-        if (menteeRefund)
-        {
-            setWaitForRefundCount(menteeRefund.length);
-        }
-    }, [menteeRefund]);
-
-
     if (error) return <p>{error}</p>; // 오류가 발생했을 때 오류 메시지 표시
-    if (!mypageInfo || !userInfo || !menteeWaitForConfirm || !menteeWaitForDeposit || !menteeReservationSuccess || !menteeMentoringInfo || !menteeRefund
+    if (!userInfo || !menteeWaitForConfirm || !menteeWaitForDeposit || !menteeReservationSuccess || !menteeMentoringInfo || !menteeRefund
         || !mentoNotCheck || !mentoWaitForDeposit || !mentoReservationSuccess || !mentoMentoringInfo
-        || (waitForConfirmCount == null) || (confirmReservationCount == null) || (reviewNotWriteCount == null) || (waitForRefundCount == null)) 
+        || (stayApproveCount == null) || (stayMoneyCount == null) || (noReviewCount == null) || (stayRefundCount == null)) 
     {
-        return (<div>unknown error</div>); // 로딩 중일 때는 "Loading..." 메시지 표시
+        return (<div>Loading...</div>); // 로딩 중일 때는 "Loading..." 메시지 표시
     }
+
 
     return (
         <div lang='ko'  ref={containerRef}>
-            <Title title="로그인"/>
+            <Title title="마이페이지"/>
             <Header />
 {/* -------------------- start -------------------- 유저 정보부터 상단에 채워주는 부분 -------------------- start -------------------- */}
             <div className="subpage-wrap mypage">
@@ -904,20 +1107,20 @@ useEffect(() => {
                     <div className="content-area my-info-nums">
                         <div className="verticals-list">
                             <div className="list-item">
-                                <p className="big-value">{waitForConfirmCount}</p>
-                                <p className="info-label">확정 대기</p>
+                                <p className="big-value">{stayApproveCount}</p>
+                                <p className="info-label">승인대기</p>
                             </div>
                             <div className="list-item">
-                                <p className="big-value">{confirmReservationCount}</p>
-                                <p className="info-label">예약 확정</p>
+                                <p className="big-value">{stayMoneyCount}</p>
+                                <p className="info-label">입금대기</p>
                             </div>
                             <div className="list-item">
-                                <p className="big-value">{reviewNotWriteCount}</p>
-                                <p className="info-label">리뷰 미작성</p>
+                                <p className="big-value">{noReviewCount}</p>
+                                <p className="info-label">예약완료</p>
                             </div>
                             <div className="list-item">
-                                <p className="big-value">{waitForRefundCount}</p>
-                                <p className="info-label">환불 대기</p>
+                                <p className="big-value">{stayRefundCount}</p>
+                                <p className="info-label">환불대기</p>
                             </div>
                         </div>
                     </div>
@@ -930,7 +1133,7 @@ useEffect(() => {
                                         <div className="list-label">학과</div>
                                         {userInfo["department"] && userInfo["department"] !== null?
                                         <div className="list-content">
-                                            <div>{mypageInfo["userInfo"]["department"]}</div>
+                                            <div>{userInfo["department"]}</div>
                                         </div>
                                         :<div className="list-content">
                                             <div>정보 없음</div>
@@ -961,9 +1164,9 @@ useEffect(() => {
                                     </div>
                                     <div className="list-item">
                                         <div className="list-label">출생년도</div>
-                                        {userInfo["birtYear"] && userInfo["birtYear"] !== null?
+                                        {userInfo["birthYear"] && userInfo["birthYear"] !== null?
                                         <div className="list-content">
-                                            <div>{userInfo["birtYear"]}</div>
+                                            <div>{userInfo["birthYear"]}</div>
                                         </div>
                                         :<div className="list-content">
                                             <div>정보 없음</div>
@@ -972,33 +1175,14 @@ useEffect(() => {
                                     </div>
                                     <div className="list-item">
                                         <div className="list-label">신분상태</div>
-                                        <div className="list-content">
                                         {userInfo["currentStatus"] && userInfo["currentStatus"] !== null?
                                         <div className="list-content">
-                                            {(() => {
-                                                if (userInfo["currentStatus"] == "INSCHOOL")
-                                                {
-                                                    return <div>재학</div>;
-                                                }
-                                                else if (userInfo["currentStatus"] == "a")
-                                                {
-                                                    return <div>휴학</div>;
-                                                }
-                                                else if (userInfo["currentStatus"] == "b")
-                                                {
-                                                    return <div>졸업</div>;
-                                                }
-                                                else
-                                                {
-                                                    return <div>졸업유예</div>;
-                                                }
-                                            })()}
+                                            <div>{userInfo["currentStatus"]}</div>
                                         </div>
                                         :<div className="list-content">
                                             <div>정보 없음</div>
                                         </div>
                                         }
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1007,7 +1191,7 @@ useEffect(() => {
                             <a className="btn btn-line-white" onClick={() => openMyInfoModal()}>정보 수정</a>
                         </div>
                         <Modal isOpen={isMyInfoModalOpen} onRequestClose={closeMyInfoModal} style={customStyle}>
-                                <EditMyInfo setNewUserInfo={setNewUserInfo} userNickname={userInfo["nickname"]} department={userInfo["department"]} studentNumber={userInfo["studentNumber"]} grade={userInfo["grade"]} birtYear={userInfo["birtYear"]} currentStatus={userInfo["currentStatus"]} isOpen={isMyInfoModalOpen} onClose={closeMyInfoModal}/>
+                                <EditMyInfo setNewUserInfo={setNewUserInfo} existingUserInfo={userInfo} isOpen={isMyInfoModalOpen} onClose={closeMyInfoModal}/>
                         </Modal>
                     </div>
 {/* -------------------- end -------------------- 유저 정보부터 상단에 채워주는 부분 -------------------- end -------------------- */}
@@ -1067,45 +1251,39 @@ useEffect(() => {
                                             <div className="list-wrap">
                                                 <div className="list-item">
                                                     <div className="list-label">등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">신청일자1</div>
-                                                    <div className="list-content">{item.planPrice}</div>
+                                                    <div className="list-content">{item.wishDates[0].slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">신청일자2</div>
-                                                    <div className="list-content">{item.planPrice}</div>
+                                                    <div className="list-content">{item.wishDates[1].slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">신청일자3</div>
-                                                    <div className="list-content">{item.planPrice}</div>
-                                                </div>                                                    
+                                                    <div className="list-content">{item.wishDates[2].slice(0,16)}</div>
+                                                </div>   
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
+                                                </div>                                            
                                                 <div className="list-item">
                                                     <div className="list-label">플랜금액</div>
                                                     <div className="list-content">{item.planPrice}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">재학중인 학과</div>
-                                                    <div className="list-content">{item.currentDepartment}</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 종류</div>
-                                                    <div className="list-content">
-                                                        {item.questionCategory === 1
-                                                        ? "전과"
-                                                        : item.questionCategory === 2
-                                                        ? "복수전공"
-                                                        : item.questionCategory === 3
-                                                        ? "부전공"
-                                                        : item.questionCategory === 4
-                                                        ? "그외"
-                                                        : "알 수 없음"}
-                                                    </div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label">목표 학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
+                                                    <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 내용</div>
@@ -1141,15 +1319,23 @@ useEffect(() => {
                                             <div className="list-wrap">
                                                 <div className="list-item">
                                                     <div className="list-label">등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정날짜</div>
-                                                    <div className="list-content">{item.adminOkDate}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[0]}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정시간</div>
-                                                    <div className="list-content">{item.adminOkTime}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[1].slice(0,5)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">플랜금액</div>
@@ -1157,25 +1343,11 @@ useEffect(() => {
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">재학중인 학과</div>
-                                                    <div className="list-content">{item.currentDepartment}</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 종류</div>
-                                                    <div className="list-content">
-                                                        {item.questionCategory === 1
-                                                        ? "전과"
-                                                        : item.questionCategory === 2
-                                                        ? "복수전공"
-                                                        : item.questionCategory === 3
-                                                        ? "부전공"
-                                                        : item.questionCategory === 4
-                                                        ? "그외"
-                                                        : "알 수 없음"}
-                                                    </div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label">목표 학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
+                                                    <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 내용</div>
@@ -1215,17 +1387,25 @@ useEffect(() => {
                                     <div className="card mb-3">
                                         <div className="card-body">
                                             <div className="list-wrap">
-                                            <div className="list-item">
-                                                <div className="list-label">등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                <div className="list-item">
+                                                    <div className="list-label">등록일자</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정날짜</div>
-                                                    <div className="list-content">{item.menteeOkDate.split(" ")[0]}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[0]}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정시간</div>
-                                                    <div className="list-content">{item.menteeOkDate.split(" ")[1].substring(0, 5)}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[1].slice(0,5)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">플랜금액</div>
@@ -1237,21 +1417,7 @@ useEffect(() => {
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 종류</div>
-                                                    <div className="list-content">
-                                                        {item.questionCategory === 1
-                                                        ? "전과"
-                                                        : item.questionCategory === 2
-                                                        ? "복수전공"
-                                                        : item.questionCategory === 3
-                                                        ? "부전공"
-                                                        : item.questionCategory === 4
-                                                        ? "그외"
-                                                        : "알 수 없음"}
-                                                    </div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label">목표 학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
+                                                    <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 내용</div>
@@ -1262,17 +1428,29 @@ useEffect(() => {
                                                     <div className="list-content">{item.wishPosition}</div>
                                                 </div>
                                                 {/* 여기에서 버튼 누르면 각 요청에 맞는 모달 구현해야함 */}
-                                                <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "10px 0 0 0", margin:"0 0 0 0"}}>
-                                                    <a className="btn btn-line-white btn-erfund btn-refund-edit" onClick={() => openReviewWriteModal()} style={{borderColor:"#000", backgroundColor:"#000", color:"#fff"}}>예약완료</a>
+                                                {!completeMentoring(item.confirmDate)?
+                                                <div>
+                                                    <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "10px 0 0 0", margin:"0 0 0 0"}}>
+                                                        <a className="btn btn-line-white btn-erfund btn-refund-edit" style={{borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536"}}>예약완료</a>
+                                                    </div>
+                                                    <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+                                                        <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openCancelModal()} style={{backgroundColor:"#FF4D4D", color:"#fff"}}>취소하기</a>
+                                                    </div>
+                                                </div>:
+                                                <div>
+                                                    <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "10px 0 0 0", margin:"0 0 0 0"}}>
+                                                        <a className="btn btn-line-white btn-erfund btn-refund-edit" onClick={() => alertComplete(item.mentoringId, item.menteeOK)} style={{borderColor:"#000", backgroundColor:"#000", color:"#fff"}}>멘토링 완료</a>
+                                                    </div>
+                                                    <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
+                                                        <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openReviewWriteModal()} style={{backgroundColor:"#F68536", color:"#fff"}}>후기 작성하기</a>
+                                                    </div>
                                                 </div>
-                                                <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
-                                                    <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openCancelModal()} style={{backgroundColor:"#FF4D4D", color:"#fff"}}>취소하기</a>
-                                                </div>
+                                                }
                                                 <Modal isOpen={isReviewWriteModalOpen} onRequestClose={closeReviewWriteModal} style={customStyle}>
-                                                    <ReviewWrite adminOkDate={item.menteeOkDate} mentoNickname={item.mentoNickname} questionCategory={item.questionCategory} planPrice={item.planPrice} setReviewTitle={setReviewTitle} setReviewContent={setReviewContent} setReviewScore={setReviewScore} isOpen={isReviewWriteModalOpen} onClose={() => closeReviewWriteModal(item.reservationId)}/>
+                                                    <ReviewWrite adminOkDate={item.confirmDate} mentoNickname={item.mentorNickname} questionCategory={item.questionCategory} planPrice={item.planPrice} setReviewTitle={setReviewTitle} setReviewContent={setReviewContent} setReviewScore={setReviewScore} isOpen={isReviewWriteModalOpen} onClose={() => closeReviewWriteModal(item.mentoringId)}/>
                                                 </Modal>
                                                 <Modal isOpen={isCancelModalOpen} onRequestClose={closeCancelModal} style={customStyle}>
-                                                    <Cancel afterPaid={true} setCancelRefundBankNum={setCancelRefundBankNum} setCancelRefundBank={setCancelRefundBank} setReason={setCancelReason} isOpen={isCancelModalOpen} onClose={() => closeCancelModal(item.reservationId)}/>
+                                                    <Cancel afterPaid={true} setCancelRefundBankNum={setCancelRefundBankNum} setCancelRefundBank={setCancelRefundBank} setReason={setCancelReason} isOpen={isCancelModalOpen} onClose={() => closeCancelModal(item.mentoringId)}/>
                                                 </Modal>
                                             </div>
                                         </div>
@@ -1299,39 +1477,43 @@ useEffect(() => {
                                         <div className="card-body" style={{backgroundColor:"#303030", borderColor:"#303030", color:"#fff", padding:"0px", margin:"0px"}}>
                                             <div className="list-wrap">
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-label">등록일자</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>확정날짜</div>
-                                                    <div className="list-content">{item.adminOkDate}</div>
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>확정시간</div>
-                                                    <div className="list-content">{item.adminOkTime}</div>
+                                                    <div className="list-label">확정날짜</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[0]}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>플랜금액</div>
+                                                    <div className="list-label">확정시간</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[1].slice(0,5)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">플랜금액</div>
                                                     <div className="list-content">{item.planPrice}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>재학중인 학과</div>
-                                                    <div className="list-content">{item.currentDepartment}</div>
+                                                    <div className="list-label">재학중인 학과</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>질문종류</div>
+                                                    <div className="list-label">질문 종류</div>
                                                     <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>목표학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>질문내용</div>
+                                                    <div className="list-label">질문 내용</div>
                                                     <div className="list-content">{item.questionContent}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>약속장소</div>
+                                                    <div className="list-label">약속 장소</div>
                                                     <div className="list-content">{item.wishPosition}</div>
                                                 </div>
                                             </div>
@@ -1339,10 +1521,10 @@ useEffect(() => {
                                     </div>
                                     {/* 여기에서 버튼 누르면 환불 요청 수정 모달 구현해야함 */}
                                     <div className="btns-wrap bottom-btns-wrap pb-3">
-                                        <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openReviewCheckModal()} style={{backgroundColor:"#303030", borderColor:"#F68536", color:"#F68536"}}>후기 확인하기</a>
+                                        <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openReviewCheckModal(item.mentoringId)} style={{backgroundColor:"#303030", borderColor:"#F68536", color:"#F68536"}}>후기 확인하기</a>
                                     </div>
                                     <Modal isOpen={isReviewCheckModalOpen} onRequestClose={closeReviewCheckModal} style={customStyle}>
-                                        <ReviewCheck mentoringInfo={item} isOpen={isReviewCheckModalOpen} onClose={closeReviewCheckModal}/>
+                                        <ReviewCheck mentoringInfo={item} reviewCheckInfo={reviewCheckInfo} isOpen={isReviewCheckModalOpen} onClose={closeReviewCheckModal}/>
                                     </Modal>
                                 <br/><br/>
                                 </li>))
@@ -1365,31 +1547,39 @@ useEffect(() => {
                                         <div className="card-body">
                                             <div className="list-wrap">
                                                 <div className="list-item">
-                                                    <div className="list-label">신청일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-label">요청 일자</div>
+                                                    <div className="list-content">{item.requestDate.slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label">멘토닉네임</div>
-                                                    <div className="list-content">{item.mentoNickname}</div>
+                                                    <div className="list-label">멘티 닉네임</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">환불 은행명</div>
-                                                    <div className="list-content">{item.refundBank}</div>
+                                                    <div className="list-content">{item.refundBankName}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">환불 계좌</div>
-                                                    <div className="list-content">{item.refundBankNum}</div>
+                                                    <div className="list-content">{item.refundBankAcoount}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">환불 사유</div>
+                                                    <div className="list-content">{item.refundReason}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">환불 금액</div>
+                                                    <div className="list-content">{item.refundAmount}</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     {/* 여기에서 버튼 누르면 환불 요청 수정 모달 구현해야함 */}
-                                    <div className="btns-wrap bottom-btns-wrap pb-3">
+                                    {/* <div className="btns-wrap bottom-btns-wrap pb-3">
                                         <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openChangeRefundInfoModal()} >환불 정보 변경</a>
                                     </div>
                                     <Modal isOpen={isChangeRefundInfoModalOpen} onRequestClose={closeChangeRefundInfoModal} style={customStyle}>
                                         <ChangeRefundInfo setNewRefundBank={setNewRefundBank} setNewRefundBankNum={setNewRefundBankNum} refundBank={item.refundBank} refundBankNum={item.refundBankNum} isOpen={isChangeRefundInfoModalOpen} onClose={() => closeChangeRefundInfoModal(item.reservationId)}/>
-                                    </Modal>
+                                    </Modal> */}
                                 <br/><br/>
                                 </li>))
                             )
@@ -1436,47 +1626,41 @@ useEffect(() => {
                                     <div className="card mb-3">
                                         <div className="card-body">
                                             <div className="list-wrap">
-                                                <div className="list-item">
+                                            <div className="list-item">
                                                     <div className="list-label">등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">신청일자1</div>
-                                                    <div className="list-content">{item.wishDate1}</div>
+                                                    <div className="list-content">{item.wishDates[0].slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">신청일자2</div>
-                                                    <div className="list-content">{item.wishDate2}</div>
+                                                    <div className="list-content">{item.wishDates[1].slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">신청일자3</div>
-                                                    <div className="list-content">{item.wishDate3}</div>
-                                                </div>                                                    
+                                                    <div className="list-content">{item.wishDates[2].slice(0,16)}</div>
+                                                </div>   
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
+                                                </div>                                            
                                                 <div className="list-item">
                                                     <div className="list-label">플랜금액</div>
                                                     <div className="list-content">{item.planPrice}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">재학중인 학과</div>
-                                                    <div className="list-content">{item.currentDepartment}</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 종류</div>
-                                                    <div className="list-content">
-                                                        {item.questionCategory === 1
-                                                        ? "전과"
-                                                        : item.questionCategory === 2
-                                                        ? "복수전공"
-                                                        : item.questionCategory === 3
-                                                        ? "부전공"
-                                                        : item.questionCategory === 4
-                                                        ? "그외"
-                                                        : "알 수 없음"}
-                                                    </div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label">목표 학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
+                                                    <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 내용</div>
@@ -1485,8 +1669,7 @@ useEffect(() => {
                                                 <div className="list-item">
                                                     <div className="list-label">약속 장소</div>
                                                     <div className="list-content">{item.wishPosition}</div>
-                                                </div>
-                                                {/* 여기에서 버튼 누르면 각 요청에 맞는 모달 구현해야함 */}
+                                                </div>                                                {/* 여기에서 버튼 누르면 각 요청에 맞는 모달 구현해야함 */}
                                                 <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "10px 0 0 0", margin:"0 0 0 0"}}>
                                                     <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openChoiceReservationModal()} style={{backgroundColor:"#000", color:"#fff"}}>날짜 확정하기</a>
                                                 </div>
@@ -1494,7 +1677,7 @@ useEffect(() => {
                                                     <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openCancelModal()} style={{backgroundColor:"#FF4D4D", color:"#fff"}}>거절하기</a>
                                                 </div>
                                                 <Modal isOpen={isChoiceReservationModalOpen} onRequestClose={closeChoiceReservatioModal} style={customStyle}>
-                                                    <ChoiceReservationDate reservationList={[item.wishDate1, item.wishDate2, item.wishDate3]} setChoiceReservation={setChoiceReservation} isOpen={isChoiceReservationModalOpen} onClose={() => closeChoiceReservatioModal(item.reservationId)}/>
+                                                    <ChoiceReservationDate reservationList={item.wishDates} setChoiceReservation={setChoiceReservation} isOpen={isChoiceReservationModalOpen} onClose={() => closeChoiceReservatioModal(item.reservationId)}/>
                                                 </Modal>
                                                 <Modal isOpen={isCancelModalOpen} onRequestClose={closeCancelModal} style={customStyle}>
                                                     <Cancel afterPaid={false} setCancelRefundBankNum={setCancelRefundBankNum} setCancelRefundBank={setCancelRefundBank} setReason={setRefusalReason} isOpen={isCancelModalOpen} onClose={() => closeCancelModal(item.reservationId)}/>
@@ -1516,17 +1699,25 @@ useEffect(() => {
                                     <div className="card mb-3">
                                         <div className="card-body">
                                             <div className="list-wrap">
-                                                <div className="list-item">
+                                            <div className="list-item">
                                                     <div className="list-label">등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정날짜</div>
-                                                    <div className="list-content">{item.mentorOkDate.split(" ")[0]}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[0]}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정시간</div>
-                                                    <div className="list-content">{item.mentorOkDate.split(" ")[1].substring(0, 5)}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[1].slice(0,5)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">플랜금액</div>
@@ -1534,25 +1725,11 @@ useEffect(() => {
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">재학중인 학과</div>
-                                                    <div className="list-content">{item.menteeDepartment}</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 종류</div>
-                                                    <div className="list-content">
-                                                        {item.questionCategory === 1
-                                                        ? "전과"
-                                                        : item.questionCategory === 2
-                                                        ? "복수전공"
-                                                        : item.questionCategory === 3
-                                                        ? "부전공"
-                                                        : item.questionCategory === 4
-                                                        ? "그외"
-                                                        : "알 수 없음"}
-                                                    </div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label">목표 학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
+                                                    <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 내용</div>
@@ -1590,16 +1767,24 @@ useEffect(() => {
                                         <div className="card-body">
                                             <div className="list-wrap">
                                             <div className="list-item">
-                                                <div className="list-label">등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                                    <div className="list-label">등록일자</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정날짜</div>
-                                                    <div className="list-content">{item.adminOkDate}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[0]}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">확정시간</div>
-                                                    <div className="list-content">{item.adminOkTime}</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[1].slice(0,5)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">플랜금액</div>
@@ -1607,25 +1792,11 @@ useEffect(() => {
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">재학중인 학과</div>
-                                                    <div className="list-content">{item.currentDepartment}</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 종류</div>
-                                                    <div className="list-content">
-                                                        {item.questionCategory === 1
-                                                        ? "전과"
-                                                        : item.questionCategory === 2
-                                                        ? "복수전공"
-                                                        : item.questionCategory === 3
-                                                        ? "부전공"
-                                                        : item.questionCategory === 4
-                                                        ? "그외"
-                                                        : "알 수 없음"}
-                                                    </div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label">목표 학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
+                                                    <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
                                                     <div className="list-label">질문 내용</div>
@@ -1635,15 +1806,19 @@ useEffect(() => {
                                                     <div className="list-label">약속 장소</div>
                                                     <div className="list-content">{item.wishPosition}</div>
                                                 </div>
+
                                                 {/* 여기에서 버튼 누르면 각 요청에 맞는 모달 구현해야함 */}
                                                 <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "10px 0 0 0", margin:"0 0 0 0"}}>
                                                     <a className="btn btn-line-white btn-erfund btn-refund-edit" style={{borderColor:"#F68536", backgroundColor:"#fff", color:"#F68536"}}>예약완료</a>
                                                 </div>
+                                                {!completeMentoring(item.confirmDate)?
                                                 <div className="btns-wrap bottom-btns-wrap pb-3" style={{padding: "0 0 0 0", margin:"0 0 0 0"}}>
                                                     <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openCancelModal()} style={{backgroundColor:"#FF4D4D", color:"#fff"}}>거절하기</a>
-                                                </div>
+                                                </div>:
+                                                <></>
+                                                }
                                                 <Modal isOpen={isCancelModalOpen} onRequestClose={closeCancelModal} style={customStyle}>
-                                                    <Cancel afterPaid={false} setCancelRefundBankNum={setCancelRefundBankNum} setCancelRefundBank={setCancelRefundBank} setReason={setRefusalReason} isOpen={isCancelModalOpen} onClose={() => closeCancelModal(item.reservationId)}/>
+                                                    <Cancel afterPaid={false} setCancelRefundBankNum={setCancelRefundBankNum} setCancelRefundBank={setCancelRefundBank} setReason={setRefusalReason} isOpen={isCancelModalOpen} onClose={() => closeCancelModal(item.mentoringId)}/>
                                                 </Modal>
                                             </div>
                                         </div>
@@ -1669,40 +1844,44 @@ useEffect(() => {
                                     <div className="card mb-3" style={{backgroundColor:"#303030", borderColor:"#303030", color:"#fff", padding:"0px", margin:"0px"}}>
                                         <div className="card-body" style={{backgroundColor:"#303030", borderColor:"#303030", color:"#fff", padding:"0px", margin:"0px"}}>
                                             <div className="list-wrap">
-                                                <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>등록일자</div>
-                                                    <div className="list-content">{item.applyDate}</div>
+                                            <div className="list-item">
+                                                    <div className="list-label">등록일자</div>
+                                                    <div className="list-content">{item.applyDate.slice(0,16)}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>확정날짜</div>
-                                                    <div className="list-content">{item.adminOkDate}</div>
+                                                    <div className="list-label">멘토명</div>
+                                                    <div className="list-content">{item.mentorNickname}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>확정시간</div>
-                                                    <div className="list-content">{item.adminOkTime}</div>
+                                                    <div className="list-label">확정날짜</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[0]}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>플랜금액</div>
+                                                    <div className="list-label">확정시간</div>
+                                                    <div className="list-content">{item.confirmDate.split(" ")[1].slice(0,5)}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">신청자</div>
+                                                    <div className="list-content">{item.menteeNickname}</div>
+                                                </div>
+                                                <div className="list-item">
+                                                    <div className="list-label">플랜금액</div>
                                                     <div className="list-content">{item.planPrice}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>재학중인 학과</div>
-                                                    <div className="list-content">{item.currentDepartment}</div>
+                                                    <div className="list-label">재학중인 학과</div>
+                                                    <div className="list-content">{item.mentorDepartment}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>질문종류</div>
+                                                    <div className="list-label">질문 종류</div>
                                                     <div className="list-content">{item.questionCategory}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>목표학과</div>
-                                                    <div className="list-content">{item.hopeDepartment}</div>
-                                                </div>
-                                                <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>질문내용</div>
+                                                    <div className="list-label">질문 내용</div>
                                                     <div className="list-content">{item.questionContent}</div>
                                                 </div>
                                                 <div className="list-item">
-                                                    <div className="list-label" style={{color:"#fff"}}>약속장소</div>
+                                                    <div className="list-label">약속 장소</div>
                                                     <div className="list-content">{item.wishPosition}</div>
                                                 </div>
                                             </div>
@@ -1710,10 +1889,10 @@ useEffect(() => {
                                     </div>
                                     {/* 여기에서 버튼 누르면 환불 요청 수정 모달 구현해야함 */}
                                     <div className="btns-wrap bottom-btns-wrap pb-3">
-                                        <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openReviewCheckModal()} style={{backgroundColor:"#303030", borderColor:"#F68536", color:"#F68536"}}>후기 확인하기</a>
+                                        <a className="btn btn-line-white btn-refund btn-refund-edit" onClick={() => openReviewCheckModal(item.mentoringId)} style={{backgroundColor:"#303030", borderColor:"#F68536", color:"#F68536"}}>후기 확인하기</a>
                                     </div>
                                     <Modal isOpen={isReviewCheckModalOpen} onRequestClose={closeReviewCheckModal} style={customStyle}>
-                                        <ReviewCheck mentoringInfo={item} isOpen={isReviewCheckModalOpen} onClose={closeReviewCheckModal}/>
+                                        <ReviewCheck mentoringInfo={item} reviewCheckInfo={reviewCheckInfo} isOpen={isReviewCheckModalOpen} onClose={closeReviewCheckModal}/>
                                     </Modal>
                                 <br/><br/>
                                 </li>))

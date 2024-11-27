@@ -87,36 +87,6 @@ export function Reservation3() {
     console.log(confirmSelectedMentoringDateTimeList);
     console.log(selectedMentoringOption);
 
-    const convertToDateFormat = (dateStr: string) => {
-        // 1. 날짜와 시간을 정규 표현식으로 추출
-        console.log(dateStr);
-        const dateRegex = /(\d{1,2})월 (\d{1,2})일 ([\uac00-\ud7af]+) (오전|오후)\s*(\d{1,2})시/;
-        const matches = dateStr.match(dateRegex);
-        console.log(matches);
-        if (!matches) return null;
-      
-        // 2. 추출된 값을 변수에 할당
-        const month = matches[1];
-        const day = matches[2];
-        const period = matches[4]; // 오전 또는 오후
-        let hour = parseInt(matches[5]);
-      
-        // 3. 오후일 경우 12시간을 더해주기
-        if (period === "오후" && hour < 12) {
-          hour += 12;
-        } else if (period === "오전" && hour === 12) {
-          hour = 0; // 오전 12시는 자정으로 처리
-        }
-      
-        // 4. 현재 연도를 사용하거나 직접 연도를 지정할 수 있음
-        const year = new Date().getFullYear();
-      
-        // 5. 새로운 Date 객체 생성 (YYYY-MM-DD HH:mm:ss 포맷)
-        const formattedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} ${String(hour).padStart(2, '0')}:00:00`;
-      
-        return formattedDate;
-      };
-
     const handleButtonNext = () => {
         ButtonTracking(`/reservation3?mentoId=${cardMentoId}`, "내용 동의 및 예약완료");
         // 체크박스가 체크되었는지 확인
@@ -142,26 +112,26 @@ export function Reservation3() {
             }
             else if (confirmReservation1Info.selectedAskTopic == "4")
             {
-                category = "그 외";
+                category = "기타";
             }
             else if (confirmReservation1Info.selectedAskTopic == "5")
             {
-                category = "잘 모르겠음";
+                category = "그 외 잘 모르겠음";
             }
 
             const requestBody = {
-                mentorId: cardMentoId,
+                mentorId: parseInt(cardMentoId),
                 department: confirmReservation1Info.selectedCurrentDepartment,
                 questionCategory: category,
                 questionContent: confirmReservation1Info.selectedFreeAskText,
                 wishDates: [
-                    convertToDateFormat(confirmSelectedMentoringDateTimeList[0]),
-                    convertToDateFormat(confirmSelectedMentoringDateTimeList[1]),
-                    convertToDateFormat(confirmSelectedMentoringDateTimeList[2])
+                    confirmSelectedMentoringDateTimeList[0],
+                    confirmSelectedMentoringDateTimeList[1],
+                    confirmSelectedMentoringDateTimeList[2]
                 ],
                 wishPosition: confirmReservation1Info.selectedPosition,
                 phone: confirmReservation1Info.selectedPhone,
-                planId: selectedMentoringOption
+                planId: parseInt(selectedMentoringOption)
             }
 
             console.log(token);
@@ -204,8 +174,6 @@ export function Reservation3() {
             alert('모든 체크박스를 체크해 주세요.');
         }
     }
-    // JAR_NAME=$(ls -tr $REPOSITORY/$PROJECT_NAME/*.jar | tail -n 1)
-    // nohup java -jar -Dspring.config.location=classpath:/application.yml,classpath:/application-operation.yml -Dspring.profiles.active=operation $JAR_NAME 2>&1 &
 
     const handleButtonClick = async () => {
         ButtonTracking(`/reservation3?mentoId=${cardMentoId}`, "네이버 페이(준비중)");
@@ -214,7 +182,7 @@ export function Reservation3() {
     return (
         <div ref={containerRef}>{!cardMentoId ? (<Navigate to="/" replace />):(
             <div lang='ko'>
-            <Title title="멘토 정보"/>
+            <Title title="예약 3단계"/>
             <Header />
             <div className="subpage-wrap step3-wrap">
                 <div className="container-fluid">
@@ -237,12 +205,12 @@ export function Reservation3() {
                         </div>
                     </div>
                     <div>
-                        <p className="visual-txt visual-txt-sm mb-2">
+                        <p className="visual-txt visual-txt-sm">
                             결제 방법을 선택해주세요
                         </p>
                         <div className="top-btns-wrap btns-wrap-hr">
                             <button className="btn btn-line-orange">무통장 입금</button>
-                            <button className="btn btn-line-white" onClick={() => handleButtonClick()}>네이버 페이(준비중)</button>
+                            <button className="btn btn-line-white disabled" onClick={() => handleButtonClick()}>네이버 페이(준비중)</button>
                         </div>
                         <div className="write-area">
                             {/* <input type="hidden" name="mentoId"/> */}
@@ -257,7 +225,10 @@ export function Reservation3() {
                             {/* </div> */}
                             
                             <div className="">
-                                <p className="form-label">예약 정보</p>
+                                <div className="th-box">
+                                    <span className="very-small-txt">확인</span>
+                                    <span className="very-small-txt">내역</span>
+                                </div>
                                 <div className="form-check default-form-check">
                                     <input className="form-check-input" type="checkbox" id="defaultCheck11" ref={checkboxRef1} required/>
                                     <label className="form-check-label" htmlFor="defaultCheck11" style={{fontSize : "14px"}}>
@@ -267,15 +238,18 @@ export function Reservation3() {
                                 <div className="form-check default-form-check">
                                     <input className="form-check-input" type="checkbox" id="defaultCheck22" ref={checkboxRef2} required/>
                                     <label className="form-check-label" htmlFor="defaultCheck22" style={{fontSize : "14px"}}>
-                                        멘토링 날짜 확정 후 48시간 이내 취소시 멘토링 금액의 50% 까지만 환불됨을 인지하였습니다.
+                                    멘토링 날짜 확정 후 <span className='txt-imple'>48시간 이내 취소시 멘토링 금액의 50% 까지만 환불됨</span>을 인지하였습니다.
                                     </label>
                                 </div>
                                 <div className="form-check default-form-check">
                                     <input className="form-check-input" type="checkbox" id="defaultCheck33" ref={checkboxRef3} required/>
                                     <label className="form-check-label" htmlFor="defaultCheck33" style={{fontSize : "14px"}}>
-                                        멘토링 날짜 확정 후 24시간 이내 취소시 멘토링 금액 환불은 불가함을 인지하였습니다.
+                                    멘토링 날짜 확정 후 <span className='txt-imple'>24시간 이내 취소시 멘토링 금액 환불은 불가</span>함을 인지하였습니다.
                                         <br/>
                                     </label>
+                                </div>
+                                <div className='tf-box'>
+                                    <span className="very-small-txt">모든 내용 확인 필요</span>
                                 </div>
                             </div>
                             <div className="btns-wrap bottom-btns-wrap">

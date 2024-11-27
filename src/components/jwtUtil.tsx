@@ -33,7 +33,7 @@ export const getTokenUserId = () => {
     if (token) 
     {
         const decoded = parseJwt(token);
-        return decoded.userId
+        return decoded.socialId;
     }
     else
     {
