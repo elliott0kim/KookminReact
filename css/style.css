@@ -1024,7 +1024,7 @@ p {
 .carousel-container {
   overflow: hidden; /* 바깥으로 넘치는 부분 숨기기 */
   width: 300px; /* 카드 하나의 너비 */
-  height: 200px; /* 카드 높이 */
+  height: 300px; /* 카드 높이 */
   position: relative;
 }
 
@@ -1036,7 +1036,7 @@ p {
 .card-for-flow {
   flex: 0 0 80%; /* 카드 크기를 컨테이너 크기와 동일하게 설정 */
   margin-right: 15px; /* 카드 사이의 여백 */
-  height: 180px;
+  height: 270px;
   gap: 12px;
   border-radius: 8px;
   border: 0.5px solid var(--white, #FFF);
