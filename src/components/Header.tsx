@@ -27,6 +27,9 @@ function Header() {
                 </h1>
                 <nav>
                     <ul className="menu-list">
+                        <li className="menu-item">
+                            <Link to="/board">아티클</Link>
+                        </li>
                         {loginStatus ?
                         <>
                         <li className="menu-item">

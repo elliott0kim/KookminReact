@@ -18,6 +18,8 @@ import { LoginProvider } from './user/auth'
 import ChangePwd from './user/changePwd'
 import HotjarHeader from './components/Hotjar';
 import GAHeader from './components/GA';
+import Board from './mento/Board';
+import BoardDetail from './mento/BoardDetail';
 
 function App() {
 
@@ -35,6 +37,8 @@ function App() {
             <Route path='/mento' element={<MentoPage />} />
             {/* <Route path='/test' element={<CommonErrorPage />} /> */}
             <Route path='/mypage' element={<Mypage />} />
+            <Route path='/boards' element={<Board />} />
+            <Route path='/boards/:boardId' element={<BoardDetail />} />
             <Route path='/reservation1' element={<Reservation1 />} />
             <Route path='/reservation2' element={<Reservation2 />} />
             <Route path='/reservation3' element={<Reservation3 />} />
