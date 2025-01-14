@@ -6,9 +6,11 @@ import '/css/fix_cmr.css'
 import '/css/board.css'
 import Header from '../components/Header.js'
 import Title from '../components/Title.js'
-import { Link } from "react-router-dom";
-import { useEffect, useState } from 'react'
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { checkTokenValidity } from '../components/jwtUtil.js'
+import { LoginContext } from '../user/auth.js'
 
 interface BoardItem {
     boardId: number;
@@ -19,19 +21,58 @@ interface BoardItem {
 }
 
 export function Board() {
+    const navigate = useNavigate();
+    const context = useContext(LoginContext);
+
+    // context가 undefined일 가능성에 대비하여 기본값 설정
+    if (!context) {
+        throw new Error('useContext must be used within a LoginProvider');
+    }
+    
+    const { loginStatus, setLoginStatus } = context;
+    const token = checkTokenValidity();
+    console.log(loginStatus);
+
+    //멘토인지 아닌지 확인하기
+    const [memberId, setMemberId] = useState<number>();
+    const [mentorOk, setMentorOk] = useState<boolean>(false);
+    /*
+    useEffect(() => {
+        const fetchData = async () => {
+        if(loginStatus == false){
+            return;
+        }
+        try {
+            const response = await axios.get(`/back/api/mentors/mentorChk`,{
+            headers: {
+                'Authorization': `Bearer ${token}`,// Bearer Token을 Authorization 헤더에 포함
+            }});
+            console.log(response.data.data[0]);
+            //setMemberId(response.data.data[0]);
+        } catch (err) {
+            setError('데이터를 가져오는 중 오류가 발생했습니다.');
+            console.error(err);
+        } finally {
+        }
+        };
+
+        fetchData(); // 컴포넌트가 처음 렌더링될 때만 fetchData 실행
+    },[]);
+*/
+    //수정이나 삭제 버튼 작성자만
+    // 조건: 로그인 상태가 true이고, ...
+    const canEditOrDelete = loginStatus;
+
+    //board 목록 조회
     const [boards, setBoards] = useState<BoardItem[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-        try {
-            //const response = await axios.get(`/back/boards`);
-            const response = await axios.get("/back/boards");
-            //console.log(response.data.data);
             
-            // console.log(response.data);
+        try {
+            const response = await axios.get("/back/boards");
             const updatedImage = response.data.data.map(s=>{
                 if (s.imgData) {
                     const url =  `data:image/jpeg;base64,${s.imgData}`;
-                    console.log(s);
                     return { ...s, imgUrl: url };
                 }
                 return s;
@@ -78,7 +119,7 @@ export function Board() {
                                                 {board.imgUrl ? (
                                                     <img src={board.imgUrl} alt="Blob 이미지" />
                                                 ) : (
-                                                    <div className="no-thumnail opacity-50">썸네일 이미지 없음</div>
+                                                    <div className="no-thumnail">썸네일 이미지 없음</div>
                                                 )}
                                             </div>
                                         </div>
@@ -92,7 +133,9 @@ export function Board() {
                     </div>
                 </div>            
             </div>
-            <Link to="/api/boards" className='btn btn-primary btn-board-write'><i className="bi bi-pencil-square"></i></Link>
+            {canEditOrDelete && (
+                <Link to="/api/boards" className='btn btn-primary btn-board-write'><i className="bi bi-pencil-square"></i></Link>
+            )}
         </div>
         </>
     )

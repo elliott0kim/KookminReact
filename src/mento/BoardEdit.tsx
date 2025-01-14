@@ -44,6 +44,10 @@ export function BoardEdit() {
     // 기존 Board 데이터 가져오기
     const { boardId } = useParams<BoardDetailParams>();
     const [oldBoard, setOldBoard] = useState<BoardItem | null>(null);
+    const [imgData, setImageData] = useState<File | null>(null);
+    const [title, setTitle] = useState<string | undefined>(oldBoard?.title);
+    const [content, setContent]  = useState<string | undefined>(oldBoard?.content || "");
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,10 +57,8 @@ export function BoardEdit() {
                   Authorization: `Bearer ${token}`, // Bearer Token을 Authorization 헤더에 포함
                 },
               });
-            console.log(response.data.data[0]);
             setOldBoard(response.data.data[0]);
             // console.log(response.data);
-            console.log(oldBoard);
             
             const updatedImage = response.data.data.map(s=>{
                 if (s.imgData) {
@@ -66,25 +68,28 @@ export function BoardEdit() {
                 }
                 return s;
             });
-            setOldBoard(updatedImage);
+            setOldBoard(updatedImage[0]);
+            
+            
         } catch (err) {
             setError('데이터를 가져오는 중 오류가 발생했습니다.');
             setOldBoard.error(err);
         } finally {
         }
         };
+        
 
         fetchData(); // 컴포넌트가 처음 렌더링될 때만 fetchData 실행
     }, [boardId]);
     if (!setOldBoard) {
         return <p>잠시만 기다려주세요..</p>;
     }
-
-    // 데이터 전송 코드
-    const [imgData, setImageData] = useState<File | null>(null);
-    const [title, setTitle] = useState<string>('');
-    const [content, setContent]  = useState<string>('');
+    useEffect(()=>{
+        setTitle(oldBoard?.title);
+        setContent(oldBoard?.content);
+    },[oldBoard]);
     
+    // 데이터 전송 코드   
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -103,7 +108,7 @@ export function BoardEdit() {
             console.log(`${key}: ${value}`);
         });
         
-        axios.post('/back/api/boards', formData, {
+        axios.put('/back/api/boards/'+boardId, formData, {
         headers: {
             'Authorization': `Bearer ${token}`,// Bearer Token을 Authorization 헤더에 포함
         }})
@@ -150,7 +155,7 @@ export function BoardEdit() {
                                      {oldBoard!=null&&oldBoard.imgUrl ? (
                                         <img src={oldBoard.imgUrl} alt="Blob 이미지" />
                                     ) : (
-                                        <div className="no-thumnail opacity-50">썸네일 이미지 없음</div>
+                                        <div className="no-thumnail">썸네일 이미지 없음</div>
                                     )} 
                                 </div>
                             </div>
