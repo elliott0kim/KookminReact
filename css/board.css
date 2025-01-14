@@ -1,6 +1,24 @@
 .border-bottom{
     border-bottom: 1px solid #fff;
 }
+.board-wrap{
+    padding-bottom:64px;
+}
+.btn-board-write{
+    position:fixed;
+    width:64px;
+    height:64px;
+    bottom:16px;
+    right:16px;
+    font-size:24px;
+    border-radius: 1000px;
+    box-shadow: 0 0 16px rgba(0,0,0,0.3);
+}
+.btn-board-write .bi-pencil-square{
+    position:relative;
+    right:-2px;
+    top:-1px;
+}
 .board-wrap .visual-txt{
     line-height:1.5;
 }

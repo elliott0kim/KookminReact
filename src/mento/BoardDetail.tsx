@@ -73,6 +73,10 @@ export function BoardDetail() {
                         <p>
                             {board.content}
                         </p>
+                        <div className='btns-wrap pt-5'>
+                            <Link to={`/api/boards/${boardId}`} className='btn btn-line-white'>수정</Link>
+                            <button className='btn btn-danger'>삭제</button>
+                        </div>
                     </div>
                     <div className="board-bottom pb-1">
                         <p className='sub-txt'>이 글을 쓴 멘토에게<br />고민을 상담받고 싶다면?</p>

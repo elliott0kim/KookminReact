@@ -20,6 +20,8 @@ import HotjarHeader from './components/Hotjar';
 import GAHeader from './components/GA';
 import Board from './mento/Board';
 import BoardDetail from './mento/BoardDetail';
+import BoardCreate from './mento/BoardCreate';
+import BoardEdit from './mento/BoardEdit';
 
 function App() {
 
@@ -32,13 +34,16 @@ function App() {
             <Route path='/' element={<MainPage />} />
             <Route path='/changePwd' element={<ChangePwd />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/logout' element={<Logout />} />
+            <Route path='/logout' element={<Logout />} />l
             <Route path='/signup' element={<Signup />} />
             <Route path='/mento' element={<MentoPage />} />
             {/* <Route path='/test' element={<CommonErrorPage />} /> */}
             <Route path='/mypage' element={<Mypage />} />
             <Route path='/boards' element={<Board />} />
             <Route path='/boards/:boardId' element={<BoardDetail />} />
+            <Route path='/api/boards' element={<BoardCreate />} />
+            <Route path='/api/boards/:boardId' element={<BoardEdit />} />
+
             <Route path='/reservation1' element={<Reservation1 />} />
             <Route path='/reservation2' element={<Reservation2 />} />
             <Route path='/reservation3' element={<Reservation3 />} />

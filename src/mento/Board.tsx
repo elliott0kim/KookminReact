@@ -15,20 +15,28 @@ interface BoardItem {
     createdDate: string;
     writer: string;
     title: string;
-    imgPath: string;
+    imgUrl: string;
 }
-
-
 
 export function Board() {
     const [boards, setBoards] = useState<BoardItem[]>([]);
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await axios.get(`/back/boards`);
-            console.log(response.data.data);
-            setBoards(response.data.data);
+            //const response = await axios.get(`/back/boards`);
+            const response = await axios.get("/back/boards");
+            //console.log(response.data.data);
+            
             // console.log(response.data);
+            const updatedImage = response.data.data.map(s=>{
+                if (s.imgData) {
+                    const url =  `data:image/jpeg;base64,${s.imgData}`;
+                    console.log(s);
+                    return { ...s, imgUrl: url };
+                }
+                return s;
+            })
+            setBoards(updatedImage);
         } catch (err) {
             setError('데이터를 가져오는 중 오류가 발생했습니다.');
             console.error(err);
@@ -42,7 +50,7 @@ export function Board() {
         return <p>잠시만 기다려주세요..</p>;
     }
     return (
-        <>  
+        <>
         <div lang='ko'>
             <Title title="아티클"/>
             <Header />
@@ -67,7 +75,11 @@ export function Board() {
                                                 <p>{board.title}</p>
                                             </div>
                                             <div className="card-thumnail">
-                                                <img src={`/images/${board.imgPath}`} alt="" />
+                                                {board.imgUrl ? (
+                                                    <img src={board.imgUrl} alt="Blob 이미지" />
+                                                ) : (
+                                                    <div className="no-thumnail opacity-50">썸네일 이미지 없음</div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -80,6 +92,7 @@ export function Board() {
                     </div>
                 </div>            
             </div>
+            <Link to="/api/boards" className='btn btn-primary btn-board-write'><i className="bi bi-pencil-square"></i></Link>
         </div>
         </>
     )
