@@ -31,12 +31,10 @@ export function Board() {
     
     const { loginStatus, setLoginStatus } = context;
     const token = checkTokenValidity();
-    console.log(loginStatus);
 
     //멘토인지 아닌지 확인하기
-    const [memberId, setMemberId] = useState<number>();
     const [mentorOk, setMentorOk] = useState<boolean>(false);
-    /*
+    
     useEffect(() => {
         const fetchData = async () => {
         if(loginStatus == false){
@@ -47,8 +45,8 @@ export function Board() {
             headers: {
                 'Authorization': `Bearer ${token}`,// Bearer Token을 Authorization 헤더에 포함
             }});
-            console.log(response.data.data[0]);
-            //setMemberId(response.data.data[0]);
+            
+            setMentorOk(response.data.data[0].mentorCheck);
         } catch (err) {
             setError('데이터를 가져오는 중 오류가 발생했습니다.');
             console.error(err);
@@ -58,10 +56,26 @@ export function Board() {
 
         fetchData(); // 컴포넌트가 처음 렌더링될 때만 fetchData 실행
     },[]);
-*/
-    //수정이나 삭제 버튼 작성자만
-    // 조건: 로그인 상태가 true이고, ...
-    const canEditOrDelete = loginStatus;
+
+    
+    // 조건: 로그인 했고 , mentor 일 때만 글 쓰기 가능하게 
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (!loginStatus) {
+            e.preventDefault();
+            
+            const confirmLogin = window.confirm("로그인 후 사용 가능합니다. 로그인하시겠습니까?");
+            if (confirmLogin) {
+                navigate("/login"); // 로그인 페이지로 이동
+            }
+        } else if (!mentorOk) {
+            e.preventDefault();
+            alert("멘토 전용 게시판으로 멘토만 가능한 서비스입니다.");
+        } else {
+            // loginStatus와 mentorOk가 모두 true일 때만 이동 허용
+            return;
+        }
+    };
+    
 
     //board 목록 조회
     const [boards, setBoards] = useState<BoardItem[]>([]);
@@ -133,9 +147,7 @@ export function Board() {
                     </div>
                 </div>            
             </div>
-            {canEditOrDelete && (
-                <Link to="/api/boards" className='btn btn-primary btn-board-write'><i className="bi bi-pencil-square"></i></Link>
-            )}
+            <Link to="/api/boards" className='btn btn-primary btn-board-write' onClick={handleClick}><i className="bi bi-pencil-square"></i></Link>
         </div>
         </>
     )
