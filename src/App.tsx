@@ -22,9 +22,16 @@ import Board from './mento/Board';
 import BoardDetail from './mento/BoardDetail';
 import BoardCreate from './mento/BoardCreate';
 import BoardEdit from './mento/BoardEdit';
+import AdminLogin from './admin/Login';
+import AdminUserMng from './admin/UserMng';
+import AdminDashboard from './admin/Dashboard';
+import AdminTodoList from './admin/Todolist';
+import AdminTodolistHistory from './admin/TodolistHistory';
+import AdminPayHistory from './admin/PayHistory';
+import AdminReservationHistory from './admin/ReservationHistory';
+
 
 function App() {
-
     return (
       <LoginProvider>
         <Router>
@@ -34,7 +41,8 @@ function App() {
             <Route path='/' element={<MainPage />} />
             <Route path='/changePwd' element={<ChangePwd />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/logout' element={<Logout />} />l
+            <Route path='/admin/login' element={<AdminLogin />} />
+            <Route path='/logout' element={<Logout />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/mento' element={<MentoPage />} />
             {/* <Route path='/test' element={<CommonErrorPage />} /> */}
@@ -43,6 +51,15 @@ function App() {
             <Route path='/boards/:boardId' element={<BoardDetail />} />
             <Route path='/api/boards' element={<BoardCreate />} />
             <Route path='/api/boards/:boardId' element={<BoardEdit />} />
+            <Route path='/admin/userMng' element={<AdminUserMng />} />
+            <Route path='/admin/todoList' element={<AdminTodoList />} />
+            <Route path='/admin/todoList/history' element={<AdminTodolistHistory />} />
+            <Route path='/admin/dashboard' element={<AdminDashboard />} />
+            <Route path='/admin/payHistory' element={<AdminPayHistory />} />
+            <Route path='/admin/reservationHistory' element={<AdminReservationHistory />} />
+        
+            
+            
 
             <Route path='/reservation1' element={<Reservation1 />} />
             <Route path='/reservation2' element={<Reservation2 />} />

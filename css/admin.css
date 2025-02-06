@@ -1,0 +1,617 @@
+/*S: Admin common*/
+.modal-header{
+    border-bottom: 1px solid #aaa;
+}
+.admin-wrap{
+    padding-bottom: 65px;
+}
+.container-fluid{
+    padding-left:16px;
+    padding-right:16px;
+}
+.btns-wrap-hr{
+    display:flex;
+}
+.card-body .btn-default{
+    color:#303030;
+    border:1px solid #ddd;
+    min-width:90px;
+}
+.btns-wrap-hr .btn-primary{
+    flex:2 1 auto;
+}
+.btns-wrap-hr .btn-secondary{
+    flex:2 1 auto;
+    background:#303030;
+}
+.card-body .btns-wrap-hr{
+    padding-top:16px;
+}
+.list-wrap{
+    font-family: NotoSansKoreanDR;
+}
+
+.list-wrap .list-title{
+    margin-bottom:10px;
+    font-family: NotoSansKoreanB;
+}
+.modal-body .list-wrap{
+    margin-bottom: 24px;
+}
+.modal-body .list-wrap:last-child{
+    margin-bottom:0;
+}
+.modal-body .list-wrap .list-item{
+    padding: 6px 0;
+}
+
+/*E: Admin common*/
+/*S: Admin title*/
+.title-wrap .page-title{
+    padding-top:16px;
+    padding-bottom:8px;
+    font-size:24px;
+}
+
+.title-wrap .sub-title{
+    color:rgba(255,255,255, 0.5);
+    font-size: 16px;
+    font-family: NotoSansKoreanR;
+    line-height:1.6;
+}
+/*E: Admin title*/
+
+/*S: AdminGnb*/
+.AdminGnb{
+    display:flex;
+    width:100%;
+    position:fixed;
+    justify-content: space-between;
+    bottom:0;
+    left:0;
+    background:#303030;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+.AdminGnb .nav-item{
+    display:flex;
+    padding:12px;
+    flex: 0 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+/*E: AdminGnb*/
+
+/*S: 할일 목록*/
+.AdminCountList{
+    display:flex;
+    gap: 4px;
+    position:relative;
+    padding:12px 0;
+    transition:0.5s all;
+    z-index: 100;
+}
+.AdminCountList.floating{
+    gap:0;
+    position:relative;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:48px;
+    padding:0;
+    background:rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+}
+.AdminCountList.floating .CountBox{
+    flex-direction: row;
+    border-radius: 0;
+    height:auto;
+    border-right:1px solid rgba(255, 255, 255, 0.15);
+}
+.AdminCountList.floating .CountBox:last-child{
+    border-right:0;
+}
+.AdminCountList.floating .num{
+    margin-right:8px;
+    font-size:16px;
+    
+}
+.AdminCountList.floating .label{
+    margin-top:0;
+    font-size: 14px;
+}
+.CountBox{
+    flex: 1 1 25%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 80px;
+    padding:4px;
+    border-radius: 8px;
+    color:#fff;
+    background:rgba(0,0,0,0.2);
+    transition: all 0.5s;
+    text-decoration: none;
+}
+.CountBox:active{
+    transition: all 0.3s;
+    background:rgba(0,0,0,0.4);
+}
+.CountBox:focus, .CountBox:hover{
+    text-decoration: none;
+}
+.CountBox .num{
+    font-size:20px;
+    color: #F68536;
+}
+.CountBox .label{
+    margin-top:6px;
+    font-family: NotoSansKoreanDR;
+    color:rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+}
+.btn-todolist-history{
+    margin-bottom:12px;
+}
+.card-list-wrap{
+    padding: 24px 0;
+}
+.card-title-wrap .title{
+    color:#f7f7f7;
+    font-size:18px;
+}
+.card-title-wrap .discript{
+    margin-top:6px;
+    font-family: NotoSansKoreanR;
+    color:rgba(255, 255, 255, 0.6);
+}
+.CardList{
+    padding-top:16px;
+}
+.CardList .card{
+    margin-bottom: 16px;
+}
+.CardList .card:last-child{
+    margin-bottom:0;
+}
+/*E: 할일 목록*/
+/*S: 회원 관리*/
+.form-group-hr{
+    display:flex;
+}
+.form-group-hr input.form-control{
+    flex: 1 1 auto;
+    border-radius: 4px 0 0 4px;
+    height: 48px;
+    margin-right: -1px;
+}
+.form-group-hr .btn-icon{
+    display:flex;
+    width: 64px;
+    height:48px;
+    border-radius: 0 4px 4px 0;
+    
+}
+.form-group-hr .btn-icon.btn-primary{
+    background:#FA6700;
+}
+
+.form-group-hr .btn-icon.btn-primary:active{
+    transition:all 0.3s;
+    background:#d53d00;
+}
+.form-group-hr .btn-icon img{
+    width:24px;
+}
+.search-user{
+    margin-top:12px;
+    margin-bottom:12px;
+}
+/*E: 회원 관리*/
+/*S: user-list-wrap*/
+.user-list-wrap{
+    padding-bottom:36px;
+}
+.thead{
+    display:flex;
+    border-top:1px solid #fff;
+    border-bottom: 1px solid rgba(255, 255,255,0.1);
+    min-width:0;
+}
+.th,
+.tr-top .td
+{
+    flex: 0 0 auto;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:6px;
+    word-break: keep-all;
+    line-height:1.7;
+    text-align: center;
+    border-right:1px solid rgba(255, 255, 255, 0.1);
+}
+.th:last-child,
+.td:last-child{
+    border-right:0;
+}
+.th:nth-child(1),
+.td:nth-child(1){
+    width: 48px;
+    word-break: break-all;
+}
+.th:nth-child(2),
+.td:nth-child(2){
+    width: 90px;
+}
+.th:nth-child(3),
+.td:nth-child(3){
+    flex: 1 1 auto;
+}
+.th:nth-child(4),
+.td:nth-child(4){
+    width: 64px;
+    word-break: break-all;
+}
+.tr-top{
+    display:flex;
+    font-family: NotoSansKoreanDR;
+    color:rgba(255,255,255,1);
+    border-bottom:1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(250, 103, 0, 0.1);
+    text-decoration: none;
+}
+.tr-top:hover{
+    color:rgba(255,255,255,1);
+    text-decoration: none;
+}
+.tr-top.collapsed{
+    /*닫힘*/
+    background:transparent;
+    color:rgba(255,255,255,0.7);
+}
+.user-control-area{
+    background: #262626;
+    color: #fff;
+}
+.user-control-title{
+    padding: 20px;
+    text-align: center;
+    font-size:14px;
+}
+.user-control-tabs{
+    display:flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.user-control-tabs .nav-link{
+    flex: 1 1 auto;
+    display:flex;
+    position:relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:12px;
+    border:none;
+    padding-bottom:20px;
+}
+.user-control-tabs .nav-link::after{
+    content:'';
+    width:100%;
+    height:2px;
+    position:absolute;
+    bottom:0;
+    left:0;
+    background:#fff;
+    transform-origin: center center;
+    transition:all 0.2s;
+    transform: scale(0);
+}
+.form-section{
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+.form-section:last-child{
+    border-bottom:0;
+}
+.user-control-tabs .btn-ban::after{
+    background: #A80000;
+}
+.user-control-tabs .nav-link img{
+    filter:invert(100%);
+    opacity: 0.5;
+    transition:all 0.3s;
+    width:24px;
+    height:24px;
+}
+.user-control-tabs .nav-link .label{
+    color:rgba(255, 255, 255, 0.6);
+    font-family: NotoSansKoreanDR;
+    font-weight: 300;
+    font-size:12px;
+    transition:all 0.3s;
+}
+
+.user-control-tabs .nav-link.active{
+    background:transparent;
+    border:0;
+    color:#fff;
+}
+.user-control-tabs .nav-link.active img{
+    filter:invert(100%);
+    opacity: 1;
+}
+
+.user-control-tabs .btn-ban.active img{
+    filter: invert(27%) sepia(96%) saturate(7488%) hue-rotate(358deg);
+    opacity: 0.7;
+}
+
+.user-control-tabs .nav-link.active .label{
+    color:#fff;
+}
+.user-control-tabs .btn-ban.active .label{
+    color:#f00;
+}
+.user-control-tabs .nav-link.active::after{
+    transform: scale(100%);
+}
+.user-control-area .tab-pane{
+    background:rgba(0,0,0,0.2);
+}
+.textarea-comment{
+    width:100%;
+    min-height:100px;
+    height:auto;
+    overflow: visible;
+    background:transparent;
+    border:none;
+    padding: 16px;
+    line-height:1.5;
+    font-family: NotoSansKoreanDR;
+    color:#fff;
+    resize: none;
+    box-sizing: border-box;
+}
+.textarea-comment:focus{
+    outline:0;
+}
+.in-tab-btns .btn{
+    border-radius: 0;
+    margin:0;
+    border-bottom:1px solid rgba(255, 255, 255, 0.1);
+}
+.in-tab-btns .btn-cancel{
+    background:rgba(255,255,255,0.1);
+}
+.btns-wrap.in-tab-btns .btn-primary{
+    background:#FA6700;
+}
+.btns-wrap.in-tab-btns .btn-danger{
+    flex: 1 1 auto;
+    background:#A80000;
+}
+.input-mail-title{
+    border:0;
+    background:transparent;
+    width:100%;
+    min-height: 48px;
+    padding: 0 20px;
+    color:rgba(255, 255, 255, 0.8);
+}
+.input-mail-wrap{
+    position:relative;
+}
+.input-mail-wrap .input-border{
+    display:block;
+    position:absolute;
+    bottom:0;
+    left:16px;
+    height:1px;
+    width:calc(100% - 32px);/*padding 값 빼주기*/
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+.input-mail-title:focus{
+    outline:0;
+}
+.input-mail-title:focus ~ .input-border{
+    border-bottom: 1px solid #F68536;
+}
+.textarea-mail{
+    width:100%;
+    min-height:100px;
+    height:auto;
+    overflow: visible;
+    background:transparent;
+    border:none;
+    padding: 16px;
+    line-height:1.5;
+    font-family: NotoSansKoreanDR;
+    color:#fff;
+    resize: none;
+    box-sizing: border-box;
+}
+.textarea-mail:focus{
+    outline:0;
+}
+.ban-content-area{
+    padding:20px;
+}
+.ban-content-area .discripts{
+    font-family: NotoSansKoreanDR;
+    line-height:1.7;
+    color:rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+}
+.ban-content-area .form-check input{
+    visibility: hidden;
+}
+.ban-content-area .form-check{
+    padding:0;
+}
+.ban-content-area .form-check .form-check-label{
+    display:flex;
+    align-content: center;
+    align-items: center;
+    position:relative;
+    padding:8px 0;
+    margin:8px 0;
+    padding-left:28px;/*18px + 간격*/
+    font-family: NotoSansKoreanDR;
+    color:rgba(255, 255, 255, 0.7);
+}
+.ban-content-area .form-check .form-check-label::before,
+.ban-content-area .form-check .form-check-label::after{
+    content:'';
+    display: flex;
+    position:absolute;
+    left:0;
+    top:calc(50% - 9px);
+    width: 18px;
+    height:18px;
+    border-radius: 200px;
+    background:rgba(255, 255, 255, 0.1);
+    transition:all 0.3s;
+    border:1px solid transparent;
+}
+.ban-content-area .form-check .form-check-label::after{
+    width:10px;
+    height:10px;
+    left: 4px;
+    top:calc(50% - 5px);
+    background: #D40606;
+    transform-origin: center center;
+    transform: scale(0);
+}
+.ban-content-area .form-check input:checked ~
+.form-check-label::before{
+    border: 1px solid #D40606;
+    background:transparent;
+}
+.ban-content-area .form-check input:checked ~
+.form-check-label::after{
+    transform: scale(100%);
+}
+.hidden-area{
+    height:0;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+.hidden-area textarea, .ban-end-reason{
+    width:100%;
+    height:100%;
+    border-radius: 8px;
+    background:rgba(255, 255, 255, 0.1);
+    border:none;
+    resize: none;
+    padding:12px;
+    color:rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    font-family: NotoSansKoreanDR;
+    line-height:1.5;
+}
+.ban-end-reason{
+    margin-top:12px;
+    height:120px;
+}
+.hidden-area textarea:focus,
+.ban-end-reason:focus{
+    outline:0;
+}
+.ban-content-area .form-check input:checked ~
+.hidden-area{
+    height:90px;
+    padding-bottom:12px;
+}
+.ban-days-area{
+    padding-left:24px;
+}
+.ban-content-area .form-check input:checked ~
+.hidden-area.ban-days-area{
+    height:40px;
+}
+.radio-group-hr{
+    display:flex;
+}
+.radio-group-hr .form-check .form-check-label::before,
+.radio-group-hr .form-check .form-check-label::after{
+    display:none;
+}
+.radio-group-hr .form-check{
+    flex: 1 1 auto;
+}
+.radio-group-hr .form-check .form-check-label{
+    flex: 1 1 auto;
+    display:flex;
+    justify-content: center;
+    border-radius: 0;
+    border:1px solid rgba(255, 255, 255, 0.1);
+    padding:8px 12px;
+    margin:0;
+}
+.radio-group-hr .form-check:first-child .form-check-label{
+    border-radius: 4px 0 0 4px;
+}
+.radio-group-hr .form-check:last-child .form-check-label{
+    border-radius: 0 4px 4px 0;
+}
+.radio-group-hr .form-check 
+.form-check-input:checked ~ .form-check-label{
+    border: 1px solid #f00;
+    background:rgba(255, 0, 0, 0.08);
+    color:#f00;
+}
+
+
+.comment-box{
+    padding: 20px;
+    padding-top:8px;
+    padding-right:8px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    color:rgba(255, 255, 255, 0.9);
+    font-size:12px;
+}
+.comment-box:last-child{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.comment-top{
+    display:flex;
+    align-items: center;
+    align-content: center;
+}
+.comment-top .writer{
+    line-height:1.5;
+    flex: 1 1 auto;
+}
+.btn-comment-delete{
+    width:32px;
+    height:32px;
+}
+.btn-comment-delete img{
+    width: 12px;
+    height:12px;
+}
+.comment-body{
+    padding-right:12px;
+}
+.comment-box .content{
+    font-family: NotoSansKoreanDR;
+    font-weight: 300;
+    font-size:14px;
+    line-height:1.5;
+    color:rgba(255, 255, 255, 0.8);
+    margin-bottom:4px;
+}
+.comment-box .created-date{
+    color:rgba(255, 255, 255, 0.5);
+}
+.comment-box .created-date{
+    font-family: NotoSansKoreanDR;
+    font-weight: 300;
+}
+/*E: user-list-wrap*/

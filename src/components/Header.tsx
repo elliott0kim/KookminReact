@@ -2,13 +2,18 @@ import '/css/bootstrap-icons.min.css'
 import '/css/bootstrap.min.css'
 import '/css/style.css'
 import '/css/style.min.css'
-import { Link } from 'react-router-dom';
-import { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react'
 import { LoginContext } from '../user/auth'
 import { ButtonTracking } from '../components/ButttonTracking.js'
+import axios from 'axios';
+import { checkTokenValidity } from './jwtUtil';
 
 function Header() {
     const context = useContext(LoginContext);
+    const [banInfo, setBanInfo] = useState(null);
+    const token = checkTokenValidity();
+    const navigate = useNavigate();
 
     // context가 undefined일 가능성에 대비하여 기본값 설정
     if (!context) {
@@ -16,6 +21,35 @@ function Header() {
     }
     
     const { loginStatus, setLoginStatus } = context;
+    
+    useEffect(()=>{
+        if(loginStatus){
+            const fetchData = async () => {
+                try {
+                    const response = await axios.get(`/back/admin/banned/${localStorage.memberId}`,
+                        {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    setBanInfo(null);
+                    if(response.data.data.length === 1){
+                        setBanInfo(response.data.data[0]);
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
+            };
+            fetchData();
+        }
+    },[loginStatus]);
+
+    useEffect(()=>{
+        if(banInfo?.currentBanned === true){
+            alert("해당 계정은 현재 차단 중입니다.")
+            navigate("/logout");
+        }
+    },[banInfo])
 
     return (
         <header className="header">
